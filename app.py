@@ -1,4 +1,5 @@
 import os
+import config
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
@@ -13,7 +14,6 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 app = Flask(__name__)
 app.config.from_object('config.default')
-app.config.from_pyfile('config.py')
 app.config.from_envvar('APP_CONFIG_FILE')
 
 
