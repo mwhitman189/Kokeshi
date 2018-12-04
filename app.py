@@ -1,5 +1,4 @@
 import os
-import config
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
