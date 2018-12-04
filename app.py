@@ -20,8 +20,6 @@ app.config.from_envvar('APP_CONFIG_FILE')
 ##################
 # JSON API calls #
 ##################
-
-
 @app.route('/orders/JSON/')
 def showOrdersJSON():
     """
@@ -104,7 +102,7 @@ def showContactPage():
 
 ### Initialize App ###
 if __name__ == '__main__':
-    app.secret_key = 'unbelievably_secret_key'
+    SECRET_KEY = None
     # Bind to PORT if defined, otherwise default to 8000.
     port = int(os.environ.get('PORT', 8000))
     app.run(host='0.0.0.0', port=port)
