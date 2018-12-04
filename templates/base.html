@@ -80,7 +80,7 @@
           </nav>
         </header>
 
-        <div id="app">
+        <main id="app">
           {% with messages = get_flashed_messages() %}
             {% if messages %}
               <ul class=flashes>
@@ -90,13 +90,16 @@
               </ul>
             {% endif %}
           {% endwith %}
+          
           {% block content_1 %}
           {% endblock %}
 
           {% block content_2 %}
           {% endblock %}
 
-        </div>
+        </main>
+
+
         <!-- Footer -->
 
         <footer class="py-5 color-accent">
