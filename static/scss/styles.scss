@@ -1,0 +1,211 @@
+$font-stack-1: "Arial Narrow", sans-serif;
+$font-stack-2: 'Handlee', cursive;
+$color-white: #fff;
+$color-black: #000;
+$color-primary: #64efc1;
+//#f23c42;
+$color-secondary: #4ccea3;
+//#c4171d;
+$color-gray: #6b6767;
+$color-dark: #302c2c;
+
+body,
+html {
+  margin: 0;
+  max-width: 100%;
+  min-height: 100vh;
+  min-width: 300px;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: $color-white;
+  color: $color-dark;
+  font-family: $font-stack-1;
+}
+
+label {
+  margin-top: 20px;
+}
+
+a {
+  &:hover {
+    color: inherit;
+  }
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+//********************
+//* All Screen Sizes *
+//********************
+
+.btn {
+  margin: 20px 0;
+  width: 100%;
+}
+
+.btn-kokeshi {
+  background-color: rgba($color-primary, 1);
+  background-image: linear-gradient(180deg, $color-primary 0, $color-secondary 100%);
+  border-color: rgba($color-secondary, .5);
+
+  &:hover {
+    background-image: linear-gradient(180deg, $color-primary 0, $color-secondary 70%);
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out, background-image .15s ease-in-out;
+  }
+}
+
+.navbar-brand {
+  margin-left: 1em;
+}
+
+.nav-link {
+  background-color: rgba($color-primary, .6);
+  border-right: 0;
+  height: 100%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+
+  &:hover {
+    background-color: rgba($color-primary, 1);
+  }
+}
+
+.navbar {
+  box-shadow: 0 1px 5px rgba($color-black, .7);
+  padding: 0;
+}
+
+.navbar-nav {
+  left: 100px;
+  position: relative;
+
+  .nav-link {
+    padding-left: 10px;
+  }
+}
+
+.color-accent {
+  background-color: $color-primary;
+  color: $color-dark;
+}
+
+.caps {
+  text-transform: uppercase;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+//***************
+//* Design Page *
+//***************
+
+.design-form {
+  width: 90%;
+}
+
+.kokeshi-display {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: $font-stack-2;
+  font-weight: 600;
+}
+
+.kokeshi-base {
+  background-image: url('/static/img/kokeshi_base.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 210px;
+  margin: 10px;
+  position: relative;
+  width: 210px;
+}
+
+.kokeshi-info {
+  margin-left: 8%;
+  margin-right: auto;
+  position: absolute;
+  text-align: center;
+  top: 50px;
+  width: 80%;
+}
+
+.kokeshi-model {
+  background-image: url('/static/img/kokeshi_model.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 645px;
+  margin: 10px;
+  position: relative;
+  width: 240px;
+}
+
+.kokeshi-message {
+  margin-left: 20%;
+  margin-right: auto;
+  position: absolute;
+  text-align: justify;
+  top: 350px;
+  width: 60%;
+}
+
+.message {
+  display: inline-block;
+  padding: 5px;
+  word-break: break-word;
+}
+
+//**************
+//* Order Page *
+//**************
+.card {
+  // Add shadows to create the "card" effect
+  box-shadow: 0 4px 8px 0 rgba($color-black, .2);
+  transition: .3s;
+}
+
+// On mouse-over, add a deeper shadow
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba($color-black, .2);
+}
+
+// Add some padding inside the card container
+.container {
+  padding: 0 16px;
+}
+
+//***************
+//* Breakpoints *
+//***************
+
+@media screen and (min-width: 720px) {
+  .btn {
+    width: inherit;
+  }
+
+  .design-form {
+    margin-right: 20px;
+    width: 300px;
+  }
+
+  .kokeshi-display {
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: center;
+  }
+}

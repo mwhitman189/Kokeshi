@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en-US"
+    dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible"
+            content="IE=Edge">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+        <meta name="description"
+            content="Authentic Japanese Kokeshi doll baby gifts from the Tohoku region. A unique keepsake.">
+        <meta name="author"
+            content="Miles Whitman">
+
+        <title>Authentic Kokeshi Doll Baby Gifts</title>
+
+        <link rel="shortcut icon"
+            href="/static/img/favicon-96x96.png">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Handlee" rel="stylesheet">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+            crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet"
+            href="/static/css/styles.css">
+    </head>
+
+    <body>
+
+        <!-- Header - set the background image for the header in the line below -->
+
+        <header class="py-5 bg-image-full-1"
+            style="background-image: url('/static/img/three_kokeshi.jpg');height:400px;">
+
+          <!-- Navigation -->
+          <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+
+              <div class="container">
+                  <a class="navbar-brand" href="{{ url_for('showHome') }}">KokeMama</a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+                  <div class="collapse navbar-collapse"
+                      id="navbarResponsive">
+                      <ul class="navbar-nav ml-auto"
+                          id="navList">
+                          <li class="nav-item">
+                              <a class="nav-link nav-link-1 caps" href="{{ url_for('showHome') }}">Home</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link nav-link-2 caps" href="{{ url_for('showAboutPage')}}">About</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link nav-link-3 caps" href="{{ url_for('showDesignPage')}}">Design a Doll</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link nav-link-4 caps" href="{{ url_for('showAboutPage')}}">Contact</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+        </header>
+
+        <div id="app">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <ul class=flashes>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
+          {% block content_1 %}
+          {% endblock %}
+
+          {% block content_2 %}
+          {% endblock %}
+
+        </div>
+        <!-- Footer -->
+
+        <footer class="py-5 color-accent">
+            <div class="container">
+                <p class="m-0 text-center">Copyright &copy; KokeMama
+                    2018</p>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+
+        <!-- development version, includes helpful console warnings -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        {% block scripts %}
+        {% endblock %}
+    </body>
+</html>

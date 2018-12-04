@@ -1,0 +1,143 @@
+body,
+html {
+  margin: 0;
+  max-width: 100%;
+  min-height: 100vh;
+  min-width: 300px;
+  padding: 0; }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+body {
+  background-color: #fff;
+  color: #302c2c;
+  font-family: "Arial Narrow", sans-serif; }
+
+label {
+  margin-top: 20px; }
+
+a:hover {
+  color: inherit; }
+
+.flex {
+  display: flex;
+  flex-direction: row; }
+
+.btn {
+  margin: 20px 0;
+  width: 100%; }
+
+.btn-kokeshi {
+  background-color: #64efc1;
+  background-image: linear-gradient(180deg, #64efc1 0, #4ccea3 100%);
+  border-color: rgba(76, 206, 163, 0.5); }
+  .btn-kokeshi:hover {
+    background-image: linear-gradient(180deg, #64efc1 0, #4ccea3 70%);
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out, background-image .15s ease-in-out; }
+
+.navbar-brand {
+  margin-left: 1em; }
+
+.nav-link {
+  background-color: rgba(100, 239, 193, 0.6);
+  border-right: 0;
+  height: 100%;
+  padding-bottom: 10px;
+  padding-top: 10px; }
+  .nav-link:hover {
+    background-color: #64efc1; }
+
+.navbar {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+  padding: 0; }
+
+.navbar-nav {
+  left: 100px;
+  position: relative; }
+  .navbar-nav .nav-link {
+    padding-left: 10px; }
+
+.color-accent {
+  background-color: #64efc1;
+  color: #302c2c; }
+
+.caps {
+  text-transform: uppercase; }
+
+.form-group {
+  margin-bottom: 0; }
+
+.design-form {
+  width: 90%; }
+
+.kokeshi-display {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: "Handlee", cursive;
+  font-weight: 600; }
+
+.kokeshi-base {
+  background-image: url("/static/img/kokeshi_base.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 210px;
+  margin: 10px;
+  position: relative;
+  width: 210px; }
+
+.kokeshi-info {
+  margin-left: 8%;
+  margin-right: auto;
+  position: absolute;
+  text-align: center;
+  top: 50px;
+  width: 80%; }
+
+.kokeshi-model {
+  background-image: url("/static/img/kokeshi_model.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 645px;
+  margin: 10px;
+  position: relative;
+  width: 240px; }
+
+.kokeshi-message {
+  margin-left: 20%;
+  margin-right: auto;
+  position: absolute;
+  text-align: justify;
+  top: 350px;
+  width: 60%; }
+
+.message {
+  display: inline-block;
+  padding: 5px;
+  word-break: break-word; }
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: .3s; }
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); }
+
+.container {
+  padding: 0 16px; }
+
+@media screen and (min-width: 720px) {
+  .btn {
+    width: inherit; }
+  .design-form {
+    margin-right: 20px;
+    width: 300px; }
+  .kokeshi-display {
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: center; } }
