@@ -6,15 +6,15 @@
 <section>
   <div class="container-fluid">
     <div class="kokeshi-display">
-      <form id="app" class="design-form" action="{{ url_for('showDesignPage') }}" method="POST">
+      <form class="design-form" action="{{ url_for('showDesignPage') }}" method="POST">
         <div class="form-group">
           <label for="item-input sr-only">Kokeshi Style</label></br>
           <select id="item-input" class="form-control" v-model="item" name="item">
             <option value="" selected disabled hidden>Select a style</option>
-            <option value="zao">Zao</option>
-            <option value="yonezawa">Yonezawa</option>
-            <option value="sagae">Sagae</option>
-            <option value="tendo">Tendo</option>
+            <option value="Zao">Zao</option>
+            <option value="Yonezawa">Yonezawa</option>
+            <option value="Sagae">Sagae</option>
+            <option value="Tendo">Tendo</option>
           </select><br>
         </div>
         <div class="form-group">
@@ -54,5 +54,5 @@
 
 
 {% block scripts %}
-<script src="../static/js/custom.js"></script>
+
 {% endblock %}

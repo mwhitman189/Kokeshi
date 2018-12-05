@@ -4,23 +4,25 @@
 
 <section class="py-5">
   <div class="container">
-    <p><b>Please confirm your design, then proceed to checkout.</b></p>
-    <div class="card flex">
-      <div>
-        <img src="../static/img/kokeshi_model.svg" alt="Kokeshi Avatar" style="height:300px">
+    <template v-if="item">
+      <p><b>Please confirm your design, then proceed to checkout.</b></p>
+      <div class="card flex">
+        <div>
+          <img src="../static/img/kokeshi_model.svg" alt="Kokeshi Avatar" style="height:300px">
+        </div>
+        <div class="container">
+          <h4>Style: [[ item ]] Kokeshi</h4>
+          <p>Date of birth: [[ dob ]]</p>
+          <p>Height: [[ height ]] cm</p>
+          <p>Weight: [[ weight ]] grams</p>
+          <p>Message: "[[ message ]]"</p>
+          <h4 class="total">Your total: $[[ price ]]</h4>
+          <form action="{{ url_for('showCheckoutPage') }}">
+              <button type="submit" value="Go to Google" class="btn btn-kokeshi">Checkout</button>
+          </form>
+        </div>
       </div>
-      <div class="container">
-        <h4>Style: [[ item ]] Kokeshi</h4>
-        <p>Date of birth: [[ dob ]]</p>
-        <p>Height: [[ height ]] cm</p>
-        <p>Weight: [[ weight ]] grams</p>
-        <p>Message: "[[ message ]]"</p>
-        <h4 class="total">Your total: $[[ price ]]</h4>
-        <form action="{{ url_for('showCheckoutPage') }}">
-            <button type="submit" value="Go to Google" class="btn btn-kokeshi">Checkout</button>
-        </form>
-      </div>
-    </div>
+    </template>
   </div>
 </section>
 {% endblock %}
@@ -31,5 +33,5 @@
 
 
 {% block scripts %}
-<script src="../static/js/custom.js"></script>
+
 {% endblock %}

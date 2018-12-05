@@ -8,7 +8,7 @@ from models import Base, Order
 APPLICATION_NAME = "Kokeshi"
 
 app = Flask(__name__)
-app.config.from_object('config.default')
+app.config.from_object('config.development')
 app.config['SECRET_KEY'] = 'super duper secret key'
 
 engine = create_engine('sqlite:///models.db?check_same_thread=False')
