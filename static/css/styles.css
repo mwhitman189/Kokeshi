@@ -26,6 +26,13 @@ a:hover {
   display: flex;
   flex-direction: row; }
 
+.space-around {
+  justify-content: space-around; }
+
+.kokeshi-nav-item {
+  list-style: none;
+  width: 20%; }
+
 .btn {
   margin: 20px 0;
   width: 100%; }
@@ -79,6 +86,12 @@ a:hover {
 
 .bg-image-full-1 {
   background-attachment: fixed; }
+
+.kokeshi-button {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 400px; }
 
 .design-form {
   width: 90%; }

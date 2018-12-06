@@ -43,6 +43,15 @@ a {
   flex-direction: row;
 }
 
+.space-around {
+  justify-content: space-around;
+}
+
+.kokeshi-nav-item {
+  list-style: none;
+  width: 20%;
+}
+
 //********************
 //* All Screen Sizes *
 //********************
@@ -116,6 +125,16 @@ a {
 
 .bg-image-full-1 {
   background-attachment: fixed;
+}
+
+//*************
+//* Home Page *
+//*************
+.kokeshi-button {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 400px;
 }
 
 //***************
