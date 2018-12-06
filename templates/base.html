@@ -54,31 +54,23 @@
             style="background-image: url('/static/img/three_kokeshi.jpg');height:400px;">
 
           <!-- Navigation -->
-          <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-
-              <div class="container">
-                  <a class="navbar-brand" href="{{ url_for('showHome') }}">KokeMama</a>
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-
-                  <div class="collapse navbar-collapse"
-                      id="navbarResponsive">
-                      <ul class="navbar-nav ml-auto"
-                          id="navList">
-                          <li class="nav-item">
-                              <a class="nav-link nav-link-1 caps" href="{{ url_for('showHome') }}">Home</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link nav-link-2 caps" href="{{ url_for('showAboutPage')}}">About</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link nav-link-3 caps" href="{{ url_for('showDesignPage')}}">Design a Doll</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link nav-link-4 caps" href="{{ url_for('showAboutPage')}}">Contact</a>
-                          </li>
-                      </ul>
-                  </div>
+          <nav class="container home-page-nav">
+            <ul class="kokeshi-navbar-nav" id="navList">
+              <div class="container flex space-around">
+                <li class="kokeshi-nav-item">
+                  <a class="kokeshi-nav-link nav-link-1 caps" href="{{ url_for('showHome') }}"><div class="kokeshi-button" style="background-image: url('../static/img/kokeshi_model.svg')"></div></a>
+                </li>
+                <li class="kokeshi-nav-item">
+                  <a class="kokeshi-nav-link nav-link-2 caps" href="{{ url_for('showAboutPage')}}"><div class="kokeshi-button" style="background-image: url('../static/img/kokeshi_model.svg')"></div></a>
+                </li>
+                <li class="kokeshi-nav-item">
+                  <a class="kokeshi-nav-link nav-link-3 caps" href="{{ url_for('showDesignPage')}}"><div class="kokeshi-button" style="background-image: url('../static/img/kokeshi_model.svg')"></div></a>
+                </li>
+                <li class="kokeshi-nav-item">
+                  <a class="kokeshi-nav-link nav-link-4 caps" href="{{ url_for('showAboutPage')}}"><div class="kokeshi-button" style="background-image: url('../static/img/kokeshi_model.svg')"></div></a>
+                </li>
               </div>
+            </ul>
           </nav>
         </header>
 
