@@ -6,7 +6,7 @@
   <div class="container">
     <template v-if="item">
       <p><b>Please confirm your design, then proceed to checkout.</b></p>
-      <div class="card flex">
+      <div class="card card--order flex">
         <div>
           <img src="../static/img/kokeshi_model.svg" alt="Kokeshi Avatar" style="height:300px">
         </div>
@@ -15,7 +15,7 @@
           <p>Date of birth: [[ dob ]]</p>
           <p>Height: [[ height ]] cm</p>
           <p>Weight: [[ weight ]] grams</p>
-          <p>Message: "[[ message ]]"</p>
+          <p>Message:<p class="message--order" style="white-space: pre-wrap;">"[[ message ]]"</p></p>
           <h4 class="total">Your total: $[[ price ]]</h4>
           <form action="{{ url_for('showCheckoutPage') }}">
               <button type="submit" value="Go to Google" class="btn btn-kokeshi">Checkout</button>

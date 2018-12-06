@@ -197,9 +197,21 @@ a {
   box-shadow: 0 8px 16px 0 rgba($color-black, .2);
 }
 
+.card--order {
+  font-family: $font-stack-2;
+}
+
 // Add some padding inside the card container
 .container {
   padding: 0 16px;
+}
+
+.message--order {
+  display: inline-block;
+  padding: 5px;
+  text-align: justify;
+  width: 15%;
+  word-break: break-word;
 }
 
 //***************
