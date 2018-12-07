@@ -131,10 +131,16 @@ a {
 //* Home Page *
 //*************
 .kokeshi-button {
+  background-image: url('../img/yama_kokeshi(cut-paper).svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 400px;
+
+  &:hover {
+    background-image: url('../img/yamagata_kokeshi(cut).svg');
+    transition: .3s;
+  }
 }
 
 //***************
