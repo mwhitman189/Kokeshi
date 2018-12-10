@@ -68,6 +68,8 @@ p {
     .link-text:hover::before {
       transform: scaleX(1);
       visibility: visible; }
+  .link-text:active {
+    visibility: hidden; }
   .link-text::before {
     content: '';
     position: absolute;
@@ -153,9 +155,11 @@ p {
   margin-left: 8%;
   margin-right: auto;
   position: absolute;
-  text-align: center;
   top: 250px;
   width: 80%; }
+
+.info {
+  text-align: center; }
 
 .kokeshi-message {
   margin-left: 20%;
