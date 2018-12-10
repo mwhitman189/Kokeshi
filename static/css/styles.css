@@ -4,7 +4,8 @@ html {
   max-width: 100%;
   min-height: 100vh;
   min-width: 300px;
-  padding: 0; }
+  padding: 0;
+  scroll-behavior: smooth; }
 
 * {
   box-sizing: border-box;
@@ -20,7 +21,11 @@ label {
   margin-top: 20px; }
 
 a:hover {
-  color: inherit; }
+  color: inherit;
+  text-decoration: none; }
+
+p {
+  text-align: justify; }
 
 .flex {
   display: flex;
@@ -32,6 +37,10 @@ a:hover {
 .kokeshi-nav-item {
   list-style: none;
   width: 20%; }
+
+.title {
+  margin-bottom: 20px;
+  text-align: center; }
 
 .btn {
   margin: 20px 0;
@@ -45,25 +54,38 @@ a:hover {
     background-image: linear-gradient(180deg, #64efc1 0, #4ccea3 70%);
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out, background-image .15s ease-in-out; }
 
+.link-text {
+  bottom: -70px;
+  color: #302c2c;
+  font-family: "Arial Narrow", sans-serif;
+  letter-spacing: -2px;
+  position: relative;
+  text-decoration: none;
+  text-orientation: upright;
+  writing-mode: vertical-rl; }
+  .link-text:hover {
+    color: #302c2c; }
+    .link-text:hover::before {
+      transform: scaleX(1);
+      visibility: visible; }
+  .link-text::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all .3s ease-in-out 0s; }
+
 .navbar-brand {
   font-family: "Handlee", cursive;
   font-size: 2em;
   font-weight: 600;
   margin-left: 30px;
   padding: 0; }
-
-.nav-item {
-  border-top: 1px solid rgba(107, 103, 103, 0.5); }
-
-.nav-link {
-  background-color: rgba(100, 239, 193, 0.6);
-  border-right: 0;
-  color: rgba(0, 0, 0, 0.8) !important;
-  height: 100%;
-  padding-bottom: 10px;
-  padding-top: 10px; }
-  .nav-link:hover {
-    background-color: #64efc1; }
 
 .navbar {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
@@ -73,6 +95,10 @@ a:hover {
   position: relative; }
   .navbar-nav .nav-link {
     padding-left: 10px; }
+
+.bg-image-full-1 {
+  background: rgba(100, 239, 193, 0.6);
+  background-attachment: fixed; }
 
 .color-accent {
   background-color: #64efc1;
@@ -84,15 +110,21 @@ a:hover {
 .form-group {
   margin-bottom: 0; }
 
-.bg-image-full-1 {
-  background-attachment: fixed; }
+.container--small {
+  justify-content: center;
+  width: 33%; }
+
+.center-content {
+  margin-left: auto;
+  margin-right: auto; }
 
 .kokeshi-button {
   background-image: url("../img/yama_kokeshi(cut-paper).svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 400px; }
+  height: 300px;
+  text-align: center; }
   .kokeshi-button:hover {
     background-image: url("../img/yamagata_kokeshi(cut).svg");
     transition: .3s; }
@@ -104,43 +136,33 @@ a:hover {
   align-items: center;
   display: flex;
   flex-direction: column;
-  font-family: "Handlee", cursive;
   font-weight: 600; }
-
-.kokeshi-base {
-  background-image: url("/static/img/kokeshi_base.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 210px;
-  margin: 10px;
-  position: relative;
-  width: 210px; }
-
-.kokeshi-info {
-  margin-left: 8%;
-  margin-right: auto;
-  position: absolute;
-  text-align: center;
-  top: 50px;
-  width: 80%; }
 
 .kokeshi-model {
   background-image: url("/static/img/kokeshi_model.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: "Handlee", cursive;
   height: 645px;
   margin: 10px;
   position: relative;
   width: 240px; }
+
+.kokeshi-info {
+  margin-left: 8%;
+  margin-right: auto;
+  position: absolute;
+  text-align: center;
+  top: 250px;
+  width: 80%; }
 
 .kokeshi-message {
   margin-left: 20%;
   margin-right: auto;
   position: absolute;
   text-align: justify;
-  top: 350px;
+  top: 370px;
   width: 60%; }
 
 .message {
@@ -160,8 +182,9 @@ a:hover {
 
 .card--order {
   font-family: "Handlee", cursive; }
-  .card--order:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); }
+
+.order {
+  justify-content: center; }
 
 .container {
   padding: 0 16px; }
@@ -179,12 +202,15 @@ a:hover {
     background-size: cover; } }
 
 @media screen and (min-width: 720px) {
-  .btn {
-    width: inherit; }
-  .nav-item {
-    border: 0;
-    height: 60px;
-    line-height: 40px; }
+  .kokeshi-button {
+    height: 400px;
+    margin-top: 40px; }
+  .link-text {
+    bottom: -400px;
+    letter-spacing: normal;
+    writing-mode: horizontal-tb; }
+  .bg-image-full-1 {
+    height: 90vh; }
   .design-form {
     margin-right: 20px;
     width: 300px; }

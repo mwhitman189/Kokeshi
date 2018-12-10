@@ -65,7 +65,7 @@ def showDesignPage():
         )
         session.add(new_order)
         session.commit()
-        flash("Success! Your order of '%s' has been added to your cart." %
+        flash("Success! Your order of '%s kokeshi' has been added to your cart." %
               new_order.item)
         return redirect(url_for('showOrderPage'))
 
