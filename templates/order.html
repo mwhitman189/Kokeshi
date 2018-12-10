@@ -7,8 +7,8 @@
       <p><b>Please confirm your design, then proceed to checkout.</b></p>
       <div class="order flex">
         <div class="container--small">
-          <h4>[[ item ]] Kokeshi</h4>
           <div class="kokeshi-model">
+            <div class="order-item"><h4>[[ item ]] Kokeshi</h4></div>
             <div class="kokeshi-info">
               <p class="info">[[ dob ]]</p>
               <p class="info">[[ height ]] cm</p>
@@ -17,8 +17,8 @@
             <div class="kokeshi-message">
               <p class="message" style="white-space: pre-wrap;">[[ message ]]</p>
             </div>
+            <div class="order-price"><h4 class="total">Your total: $[[ price ]]</h4></div>
           </div>
-          <h4 class="total">Your total: $[[ price ]]</h4>
           <form action="{{ url_for('showCheckoutPage') }}">
               <button type="submit" value="Go to checkout page" class="btn btn-kokeshi">Checkout</button>
           </form>
