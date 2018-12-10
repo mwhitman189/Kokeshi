@@ -130,6 +130,9 @@ p {
   .kokeshi-button:hover {
     background-image: url("../img/yamagata_kokeshi(cut).svg");
     transition: .3s; }
+  .kokeshi-button:active {
+    background-image: url("../img/yamagata_kokeshi(cut).svg");
+    transition: .3s; }
 
 .design-form {
   width: 90%; }

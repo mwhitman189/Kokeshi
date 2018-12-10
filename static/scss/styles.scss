@@ -169,9 +169,6 @@ p {
   margin-right: auto;
 }
 
-//*************
-//* Home Page *
-//*************
 .kokeshi-button {
   background-image: url('../img/yama_kokeshi(cut-paper).svg');
   background-position: center;
@@ -184,7 +181,16 @@ p {
     background-image: url('../img/yamagata_kokeshi(cut).svg');
     transition: .3s;
   }
+
+  &:active {
+    background-image: url('../img/yamagata_kokeshi(cut).svg');
+    transition: .3s;
+  }
 }
+
+//*************
+//* Home Page *
+//*************
 
 //***************
 //* Design Page *
