@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 
+{% block title %}
+<title>Order your Kokeshi baby gift</title>
+{% endblock %}
+
 {% block content_1 %}
-<div class="container">
+<article id="order" class="container">
   <section class="card">
     <template v-if="item">
-      <p><b>Please confirm your design, then proceed to checkout.</b></p>
+      <h1 class="title center-text">Design Confirmation</h1>
+      <p class="center-text"><b>Please confirm your design, then proceed to checkout.</b></p><br>
       <div class="order flex">
         <div class="container--small">
           <div class="kokeshi-model">
@@ -26,7 +31,7 @@
       </div>
     </template>
   </section>
-</div>
+</article>
 {% endblock %}
 
 

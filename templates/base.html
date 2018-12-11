@@ -12,7 +12,16 @@
         <meta name="author"
             content="Miles Whitman">
 
-        <title>Authentic Kokeshi Baby Gifts | KokeMama</title>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-57LS7L6');</script>
+        <!-- End Google Tag Manager -->
+
+        {% block title %}
+        {% endblock %}
 
         <link rel="shortcut icon"
             href="/static/img/favicon-96x96.png">
@@ -33,7 +42,6 @@
             href="/static/css/styles.css">
 
 
-
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130399770-1"></script>
         <script>
@@ -47,13 +55,16 @@
     </head>
 
     <body>
-
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57LS7L6"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
         <!-- Header - set the background image for the header in the line below -->
 
-        <header class="bg-image-full-1">
+        <header id="nav" class="bg-image-full-1 nav-container">
 
           <!-- Navigation -->
-          <nav class="container home-page-nav">
+          <nav class="container">
             <ul class="kokeshi-navbar-nav" id="navList">
               <div class="container flex space-around">
                 <li class="kokeshi-nav-item">
@@ -103,11 +114,20 @@
         </footer>
 
         <!-- Scripts -->
-        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
 
         <!-- development version, includes helpful console warnings -->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="../static/js/custom.js"></script>
+        <script>
+          const navEl = document.getElementById('nav');
+          const titleName = document.getElementsByTagName('title')[0];
+          console.log(navEl);
+          console.log(titleName);
+
+          if (titleName.innerHTML == 'Authentic Japanese Baby Gifts -- Kokeshi') {
+            navEl.className += " show";
+          }
+        </script>
         {% block scripts %}
         {% endblock %}
     </body>

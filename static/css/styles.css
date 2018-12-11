@@ -39,7 +39,9 @@ p {
   width: 20%; }
 
 .title {
-  margin-bottom: 20px;
+  margin-bottom: 20px; }
+
+.center-text {
   text-align: center; }
 
 .btn {
@@ -88,6 +90,15 @@ p {
   font-weight: 600;
   margin-left: 30px;
   padding: 0; }
+
+.nav-container {
+  position: relative;
+  transform: translateY(-420px);
+  transition: 1s; }
+
+.show {
+  transform: translateY(0);
+  transition: 1s; }
 
 .navbar {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
