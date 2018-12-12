@@ -149,6 +149,29 @@ p {
     background-image: url("../img/yamagata_kokeshi(cut).svg");
     transition: .5s ease-in-out 0s; }
 
+.clear {
+  clear: both; }
+
+.img-old-dude {
+  position: relative;
+  float: left;
+  width: 230px;
+  margin: 20px; }
+
+.img-five-kokeshi {
+  position: relative;
+  bottom: 100px;
+  float: right;
+  height: 200px;
+  margin: 20px; }
+
+.img-artisan {
+  position: relative;
+  bottom: 50px;
+  float: right;
+  height: 200px;
+  margin: 20px; }
+
 .design-form {
   width: 90%; }
 

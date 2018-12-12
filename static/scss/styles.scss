@@ -208,6 +208,33 @@ p {
   }
 }
 
+.clear {
+  clear: both;
+}
+
+.img-old-dude {
+  position: relative;
+  float: left;
+  width: 230px;
+  margin: 20px;
+}
+
+.img-five-kokeshi {
+  position: relative;
+  bottom: 100px;
+  float: right;
+  height: 200px;
+  margin: 20px;
+}
+
+.img-artisan {
+  position: relative;
+  bottom: 50px;
+  float: right;
+  height: 200px;
+  margin: 20px;
+}
+
 //***************
 //* Design Page *
 //***************
