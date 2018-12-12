@@ -14,7 +14,7 @@ html {
 
 body {
   background-color: #fff;
-  color: rgba(48, 44, 44, 0.8);
+  color: #302c2c;
   font-family: "Arial Narrow", sans-serif; }
 
 label {
@@ -40,6 +40,9 @@ p {
 
 .title {
   margin-bottom: 20px; }
+
+.article {
+  margin-top: 60px; }
 
 .center-text {
   text-align: center; }
@@ -240,7 +243,7 @@ p {
     letter-spacing: normal;
     writing-mode: horizontal-tb; }
   .bg-image-full-1 {
-    height: 90vh; }
+    height: 80vh; }
   .design-form {
     margin-right: 20px;
     width: 300px; }

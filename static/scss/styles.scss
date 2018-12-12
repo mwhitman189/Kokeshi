@@ -25,7 +25,7 @@ html {
 
 body {
   background-color: $color-white;
-  color: rgba($color-dark, .8);
+  color: rgba($color-dark, 1);
   font-family: $font-stack-1;
 }
 
@@ -60,6 +60,10 @@ p {
 
 .title {
   margin-bottom: 20px;
+}
+
+.article {
+  margin-top: 60px;
 }
 
 .center-text {
@@ -333,7 +337,7 @@ p {
   }
 
   .bg-image-full-1 {
-    height: 90vh;
+    height: 80vh;
   }
 
   .design-form {
