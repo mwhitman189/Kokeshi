@@ -44,6 +44,9 @@ p {
 .center-text {
   text-align: center; }
 
+.move {
+  transform: translateY(-390px); }
+
 .btn {
   margin: 20px 0;
   width: 100%; }

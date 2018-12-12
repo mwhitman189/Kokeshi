@@ -77,7 +77,7 @@
                   <a class="kokeshi-nav-link nav-link-3 caps" href="{{ url_for('showDesignPage')}}"><div class="kokeshi-button"><span class="link-text">Create</span></div></a>
                 </li>
                 <li class="kokeshi-nav-item">
-                  <a class="kokeshi-nav-link nav-link-4 caps" href="{{ url_for('showAboutPage')}}"><div class="kokeshi-button"><span class="link-text">Contact</span></div></a>
+                  <a class="kokeshi-nav-link nav-link-4 caps" href="{{ url_for('showContactPage')}}"><div class="kokeshi-button"><span class="link-text">Contact</span></div></a>
                 </li>
               </div>
             </ul>
@@ -121,11 +121,13 @@
         <script>
           const navEl = document.getElementById('nav');
           const titleName = document.getElementsByTagName('title')[0];
-          console.log(navEl);
-          console.log(titleName);
+          const articleEls = document.getElementsByClassName('article')[0];
+          console.log(articleEls);
 
           if (titleName.innerHTML == 'Authentic Japanese Baby Gifts -- Kokeshi') {
             navEl.className += " show";
+          } else {
+            articleEls.className += " move";
           }
         </script>
         {% block scripts %}
