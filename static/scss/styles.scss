@@ -216,15 +216,15 @@ p {
   position: relative;
   float: left;
   width: 230px;
-  margin: 20px;
+  margin-right: 10px;
 }
 
 .img-five-kokeshi {
   position: relative;
-  bottom: 100px;
+  bottom: 0;
   float: right;
   height: 200px;
-  margin: 20px;
+  margin-left: 10px;
 }
 
 .img-artisan {
@@ -232,7 +232,7 @@ p {
   bottom: 50px;
   float: right;
   height: 200px;
-  margin: 20px;
+  margin: 10px;
 }
 
 //***************
@@ -376,5 +376,9 @@ p {
     align-items: flex-end;
     flex-direction: row;
     justify-content: center;
+  }
+
+  .img-five-kokeshi {
+    bottom: 50px;
   }
 }
