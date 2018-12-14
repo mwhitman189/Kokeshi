@@ -9,8 +9,8 @@
   <section class="">
     <h1 class="title center-text">Create a Kokeshi</h1>
     <div class="container-fluid">
-      <div class="kokeshi-display">
-        <form class="design-form" action="{{ url_for('showDesignPage') }}" method="POST">
+      <div class="design__kokeshi-display">
+        <form class="design__form" action="{{ url_for('showDesignPage') }}" method="POST">
           <div class="form-group">
             <label for="item-input sr-only">Kokeshi Style</label></br>
             <select id="item-input" class="form-control" v-model="item" name="item">
@@ -40,14 +40,14 @@
           <button type="submit" class="btn btn-kokeshi" @click="persist" @click="addToCart(product)">Add to Cart</button>
         </form>
 
-        <div class="kokeshi-model">
-          <div class="kokeshi-info">
-            <p class="info">[[ dob ]]</p>
-            <p class="info">[[ height ]] cm</p>
-            <p class="info">[[ weight ]] grams</p>
+        <div class="design__kokeshi-model">
+          <div class="design__kokeshi-info">
+            <p class="design__info">[[ dob ]]</p>
+            <p class="design__info">[[ height ]] cm</p>
+            <p class="design__info">[[ weight ]] grams</p>
           </div>
-          <div class="kokeshi-message">
-            <p class="message" style="white-space: pre-wrap;">[[ message ]]</p>
+          <div class="design__kokeshi-message">
+            <p class="design__message" style="white-space: pre-wrap;">[[ message ]]</p>
           </div>
         </div>
       </div>

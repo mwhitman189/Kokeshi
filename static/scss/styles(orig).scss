@@ -1,0 +1,384 @@
+$font-stack-1: 'Arial Narrow', sans-serif;
+$font-stack-2: 'Handlee', cursive;
+$color-white: #fff;
+$color-black: #000;
+$color-primary: #64efc1;
+$color-secondary: #4ccea3;
+$color-gray: #6b6767;
+$color-dark: #302c2c;
+
+body,
+html {
+  margin: 0;
+  max-width: 100%;
+  min-height: 100vh;
+  min-width: 300px;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: $color-white;
+  color: rgba($color-dark, 1);
+  font-family: $font-stack-1;
+}
+
+label {
+  margin-top: 20px;
+}
+
+a {
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+p {
+  text-align: justify;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.space-around {
+  justify-content: space-evenly;
+}
+
+.kokeshi-nav-item {
+  list-style: none;
+  width: 20%;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.article {
+  margin-top: 60px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.move {
+  transform: translateY(-390px);
+}
+//********************
+//* All Screen Sizes *
+//********************
+
+.btn {
+  margin: 20px 0;
+  width: 100%;
+}
+
+.btn-kokeshi {
+  background-color: rgba($color-primary, 1);
+  background-image: linear-gradient(180deg, $color-primary 0, $color-secondary 100%);
+  border-color: rgba($color-secondary, .5);
+
+  &:hover {
+    background-image: linear-gradient(180deg, $color-primary 0, $color-secondary 70%);
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out, background-image .15s ease-in-out;
+  }
+}
+
+.link-text {
+  bottom: -70px;
+  color: rgba($color-dark, .8);
+  font-family: $font-stack-1;
+  letter-spacing: -2px;
+  position: relative;
+  text-decoration: none;
+  text-orientation: upright;
+  writing-mode: vertical-rl;
+
+  &:hover {
+    color: rgba($color-dark, .8);
+
+    &::before {
+      transform: scaleX(1);
+      visibility: visible;
+    }
+  }
+
+  &:active {
+    visibility: hidden;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: rgba($color-dark, .8);
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all .3s ease-in-out 0s;
+  }
+}
+
+.navbar-brand {
+  font-family: $font-stack-2;
+  font-size: 2em;
+  font-weight: 600;
+  margin-left: 30px;
+  padding: 0;
+}
+
+.nav-container {
+  position: relative;
+  transform: translateY(-420px);
+  transition: 1s;
+}
+
+.show {
+  transform: translateY(0);
+  transition: 1s;
+}
+
+.navbar {
+  box-shadow: 0 1px 5px rgba($color-black, .7);
+  padding: 0;
+}
+
+.navbar-nav {
+  position: relative;
+
+  .nav-link {
+    padding-left: 10px;
+  }
+}
+
+.bg-image-full-1 {
+  background: rgba($color-primary, .6);
+  background-attachment: fixed;
+}
+
+.color-accent {
+  background-color: $color-primary;
+  color: $color-dark;
+}
+
+.caps {
+  text-transform: uppercase;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.container--small {
+  text-align: center;
+  width: 25%;
+}
+
+.center-content {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+//*************
+//* Home Page *
+//*************
+.kokeshi-button {
+  background-image: url('../img/yama_kokeshi(cut-paper).svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 300px;
+  text-align: center;
+  transition: .5s;
+
+  &:hover {
+    background-image: url('../img/yamagata_kokeshi(cut).svg');
+    transition: .5s ease-in-out 0s;
+  }
+}
+
+.clear {
+  clear: both;
+}
+
+.img-old-dude {
+  position: relative;
+  float: left;
+  width: 230px;
+  margin-right: 10px;
+}
+
+.img-five-kokeshi {
+  position: relative;
+  bottom: 0;
+  float: right;
+  height: 200px;
+  margin-left: 10px;
+}
+
+.img-artisan {
+  position: relative;
+  bottom: 50px;
+  float: right;
+  height: 200px;
+  margin: 10px;
+}
+
+//***************
+//* Design Page *
+//***************
+
+.design-form {
+  width: 90%;
+}
+
+.kokeshi-display {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+}
+
+.kokeshi-model {
+  background-image: url('/static/img/kokeshi_model.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: $font-stack-2;
+  height: 645px;
+  margin: 10px 10px 50px;
+  position: relative;
+  width: 240px;
+}
+
+.kokeshi-info {
+  margin-left: 8%;
+  margin-right: auto;
+  position: absolute;
+  text-align: center;
+  top: 250px;
+  width: 80%;
+}
+
+.info {
+  text-align: center;
+}
+
+.kokeshi-message {
+  margin-left: 20%;
+  margin-right: auto;
+  position: absolute;
+  text-align: justify;
+  top: 370px;
+  width: 60%;
+}
+
+.message {
+  display: inline-block;
+  padding: 5px;
+  word-break: break-word;
+}
+
+//**************
+//* Order Page *
+//**************
+.card {
+  // Add shadows to create the "card" effect
+  box-shadow: 0 4px 8px 0 rgba($color-black, .2);
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 10px;
+  transition: .3s;
+}
+
+// On mouse-over, add a deeper shadow
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba($color-black, .2);
+}
+
+.card--order {
+  font-family: $font-stack-2;
+}
+
+.order {
+  justify-content: center;
+}
+
+.order-item {
+  bottom: 40px;
+  font-family: $font-stack-1;
+  position: relative;
+}
+
+.order-price {
+  font-family: $font-stack-1;
+  position: relative;
+  top: 640px;
+}
+
+// Add some padding inside the card container
+.container {
+  padding: 0 16px;
+}
+
+.message--order {
+  display: inline-block;
+  padding: 5px;
+  text-align: justify;
+  width: 15%;
+  word-break: break-word;
+}
+
+//***************
+//* Breakpoints *
+//***************
+
+@media screen and (max-width: 540px) {
+  .bg-image-full-1 {
+    background-position: 0 0;
+    background-size: cover;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .kokeshi-button {
+    height: 400px;
+    margin-top: 40px;
+  }
+
+  .link-text {
+    bottom: -400px;
+    letter-spacing: normal;
+    writing-mode: horizontal-tb;
+  }
+
+  .bg-image-full-1 {
+    height: 80vh;
+  }
+
+  .design-form {
+    margin-right: 20px;
+    width: 300px;
+  }
+
+  .kokeshi-display {
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .img-five-kokeshi {
+    bottom: 50px;
+  }
+}
