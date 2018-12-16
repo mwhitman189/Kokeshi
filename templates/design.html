@@ -1,59 +1,68 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Design an authentic Japanese Kokeshi</title>
+<title>Design a Kokeshi | Design Page | KokeMama</title>
 {% endblock %}
 
 {% block content_1 %}
-<article id="design" class="article container">
-  <section class="">
-    <h1 class="title center-text">Create a Kokeshi</h1>
-    <div class="container-fluid">
-      <div class="design__kokeshi-display">
-        <form class="design__form" action="{{ url_for('showDesignPage') }}" method="POST">
-          <div class="form-group">
-            <label for="item-input sr-only">Kokeshi Style</label></br>
-            <select id="item-input" class="form-control" v-model="item" name="item">
-              <option value="" selected disabled hidden>Select a style</option>
-              <option value="Zao">Zao</option>
-              <option value="Yonezawa">Yonezawa</option>
-              <option value="Sagae">Sagae</option>
-              <option value="Tendo">Tendo</option>
-            </select><br>
-          </div>
-          <div class="form-group">
-            <label for="dob-input sr-only">Date of Birth</label><br>
-            <input id="dob-input" class="form-control" v-model="dob" name="dob" placeholder="ex: 04/29/2018"><br>
-          </div>
-          <div class="form-group">
-            <label for="height-input sr-only">Height at birth</label><br>
-            <input id="height-input" class="form-control" v-model="height" name="height" placeholder="ex: 51">cm<br>
-          </div>
-          <div class="form-group">
-            <label for="weight-input sr-only">Weight at birth</label><br>
-            <input id="weight-input" class="form-control" v-model="weight" name="weight" placeholder="ex: 3200">grams<br>
-          </div>
-          <div class="form-group">
-            <label for="message-input sr-only">Message (up to 130 characters)</label>
-            <textarea id="message-input" class="form-control" maxlength="130" v-model="message" name="message" placeholder="Type 'Enter' for line break"></textarea><br>
-          </div>
-          <button type="submit" class="btn btn-kokeshi" @click="persist" @click="addToCart(product)">Add to Cart</button>
-        </form>
+<div class="keyvisual keyvisual--anchor-fixed">
+  <div class="keyvisual__inner">
+    <div class="keyvisual__img">
+      <h1 class="keyvisual__heading">
+        <span class="keyvisual__heading-text">Design a Kokeshi</span>
+        <span class="keyvisual__description">Craft your personal message to baby</span>
+        <span class="keyvisualkeyvisual__description"></span>
+      </h1>
+    </div>
+  </div>
+</div>
+<section class="design__content content container">
+  <h1 class="title center-text">Design a Kokeshi</h1>
+  <div class="container-fluid">
+    <div class="design__kokeshi-display">
+      <form class="design__form" action="{{ url_for('showDesignPage') }}" method="POST">
+        <div class="form-group">
+          <label for="item-input sr-only">Kokeshi Style</label></br>
+          <select id="item-input" class="form-control" v-model="item" name="item">
+            <option value="" selected disabled hidden>Select a style</option>
+            <option value="Zao">Zao</option>
+            <option value="Yonezawa">Yonezawa</option>
+            <option value="Sagae">Sagae</option>
+            <option value="Tendo">Tendo</option>
+          </select><br>
+        </div>
+        <div class="form-group">
+          <label for="dob-input sr-only">Date of Birth</label><br>
+          <input id="dob-input" class="form-control" v-model="dob" name="dob" placeholder="ex: 04/29/2018"><br>
+        </div>
+        <div class="form-group">
+          <label for="height-input sr-only">Height at birth</label><br>
+          <input id="height-input" class="form-control" v-model="height" name="height" placeholder="ex: 51">cm<br>
+        </div>
+        <div class="form-group">
+          <label for="weight-input sr-only">Weight at birth</label><br>
+          <input id="weight-input" class="form-control" v-model="weight" name="weight" placeholder="ex: 3200">grams<br>
+        </div>
+        <div class="form-group">
+          <label for="message-input sr-only">Message (up to 130 characters)</label>
+          <textarea id="message-input" class="form-control design__message-input" maxlength="130" v-model="message" name="message" placeholder="Type 'Enter' for line break"></textarea><br>
+        </div>
+        <button type="submit" class="btn design__btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
+      </form>
 
-        <div class="design__kokeshi-model">
-          <div class="design__kokeshi-info">
-            <p class="design__info">[[ dob ]]</p>
-            <p class="design__info">[[ height ]] cm</p>
-            <p class="design__info">[[ weight ]] grams</p>
-          </div>
-          <div class="design__kokeshi-message">
-            <p class="design__message" style="white-space: pre-wrap;">[[ message ]]</p>
-          </div>
+      <div class="design__kokeshi-model">
+        <div class="design__kokeshi-info">
+          <p class="design__info">[[ dob ]]</p>
+          <p class="design__info">[[ height ]] cm</p>
+          <p class="design__info">[[ weight ]] grams</p>
+        </div>
+        <div class="design__kokeshi-message">
+          <p class="design__message">[[ message ]]</p>
         </div>
       </div>
     </div>
-  </section>
-</article>
+  </div>
+</section>
 {% endblock %}
 
 

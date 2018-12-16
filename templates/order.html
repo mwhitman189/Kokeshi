@@ -1,37 +1,46 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Order your Kokeshi baby gift</title>
+<title>Order | Order Page | KokeMama</title>
 {% endblock %}
 
 {% block content_1 %}
-<article id="order" class="article container">
-  <section class="">
-    <template v-if="item">
-      <h1 class="title center-text">Design Confirmation</h1>
-      <p class="center-text"><b>Please confirm your design, then proceed to checkout.</b></p><br>
-      <div class="order flex">
-        <div class="container--small">
-          <div class="kokeshi-model">
-            <div class="order-item"><h4>[[ item ]] Kokeshi</h4></div>
-            <div class="kokeshi-info">
-              <p class="info">[[ dob ]]</p>
-              <p class="info">[[ height ]] cm</p>
-              <p class="info">[[ weight ]] grams</p>
-            </div>
-            <div class="kokeshi-message">
-              <p class="message" style="white-space: pre-wrap;">[[ message ]]</p>
-            </div>
-            <div class="order-price"><h4 class="total">Your total: $[[ price ]]</h4></div>
+<div class="keyvisual keyvisual--anchor-fixed">
+  <div class="keyvisual__inner">
+    <div class="keyvisual__img">
+      <h1 class="keyvisual__heading">
+        <span class="keyvisual__heading-text">Traditional Kokeshi</span>
+        <span class="keyvisual__description">A lasting reminder of baby's birth</span>
+        <span class="keyvisualkeyvisual__description"></span>
+      </h1>
+    </div>
+  </div>
+</div>
+<section class="order__content content container">
+  <template v-if="item">
+    <h1 class="title center-text">Design Confirmation</h1>
+    <p class="center-text"><b>Please confirm your design, then proceed to checkout.</b></p><br>
+    <div class="order flex">
+      <div class="container--small">
+        <div class="kokeshi-model">
+          <div class="order-item"><h4>[[ item ]] Kokeshi</h4></div>
+          <div class="kokeshi-info">
+            <p class="info">[[ dob ]]</p>
+            <p class="info">[[ height ]] cm</p>
+            <p class="info">[[ weight ]] grams</p>
           </div>
-          <form action="{{ url_for('showCheckoutPage') }}">
-              <button type="submit" value="Go to checkout page" class="btn btn-kokeshi">Checkout</button>
-          </form>
+          <div class="kokeshi-message">
+            <p class="message" style="white-space: pre-wrap;">[[ message ]]</p>
+          </div>
+          <div class="order-price"><h4 class="total">Your total: $[[ price ]]</h4></div>
         </div>
+        <form action="{{ url_for('showCheckoutPage') }}">
+            <button type="submit" value="Go to checkout page" class="btn btn-kokeshi">Checkout</button>
+        </form>
       </div>
-    </template>
-  </section>
-</article>
+    </div>
+  </template>
+</section>
 {% endblock %}
 
 

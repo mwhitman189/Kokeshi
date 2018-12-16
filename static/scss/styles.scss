@@ -70,6 +70,20 @@ img {
   }
 }
 
+input {
+  border: 0;
+  border-bottom: 1px solid rgba($color-black, .8);
+}
+
+textarea {
+  border: 1px solid rgba($color-black, .8);
+  height: 60px;
+}
+
+label {
+  text-transform: uppercase;
+}
+
 .clearfix {
   zoom: 1;
 
@@ -84,10 +98,53 @@ img {
   vertical-align: bottom;
 }
 
+.btn {
+  background-color: rgba($color-black, 0);
+  border: 2px solid rgba($color-black, .8);
+  border-radius: 4px;
+  height: 35px;
+  text-transform: uppercase;
+  width: 100%;
+
+  &:hover {
+    background-image: linear-gradient(rgba($color-black, 0), rgba($color-black, .1));
+  }
+}
+
 .svg-fit {
   display: block;
   height: 100%;
   width: 100%;
+}
+
+.container-fluid {
+  display: flex;
+  justify-content: center;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.form-group {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.form-control {
+  width: 100%;
+}
+
+.title {
+  font-size: 150%;
+  margin: 20px;
+  padding-top: 30px;
+  text-transform: uppercase;
+}
+
+.mobile-nav-active {
+  height: 100%;
+  overflow: hidden;
 }
 
 .wrapper {
@@ -95,6 +152,11 @@ img {
   overflow: hidden;
   position: relative;
   z-index: 1;
+
+  &::before {
+    content: ' ';
+    display: table;
+  }
 }
 
 .page-wrapper {
@@ -113,11 +175,6 @@ img {
   z-index: 1000;
 }
 
-.header__lower,
-.header__upper {
-  transition: all .25s ease;
-}
-
 .header__upper {
   background: transparent;
   display: block;
@@ -128,50 +185,55 @@ img {
   z-index: 2;
 
   &.shifted-right {
-    left: 80%;
+    margin-left: 80%;
   }
+}
 
-  .header__utility-container {
-    display: block;
-    height: 100%;
-    margin: 0 auto;
-    max-width: 1140px;
-    position: relative;
-  }
+.header__lower,
+.header__upper {
+  transition: all .25s ease;
+}
 
-  .header__utility-nav {
-    display: none;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+.header__utility-container {
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+  max-width: 1140px;
+  position: relative;
+}
 
-  .header__icons {
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-  }
+.header__utility-nav {
+  display: none;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
 
-  .header__icon {
-    float: right;
-    margin: 0 0 0 .625rem;
-    vertical-align: top;
-  }
+.header__icons {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
 
-  .header__bars {
-    display: inline-block;
-    margin: 0;
-    float: left;
-  }
+.header__icon {
+  float: right;
+  margin: 0 0 0 .625rem;
+  vertical-align: top;
+}
 
-  .header__mglass {
-    display: inline-block;
+.header__bars {
+  display: inline-block;
+  margin: 0;
+  float: left;
+}
 
-    i {
-      color: rgba($color-white, .8);
-    }
+.header__mglass {
+  display: inline-block;
+
+  i {
+    color: rgba($color-white, .8);
   }
 }
 
@@ -231,6 +293,8 @@ img {
 
   &.active {
     left: 0;
+    overflow-y: auto;
+    height: 100vh;
   }
 }
 
@@ -285,8 +349,6 @@ img {
     transform: none;
   }
 }
-
-.header__menu {}
 
 .menu-depth-0 {
   display: block;
@@ -343,6 +405,20 @@ img {
   min-height: 450px;
   animation: fadeIn .7s;
   width: 100%;
+
+  &::before {
+    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0) 50%,rgba(0,0,0,.4));
+    border-radius: 4px;
+    bottom: 0;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
 }
 
 @keyframes fadeIn {
@@ -402,6 +478,8 @@ img {
 }
 
 .design__form {
+  align-items: center;
+  max-width: 500px;
   width: 90%;
 }
 
@@ -410,6 +488,7 @@ img {
   display: flex;
   flex-direction: column;
   font-weight: 600;
+  width: 80%;
 }
 
 .design__kokeshi-model {
@@ -419,7 +498,7 @@ img {
   background-size: cover;
   font-family: $font-stack-2;
   height: 645px;
-  margin: 10px 10px 50px;
+  margin: 30px 0 10px 50px;
   position: relative;
   width: 240px;
 }
@@ -449,13 +528,27 @@ img {
 .design__message {
   display: inline-block;
   padding: 5px;
+  white-space: pre-wrap;
   word-break: break-word;
 }
 
-.article {
-  background: linear-gradient(rgba($color-black, .5), rgba($color-black, .7));
+.design__message-input {
+  margin-bottom: 20px;
+}
+
+.content {
+  background: rgba($color-white, 1);
   position: relative;
   top: -40px;
 }
 
-@media screen and (min-width: 500px) {}
+@media screen and (min-width: 800px) {
+  .design__kokeshi-display {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    font-weight: 600;
+    justify-content: center;
+    width: 80%;
+  }
+}
