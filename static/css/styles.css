@@ -60,7 +60,7 @@ label {
 .clearfix {
   zoom: 1; }
   .clearfix::before {
-    content: '';
+    content: ' ';
     display: table; }
 
 .img {
@@ -139,6 +139,25 @@ label {
   z-index: 2; }
   .header__upper.shifted-right {
     margin-left: 80%; }
+  .header__upper .header__utility-nav {
+    display: none;
+    left: 0;
+    position: absolute;
+    top: 0; }
+  .header__upper .header__icons {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%; }
+  .header__upper .header__icon {
+    float: right;
+    margin: 0 0 0 .625rem;
+    vertical-align: top; }
+  .header__upper .header__bars {
+    display: inline-block;
+    margin: 0;
+    float: left; }
 
 .header__lower,
 .header__upper {
@@ -150,29 +169,6 @@ label {
   margin: 0 auto;
   max-width: 1140px;
   position: relative; }
-
-.header__utility-nav {
-  display: none;
-  left: 0;
-  position: absolute;
-  top: 0; }
-
-.header__icons {
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%; }
-
-.header__icon {
-  float: right;
-  margin: 0 0 0 .625rem;
-  vertical-align: top; }
-
-.header__bars {
-  display: inline-block;
-  margin: 0;
-  float: left; }
 
 .header__mglass {
   display: inline-block; }
@@ -305,21 +301,21 @@ label {
 .keyvisual {
   margin-top: -40px;
   padding-top: 0; }
+  .keyvisual.shifted-right {
+    margin-left: 80%; }
 
 .keyvisual__inner {
   position: relative; }
 
-.keyvisual__img {
-  background-image: url("../img/artisan-placeholder.jpg");
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: cover;
-  height: 450px;
-  margin-bottom: 20px;
-  min-height: 450px;
-  animation: fadeIn .7s;
+.filter {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
   width: 100%; }
-  .keyvisual__img::before {
+  .filter::before {
     background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.4));
     border-radius: 4px;
     bottom: 0;
@@ -331,6 +327,17 @@ label {
     top: 0;
     width: 100%;
     z-index: 0; }
+
+.keyvisual__img {
+  background-image: url("../img/artisan-placeholder.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 450px;
+  margin-bottom: 20px;
+  min-height: 450px;
+  animation: fadeIn .7s;
+  width: 100%; }
 
 @keyframes fadeIn {
   from {

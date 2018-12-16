@@ -88,7 +88,7 @@ label {
   zoom: 1;
 
   &::before {
-    content: '';
+    content: ' ';
     display: table;
   }
 }
@@ -187,6 +187,33 @@ label {
   &.shifted-right {
     margin-left: 80%;
   }
+
+  .header__utility-nav {
+    display: none;
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  .header__icons {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .header__icon {
+    float: right;
+    margin: 0 0 0 .625rem;
+    vertical-align: top;
+  }
+
+  .header__bars {
+    display: inline-block;
+    margin: 0;
+    float: left;
+  }
 }
 
 .header__lower,
@@ -200,33 +227,6 @@ label {
   margin: 0 auto;
   max-width: 1140px;
   position: relative;
-}
-
-.header__utility-nav {
-  display: none;
-  left: 0;
-  position: absolute;
-  top: 0;
-}
-
-.header__icons {
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%;
-}
-
-.header__icon {
-  float: right;
-  margin: 0 0 0 .625rem;
-  vertical-align: top;
-}
-
-.header__bars {
-  display: inline-block;
-  margin: 0;
-  float: left;
 }
 
 .header__mglass {
@@ -389,21 +389,24 @@ label {
 .keyvisual {
   margin-top: -40px;
   padding-top: 0;
+
+  &.shifted-right {
+    margin-left: 80%;
+  }
 }
 
 .keyvisual__inner {
   position: relative;
+
 }
 
-.keyvisual__img {
-  background-image: url('../img/artisan-placeholder.jpg');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: cover;
-  height: 450px;
-  margin-bottom: 20px;
-  min-height: 450px;
-  animation: fadeIn .7s;
+.filter {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
   width: 100%;
 
   &::before {
@@ -419,6 +422,18 @@ label {
     width: 100%;
     z-index: 0;
   }
+}
+
+.keyvisual__img {
+  background-image: url('../img/artisan-placeholder.jpg');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 450px;
+  margin-bottom: 20px;
+  min-height: 450px;
+  animation: fadeIn .7s;
+  width: 100%;
 }
 
 @keyframes fadeIn {

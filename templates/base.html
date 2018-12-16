@@ -69,7 +69,7 @@
                     <a id="menu-toggle" class="header__link-icon" href="#"><i class="fas fa-bars"></i></a>
                   </li>
                   <li class="header__icon header__mglass">
-                    <a class="kokeshi-nav-link nav-link-2 caps" href="{{ url_for('showAboutPage')}}"><i class="fas fa-search"></i></a>
+                    <a class="header__link-icon" href="{{ url_for('showAboutPage')}}"><i class="fas fa-search"></i></a>
                   </li>
                 </ul>
                 <div class="header__mobile-brand">
@@ -123,19 +123,22 @@
                 {% endif %}
               {% endwith %}
 
-              {% block content_1 %}
-              {% endblock %}
+              <div id="keyvisual" class="keyvisual keyvisual--anchor-fixed">
+                {% block content_1 %}
+                {% endblock %}
+              </div>
 
               {% block content_2 %}
               {% endblock %}
+            </div>
           </main>
 
 
           <!-- Footer -->
 
-          <footer class="py-5 color-accent">
+          <footer class="footer">
               <div class="container">
-                  <p class="m-0 text-center">Copyright &copy; KokeMama
+                  <p class="center-text">Copyright &copy; KokeMama
                       2018</p>
               </div>
           </footer>
@@ -147,11 +150,14 @@
         const menuEl = document.querySelector('#menu');
         const headerEl = document.querySelector('#header');
         const pageWrapEl = document.querySelector('#page-wrapper');
+        const visualEl = document.querySelector('#keyvisual');
 
         toggleBtn.addEventListener('click', function() {
           menuEl.classList.toggle('active');
           headerEl.classList.toggle('shifted-right');
-          console.log(window.innerWidth);
+          visualEl.classList.toggle('shifted-right');
+
+          console.log(visualEl);
           if (pageWrapEl.style.width !== window.innerWidth + 'px') {
             pageWrapEl.style.width = window.innerWidth + 'px';
             headerEl.style.width = window.innerWidth + 'px';
