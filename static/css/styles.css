@@ -22,9 +22,6 @@ body {
 div {
   display: block; }
 
-label {
-  margin-top: 20px; }
-
 a {
   background-color: rgba(0, 0, 0, 0);
   color: inherit;
@@ -48,7 +45,11 @@ img .lazyloaded {
 
 input {
   border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.8); }
+  border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+  margin-top: 8px; }
+
+.design__select-input {
+  margin-top: 8px; }
 
 textarea {
   border: 1px solid rgba(0, 0, 0, 0.8);
@@ -437,6 +438,17 @@ label {
   background: white;
   position: relative;
   top: -40px; }
+
+.footer {
+  height: 80px;
+  width: 100%; }
+
+.dark {
+  background-color: rgba(48, 44, 44, 0.9); }
+
+.footer__text {
+  color: #fff;
+  line-height: 80px; }
 
 @media screen and (min-width: 800px) {
   .design__kokeshi-display {

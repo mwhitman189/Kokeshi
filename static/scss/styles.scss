@@ -35,10 +35,6 @@ div {
   display: block;
 }
 
-label {
-  margin-top: 20px;
-}
-
 a {
   background-color: rgba($color-black, 0);
   color: inherit;
@@ -73,6 +69,11 @@ img {
 input {
   border: 0;
   border-bottom: 1px solid rgba($color-black, .8);
+  margin-top: 8px;
+}
+
+.design__select-input {
+  margin-top: 8px;
 }
 
 textarea {
@@ -549,6 +550,20 @@ label {
   background: rgba($color-white, 1);
   position: relative;
   top: -40px;
+}
+
+.footer {
+  height: 80px;
+  width: 100%;
+}
+
+.dark {
+  background-color: rgba($color-dark, .9);
+}
+
+.footer__text {
+  color: $color-white;
+  line-height: 80px;
 }
 
 @media screen and (min-width: 800px) {
