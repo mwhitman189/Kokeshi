@@ -130,7 +130,6 @@
 
               {% block content_2 %}
               {% endblock %}
-            </div>
           </main>
 
 
@@ -146,6 +145,7 @@
       </div>
 
       <script>
+      // Drawer menu
         const toggleBtn = document.querySelector('#menu-toggle');
         const menuEl = document.querySelector('#menu');
         const headerEl = document.querySelector('#header');
@@ -157,7 +157,6 @@
           headerEl.classList.toggle('shifted-right');
           visualEl.classList.toggle('shifted-right');
 
-          console.log(visualEl);
           if (pageWrapEl.style.width !== window.innerWidth + 'px') {
             pageWrapEl.style.width = window.innerWidth + 'px';
             headerEl.style.width = window.innerWidth + 'px';
@@ -167,13 +166,10 @@
           }
         });
       </script>
+      {% block scripts %}
+      {% endblock %}
       <!-- development version, includes helpful console warnings -->
       <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
       <script src="../static/js/custom.js"></script>
-      <script>
-
-      </script>
-      {% block scripts %}
-      {% endblock %}
     </body>
 </html>

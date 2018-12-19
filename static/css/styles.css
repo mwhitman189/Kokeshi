@@ -83,6 +83,10 @@ label {
   height: 100%;
   width: 100%; }
 
+.container {
+  padding: 20px;
+  width: 100%; }
+
 .container-fluid {
   display: flex;
   justify-content: center; }
@@ -103,8 +107,15 @@ label {
   padding-top: 30px;
   text-transform: uppercase; }
 
+.fine-print {
+  font-size: 80%; }
+
+.red-text {
+  color: #ce210a; }
+
 .wrapper {
   display: block;
+  overflow: hidden;
   position: relative;
   z-index: 1; }
   .wrapper::before {
@@ -385,6 +396,7 @@ label {
 
 .design__form {
   align-items: center;
+  margin-bottom: 50px;
   max-width: 500px;
   width: 90%; }
 
@@ -431,8 +443,18 @@ label {
   white-space: pre-wrap;
   word-break: break-word; }
 
+.design__checkbox {
+  cursor: pointer; }
+
+.design__message-checkbox-label {
+  cursor: pointer;
+  text-transform: none; }
+
 .design__message-input {
   margin-bottom: 20px; }
+
+.order__message {
+  white-space: pre-wrap; }
 
 .content {
   background: white;
@@ -451,6 +473,9 @@ label {
   line-height: 80px; }
 
 @media screen and (min-width: 800px) {
+  .container {
+    padding: 20px;
+    width: 100%; }
   .design__kokeshi-display {
     align-items: center;
     display: flex;

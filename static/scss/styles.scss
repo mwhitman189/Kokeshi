@@ -6,6 +6,7 @@ $color-primary: #64efc1;
 $color-secondary: #4ccea3;
 $color-gray: #6b6767;
 $color-dark: #302c2c;
+$color-red: #ce210a;
 
 body,
 html {
@@ -118,6 +119,11 @@ label {
   width: 100%;
 }
 
+.container {
+  padding: 20px;
+  width: 100%;
+}
+
 .container-fluid {
   display: flex;
   justify-content: center;
@@ -143,8 +149,17 @@ label {
   text-transform: uppercase;
 }
 
+.fine-print {
+  font-size: 80%;
+}
+
+.red-text {
+  color: $color-red;
+}
+
 .wrapper {
   display: block;
+  overflow: hidden;
   position: relative;
   z-index: 1;
 
@@ -489,6 +504,7 @@ label {
 
 .design__form {
   align-items: center;
+  margin-bottom: 50px;
   max-width: 500px;
   width: 90%;
 }
@@ -542,8 +558,21 @@ label {
   word-break: break-word;
 }
 
+.design__checkbox {
+  cursor: pointer;
+}
+
+.design__message-checkbox-label {
+  cursor: pointer;
+  text-transform: none;
+}
+
 .design__message-input {
   margin-bottom: 20px;
+}
+
+.order__message {
+  white-space: pre-wrap;
 }
 
 .content {
@@ -567,6 +596,11 @@ label {
 }
 
 @media screen and (min-width: 800px) {
+  .container {
+    padding: 20px;
+    width: 100%;
+  }
+
   .design__kokeshi-display {
     align-items: center;
     display: flex;

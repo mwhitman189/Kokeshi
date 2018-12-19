@@ -32,10 +32,11 @@ class Order(Base):
     __tablename__ = 'order'
     orderID = Column(Integer, primary_key=True)
     item = Column(String(64), nullable=False)
+    name = Column(String(64))
     dob = Column(String(32))
     height = Column(Integer)
     weight = Column(Integer)
-    message = Column(String(130))
+    message = Column(String(200))
     #customer_ID = Column(Integer, ForeignKey('customer.customerID'))
 
     @property

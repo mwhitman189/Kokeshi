@@ -4,10 +4,12 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
 from models import Base, Order
+from flask_seasurf import SeaSurf
 
 APPLICATION_NAME = "Kokeshi"
 
 app = Flask(__name__)
+csrf = SeaSurf(app)
 app.config.from_object('config.development')
 app.config['SECRET_KEY'] = 'super duper secret key'
 
@@ -56,13 +58,23 @@ def showDesignPage():
     """
 
     if request.method == 'POST':
-        new_order = Order(
-            item=request.form['item'],
-            dob=request.form['dob'],
-            height=request.form['height'],
-            weight=request.form['weight'],
-            message=request.form['message']
-        )
+        if 'message' in request.form:
+            new_order = Order(
+                item=request.form['item'],
+                name=request.form['name'],
+                dob=request.form['dob'],
+                height=request.form['height'],
+                weight=request.form['weight'],
+                message=request.form['message']
+            )
+        else:
+            new_order = Order(
+                item=request.form['item'],
+                name=request.form['name'],
+                dob=request.form['dob'],
+                height=request.form['height'],
+                weight=request.form['weight']
+            )
         session.add(new_order)
         session.commit()
         flash("Success! Your order of '%s kokeshi' has been added to your cart." %
@@ -102,6 +114,7 @@ def showContactPage():
 
 ### Initialize App ###
 if __name__ == '__main__':
+    app.debug = True
     # Bind to PORT if defined, otherwise default to 8000.
     port = int(os.environ.get('PORT', 8000))
     app.run(host='0.0.0.0', port=port)

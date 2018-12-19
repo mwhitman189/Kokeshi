@@ -3,7 +3,8 @@ const app = new Vue({
   delimiters: ['[[',']]'],
   data: function() {
     let item = "";
-    let price = "200.00"
+    let price = "200.00";
+    let name = "";
     let dob = "";
     let height = "";
     let weight = "";
@@ -11,11 +12,11 @@ const app = new Vue({
     return {
       item: item,
       price: price,
+      name: name,
       dob: dob,
       height: height,
       weight: weight,
       message: message,
-      myCart: [],
     }
   },
   mounted() {
@@ -24,6 +25,9 @@ const app = new Vue({
     }
     if (localStorage.price) {
       this.price = localStorage.price;
+    }
+    if (localStorage.name) {
+      this.name = localStorage.name;
     }
     if (localStorage.dob) {
       this.dob = localStorage.dob;
@@ -42,13 +46,11 @@ const app = new Vue({
     persist() {
       localStorage.item = this.item;
       localStorage.price = this.price;
+      localStorage.name = this.name;
       localStorage.dob = this.dob;
       localStorage.height = this.height;
       localStorage.weight = this.weight;
       localStorage.message = this.message;
-    },
-    addToCart: function(product) {
-      this.myCart.push(product);
     }
   }
 })
