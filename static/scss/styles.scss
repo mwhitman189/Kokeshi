@@ -304,9 +304,8 @@ label {
   z-index: 1;
 
   &.active {
-    left: 0;
-    overflow-y: auto;
     height: 100vh;
+    left: 0;
   }
 }
 
