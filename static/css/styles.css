@@ -139,8 +139,8 @@ label {
 .header__upper {
   background: transparent;
   display: block;
-  height: 40px;
-  line-height: 40px;
+  height: 60px;
+  line-height: 60px;
   padding: 0 10px;
   position: relative;
   z-index: 2; }
@@ -177,9 +177,9 @@ label {
   max-width: 1140px;
   position: relative; }
 
-.header__mglass {
+.header__cart {
   display: inline-block; }
-  .header__mglass i {
+  .header__cart i {
     color: rgba(255, 255, 255, 0.8); }
 
 .header__icons {
@@ -202,19 +202,21 @@ label {
   width: 100%; }
   .header__link-icon i {
     color: white;
-    font-size: 20px;
+    font-size: 22px;
     vertical-align: middle; }
 
 .header__mobile-brand {
   display: block;
-  height: 60%;
+  height: 100%;
   left: 50%;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%); }
 
 .header__brand-img {
-  display: block; }
+  display: block;
+  height: 50px;
+  margin: 5px 0; }
 
 .header__lower {
   background: white;
@@ -428,6 +430,9 @@ label {
 
 .design__info {
   text-align: center; }
+
+.design__date-picker {
+  max-height: 100px; }
 
 .design__kokeshi-message {
   margin-left: 20%;

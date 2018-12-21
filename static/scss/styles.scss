@@ -188,8 +188,8 @@ label {
 .header__upper {
   background: transparent;
   display: block;
-  height: 40px;
-  line-height: 40px;
+  height: 60px;
+  line-height: 60px;
   padding: 0 10px;
   position: relative;
   z-index: 2;
@@ -239,7 +239,7 @@ label {
   position: relative;
 }
 
-.header__mglass {
+.header__cart {
   display: inline-block;
 
   i {
@@ -270,14 +270,14 @@ label {
 
   i {
     color: rgba($color-white, 1);
-    font-size: 20px;
+    font-size: 22px;
     vertical-align: middle;
   }
 }
 
 .header__mobile-brand {
   display: block;
-  height: 60%;
+  height: 100%;
   left: 50%;
   position: absolute;
   top: 50%;
@@ -286,6 +286,8 @@ label {
 
 .header__brand-img {
   display: block;
+  height: 50px;
+  margin: 5px 0;
 }
 
 .header__lower {
@@ -540,6 +542,10 @@ label {
 
 .design__info {
   text-align: center;
+}
+
+.design__date-picker {
+  max-height: 100px;
 }
 
 .design__kokeshi-message {
