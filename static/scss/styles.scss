@@ -47,7 +47,7 @@ a {
   }
 
   img {
-    border: none;
+    border: 0;
   }
 }
 
@@ -128,7 +128,12 @@ label {
 
 .container-fluid {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+}
+
+.blurb {
+  flex-basis: 20%;
+  margin: 10px;
 }
 
 .center-text {
@@ -146,8 +151,7 @@ label {
 
 .title {
   font-size: 150%;
-  margin: 20px 20px 30px;
-  padding-top: 30px;
+  margin: 10px 20px 30px;
   text-transform: uppercase;
 }
 
@@ -229,8 +233,8 @@ label {
 
   .header__bars {
     display: inline-block;
-    margin: 0;
     float: left;
+    margin: 0;
   }
 }
 
@@ -429,7 +433,7 @@ label {
   width: 100%;
 
   &::before {
-    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0) 50%,rgba(0,0,0,.4));
+    background-image: linear-gradient(top, rgba($color-black, 1) 50%, rgba($color-black, .4));
     border-radius: 4px;
     bottom: 0;
     content: '';
@@ -444,14 +448,14 @@ label {
 }
 
 .keyvisual__img {
+  animation: fadeIn .7s;
   background-image: url('../img/artisan-placeholder.jpg');
-  background-repeat: no-repeat;
   background-position: 50% 50%;
+  background-repeat: no-repeat;
   background-size: cover;
   height: 450px;
   margin-bottom: 20px;
   min-height: 450px;
-  animation: fadeIn .7s;
   width: 100%;
 }
 
