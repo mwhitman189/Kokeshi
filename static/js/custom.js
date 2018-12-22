@@ -4,6 +4,8 @@ const app = new Vue({
   data: function() {
     let item = "";
     let price = "200.00";
+    let isMessage = "";
+    let messagePrice = "50.00";
     let name = "";
     let dob = "";
     let height = "";
@@ -12,6 +14,8 @@ const app = new Vue({
     return {
       item: item,
       price: price,
+      isMessage: isMessage,
+      messagePrice: messagePrice,
       name: name,
       dob: dob,
       height: height,
@@ -25,6 +29,9 @@ const app = new Vue({
     }
     if (localStorage.price) {
       this.price = localStorage.price;
+    }
+    if (localStorage.isMessage) {
+      this.isMessage = localStorage.isMessage;
     }
     if (localStorage.name) {
       this.name = localStorage.name;
@@ -46,11 +53,20 @@ const app = new Vue({
     persist() {
       localStorage.item = this.item;
       localStorage.price = this.price;
+      localStorage.isMessage = this.isMessage;
+      localStorage.messagePrice = this.messagePrice;
       localStorage.name = this.name;
       localStorage.dob = this.dob;
       localStorage.height = this.height;
       localStorage.weight = this.weight;
       localStorage.message = this.message;
+    }
+  },
+  computed: {
+    total: function () {
+      if (this.isMessage == "true") {
+        return parseInt(this.price) + parseInt(this.messagePrice);
+      }
     }
   }
 })
