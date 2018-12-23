@@ -7,7 +7,7 @@
 {% block content_1 %}
 <div class="keyvisual">
   <div class="keyvisual__inner">
-    <div class="keyvisual__img">
+    <div class="keyvisual__img" title="Image of a master crafts person painting a kokeshi">
       <h1 class="keyvisual__heading">
         <span class="keyvisual__heading-text">Traditional Kokeshi</span>
         <span class="keyvisual__heading-description">A lasting reminder of baby's birth</span>
@@ -35,7 +35,7 @@
           <div class="order-price"><h4 class="total">Your total: $[[ total ]]</h4></div>
         </div>
         <form action="{{ url_for('showCheckoutPage') }}">
-            <button type="submit" value="Go to checkout page" class="btn btn-kokeshi">Checkout</button>
+            <button type="submit" value="Go to checkout page" class="btn btn-kokeshi">Proceed to Checkout</button>
         </form>
       </div>
     </div>
