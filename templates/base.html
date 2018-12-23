@@ -57,6 +57,7 @@
         <!-- Header - set the background image for the header in the line below -->
       <div class="wrapper">
         <div id="page-wrapper" class="page-wrapper">
+          <div id="overlay" class=""></div>
           <header class="header">
             <div id="header" class="header__upper">
 
@@ -111,7 +112,7 @@
             </div>
           </header>
 
-          <main id="app" class="content-main-wrapper clearfix">
+          <main class="content-main-wrapper clearfix">
 
               {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -123,13 +124,16 @@
                 {% endif %}
               {% endwith %}
 
-              <div id="keyvisual" class="keyvisual keyvisual--anchor-fixed">
-                {% block content_1 %}
-                {% endblock %}
-              </div>
 
-              {% block content_2 %}
-              {% endblock %}
+                <div id="keyvisual" class="keyvisual keyvisual--anchor-fixed">
+                  <div id="app">
+                    {% block content_1 %}
+                    {% endblock %}
+                  </div>
+                </div>
+
+                {% block content_2 %}
+                {% endblock %}
           </main>
 
 
@@ -151,11 +155,13 @@
         const headerEl = document.querySelector('#header');
         const pageWrapEl = document.querySelector('#page-wrapper');
         const visualEl = document.querySelector('#keyvisual');
+        const overlay = document.querySelector('#overlay');
 
         toggleBtn.addEventListener('click', function() {
           menuEl.classList.toggle('active');
           headerEl.classList.toggle('shifted-right');
           visualEl.classList.toggle('shifted-right');
+          overlay.classList.toggle('overlay');
 
           if (pageWrapEl.style.width !== window.innerWidth + 'px') {
             pageWrapEl.style.width = window.innerWidth + 'px';

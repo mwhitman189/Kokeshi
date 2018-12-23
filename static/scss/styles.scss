@@ -73,10 +73,6 @@ input {
   margin-top: 8px;
 }
 
-.design__select-input {
-  margin-top: 8px;
-}
-
 textarea {
   border: 1px solid rgba($color-black, .8);
   height: 60px;
@@ -186,6 +182,19 @@ label {
   position: relative;
   transition: all .25s ease;
   width: 100%;
+}
+
+.overlay {
+  background: rgba($color-black, .7);
+  border-radius: 4px;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 2;
 }
 
 .header {
@@ -412,39 +421,16 @@ label {
 .keyvisual {
   margin-top: -40px;
   padding-top: 0;
+  position: relative;
+  transition: .25s;
 
   &.shifted-right {
-    margin-left: 80%;
+    transform: translateX(80%);
   }
 }
 
 .keyvisual__inner {
   position: relative;
-
-}
-
-.filter {
-  bottom: 0;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%;
-
-  &::before {
-    background-image: linear-gradient(top, rgba($color-black, 1) 50%, rgba($color-black, .4));
-    border-radius: 4px;
-    bottom: 0;
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-    z-index: 0;
-  }
 }
 
 .keyvisual__img {
@@ -456,6 +442,7 @@ label {
   height: 450px;
   margin-bottom: 20px;
   min-height: 450px;
+  position: relative;
   width: 100%;
 }
 
@@ -520,6 +507,10 @@ label {
   margin-bottom: 50px;
   max-width: 500px;
   width: 90%;
+}
+
+.design__select-input {
+  margin-top: 8px;
 }
 
 .design__kokeshi-display {

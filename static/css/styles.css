@@ -48,9 +48,6 @@ input {
   border-bottom: 1px solid rgba(0, 0, 0, 0.8);
   margin-top: 8px; }
 
-.design__select-input {
-  margin-top: 8px; }
-
 textarea {
   border: 1px solid rgba(0, 0, 0, 0.8);
   height: 60px; }
@@ -137,6 +134,18 @@ label {
   position: relative;
   transition: all .25s ease;
   width: 100%; }
+
+.overlay {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 4px;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 2; }
 
 .header {
   background-color: rgba(0, 0, 0, 0.5);
@@ -318,33 +327,14 @@ label {
 
 .keyvisual {
   margin-top: -40px;
-  padding-top: 0; }
+  padding-top: 0;
+  position: relative;
+  transition: .25s; }
   .keyvisual.shifted-right {
-    margin-left: 80%; }
+    transform: translateX(80%); }
 
 .keyvisual__inner {
   position: relative; }
-
-.filter {
-  bottom: 0;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%; }
-  .filter::before {
-    background-image: linear-gradient(top, black 50%, rgba(0, 0, 0, 0.4));
-    border-radius: 4px;
-    bottom: 0;
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-    z-index: 0; }
 
 .keyvisual__img {
   animation: fadeIn .7s;
@@ -355,6 +345,7 @@ label {
   height: 450px;
   margin-bottom: 20px;
   min-height: 450px;
+  position: relative;
   width: 100%; }
 
 @keyframes fadeIn {
@@ -410,6 +401,9 @@ label {
   margin-bottom: 50px;
   max-width: 500px;
   width: 90%; }
+
+.design__select-input {
+  margin-top: 8px; }
 
 .design__kokeshi-display {
   align-items: center;
