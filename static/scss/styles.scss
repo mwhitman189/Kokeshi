@@ -124,6 +124,7 @@ label {
 
 .container-fluid {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
 }
 
@@ -621,6 +622,10 @@ label {
   .container {
     padding: 20px;
     width: 100%;
+  }
+
+  .container-fluid {
+    flex-direction: row;
   }
 
   .keyvisual__heading {
