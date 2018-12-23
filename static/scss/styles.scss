@@ -606,40 +606,6 @@ label {
   white-space: pre-wrap;
 }
 
-.blurb1 {
-  animation: fadeIn 2s;
-  animation-fill-mode: forwards;
-  opacity: 0;
-  position: relative;
-}
-
-.blurb2 {
-  animation: fadeIn 2s;
-  animation-delay: 2s;
-  animation-fill-mode: forwards;
-  opacity: 0;
-  position: relative;
-  top: 30px;
-}
-
-.blurb3 {
-  animation: fadeIn 2s;
-  animation-delay: 4s;
-  animation-fill-mode: forwards;
-  opacity: 0;
-  position: relative;
-  top: 60px;
-}
-
-.blurb4 {
-  animation: fadeIn 2s;
-  animation-delay: 6s;
-  animation-fill-mode: forwards;
-  opacity: 0;
-  position: relative;
-  top: 90px;
-}
-
 .blurb {
   flex-basis: 20%;
   margin: 10px;
@@ -680,5 +646,39 @@ label {
     font-weight: 600;
     justify-content: center;
     width: 80%;
+  }
+
+  .blurb1 {
+    animation: fadeIn 2s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    position: relative;
+  }
+
+  .blurb2 {
+    animation: fadeIn 2s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    position: relative;
+    top: 30px;
+  }
+
+  .blurb3 {
+    animation: fadeIn 2s;
+    animation-delay: 4s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    position: relative;
+    top: 60px;
+  }
+
+  .blurb4 {
+    animation: fadeIn 2s;
+    animation-delay: 6s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    position: relative;
+    top: 90px;
   }
 }
