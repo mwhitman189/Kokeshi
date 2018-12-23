@@ -4,7 +4,7 @@ const app = new Vue({
   data: function() {
     let item = "";
     let price = "200.00";
-    let isMessage = "";
+    let isMessage = "false";
     let messagePrice = "50.00";
     let name = "";
     let dob = "";
@@ -66,6 +66,8 @@ const app = new Vue({
     total: function () {
       if (this.isMessage == "true") {
         return parseInt(this.price) + parseInt(this.messagePrice);
+      } else {
+        return parseInt(this.price);
       }
     }
   }

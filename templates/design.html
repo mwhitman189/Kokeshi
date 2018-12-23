@@ -51,7 +51,7 @@
         <div class="form-group">
           <label class="design__message-checkbox-label">Add a personal message on the kokeshi ($50) <input id="message-checkbox" class="design__checkbox" v-model="isMessage" name="is-message" type="checkbox" onclick="document.getElementById('message-input').disabled=!this.checked;"></label><br>
           <label for="message-input">Message</label>
-          <textarea id="message-input" class="form-control design__message-input" maxlength="200" v-model="message" name="message" placeholder="Hit 'Enter' to start a new line" disabled></textarea><br>
+          <textarea id="message-input" class="form-control design__message-input" maxlength="200" v-model="message" name="message" placeholder="Hit 'Enter' to start a new line"></textarea><br>
         </div>
         <button type="submit" class="btn design__btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
@@ -65,7 +65,7 @@
           <p class="design__info">[[ weight ]] grams</p>
         </div>
         <div class="design__kokeshi-message">
-          <p class="design__message">[[ message ]]</p>
+          <p class="design__message" v-if="isMessage">[[ message ]]</p>
         </div>
       </div>
     </div>
