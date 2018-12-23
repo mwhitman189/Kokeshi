@@ -127,13 +127,12 @@ label {
   justify-content: space-around;
 }
 
-.checkout__container-fluid {
-  flex-direction: column;
+.filler {
+  height: 80px;
 }
 
-.blurb {
-  flex-basis: 20%;
-  margin: 10px;
+.checkout__container-fluid {
+  flex-direction: column;
 }
 
 .center-text {
@@ -431,6 +430,12 @@ label {
   position: relative;
 }
 
+.content {
+  background: rgba($color-white, 1);
+  position: relative;
+  top: -40px;
+}
+
 .keyvisual {
   margin-top: -40px;
   padding-top: 0;
@@ -601,10 +606,43 @@ label {
   white-space: pre-wrap;
 }
 
-.content {
-  background: rgba($color-white, 1);
+.blurb1 {
+  animation: fadeIn 2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
   position: relative;
-  top: -40px;
+}
+
+.blurb2 {
+  animation: fadeIn 2s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  position: relative;
+  top: 30px;
+}
+
+.blurb3 {
+  animation: fadeIn 2s;
+  animation-delay: 4s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  position: relative;
+  top: 60px;
+}
+
+.blurb4 {
+  animation: fadeIn 2s;
+  animation-delay: 6s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  position: relative;
+  top: 90px;
+}
+
+.blurb {
+  flex-basis: 20%;
+  margin: 10px;
 }
 
 .footer {

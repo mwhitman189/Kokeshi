@@ -90,12 +90,11 @@ label {
   display: flex;
   justify-content: space-around; }
 
+.filler {
+  height: 80px; }
+
 .checkout__container-fluid {
   flex-direction: column; }
-
-.blurb {
-  flex-basis: 20%;
-  margin: 10px; }
 
 .center-text {
   text-align: center; }
@@ -335,6 +334,11 @@ label {
   margin-top: 40px;
   position: relative; }
 
+.content {
+  background: white;
+  position: relative;
+  top: -40px; }
+
 .keyvisual {
   margin-top: -40px;
   padding-top: 0;
@@ -478,10 +482,39 @@ label {
 .order__message {
   white-space: pre-wrap; }
 
-.content {
-  background: white;
+.blurb1 {
+  animation: fadeIn 2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  position: relative; }
+
+.blurb2 {
+  animation: fadeIn 2s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
   position: relative;
-  top: -40px; }
+  top: 30px; }
+
+.blurb3 {
+  animation: fadeIn 2s;
+  animation-delay: 4s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  position: relative;
+  top: 60px; }
+
+.blurb4 {
+  animation: fadeIn 2s;
+  animation-delay: 6s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  position: relative;
+  top: 90px; }
+
+.blurb {
+  flex-basis: 20%;
+  margin: 10px; }
 
 .footer {
   height: 80px;
