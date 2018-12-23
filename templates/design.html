@@ -20,7 +20,7 @@
   <h1 class="title center-text">Design a Kokeshi</h1>
   <div class="container-fluid">
     <div class="design__kokeshi-display">
-      <form class="design__form" action="{{ url_for('showDesignPage') }}" method="POST">
+      <form id="design-form" class="design__form" action="{{ url_for('showDesignPage') }}" method="POST">
         <p class="fine-print">Fields with '<span class="red-text">*</span>' are required</p>
         <div class="form-group">
           <label for="item-input">Kokeshi Style <span class="red-text">*</span></label></br>
@@ -53,7 +53,6 @@
           <label for="message-input">Message</label>
           <textarea id="message-input" class="form-control design__message-input" maxlength="200" v-model="message" name="message" placeholder="Hit 'Enter' to start a new line"></textarea><br>
         </div>
-        <button type="submit" class="btn design__btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
       </form>
 
@@ -68,6 +67,7 @@
           <p class="design__message" v-if="isMessage">[[ message ]]</p>
         </div>
       </div>
+      <button form="design-form" type="submit" class="btn design__btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
     </div>
   </div>
 </section>

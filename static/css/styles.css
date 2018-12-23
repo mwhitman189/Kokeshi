@@ -412,7 +412,7 @@ label {
 
 .design__form {
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   max-width: 500px;
   width: 90%; }
 
@@ -433,7 +433,7 @@ label {
   background-size: cover;
   font-family: "Handlee", cursive;
   height: 645px;
-  margin: 30px 20px 10px;
+  margin: 0 20px;
   position: relative;
   width: 240px; }
 
