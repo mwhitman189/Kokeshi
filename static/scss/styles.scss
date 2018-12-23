@@ -124,8 +124,11 @@ label {
 
 .container-fluid {
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
+}
+
+.checkout__container-fluid {
+  flex-direction: column;
 }
 
 .blurb {
@@ -624,7 +627,7 @@ label {
     width: 100%;
   }
 
-  .container-fluid {
+  .checkout__container-fluid {
     flex-direction: row;
   }
 

@@ -88,8 +88,10 @@ label {
 
 .container-fluid {
   display: flex;
-  flex-direction: column;
   justify-content: space-around; }
+
+.checkout__container-fluid {
+  flex-direction: column; }
 
 .blurb {
   flex-basis: 20%;
@@ -496,7 +498,7 @@ label {
   .container {
     padding: 20px;
     width: 100%; }
-  .container-fluid {
+  .checkout__container-fluid {
     flex-direction: row; }
   .keyvisual__heading {
     padding: 1rem 0 1rem 10%; }
