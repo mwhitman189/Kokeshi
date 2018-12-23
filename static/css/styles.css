@@ -109,6 +109,13 @@ label {
   margin: 10px 20px 30px;
   text-transform: uppercase; }
 
+.title-primary {
+  position: relative;
+  top: 20px; }
+
+.title-secondary {
+  font-size: 75%; }
+
 .instructions {
   color: #6b6767;
   margin: 10px; }
@@ -378,16 +385,16 @@ label {
   text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   width: 100%; }
 
-.keyvisual__description {
+.keyvisual__heading-description {
   bottom: 0;
   box-sizing: border-box;
   color: white;
   font-size: 1.3333rem;
   font-weight: 700;
-  left: 0;
+  left: 1.5rem;
   line-height: 1.3;
   padding: 0 1.25rem;
-  position: absolute;
+  position: relative;
   right: 0;
   text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   transform: translateY(100%);
@@ -488,6 +495,8 @@ label {
   .container {
     padding: 20px;
     width: 100%; }
+  .keyvisual__heading {
+    padding: 1rem 0 1rem 10%; }
   .design__kokeshi-display {
     align-items: center;
     display: flex;
