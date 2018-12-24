@@ -55,19 +55,20 @@
         </div>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
       </form>
-
-      <div class="design__kokeshi-model">
-        <div class="design__kokeshi-info">
-          <p class="design__info">[[ name ]]</p>
-          <p class="design__info">[[ dob ]]</p>
-          <p class="design__info">[[ height ]] cm</p>
-          <p class="design__info">[[ weight ]] grams</p>
+      <div class="design__kokeshi-and-btn">
+        <div class="design__kokeshi-model">
+          <div class="design__kokeshi-info">
+            <p class="design__info">[[ name ]]</p>
+            <p class="design__info">[[ dob ]]</p>
+            <p class="design__info">[[ height ]] cm</p>
+            <p class="design__info">[[ weight ]] grams</p>
+          </div>
+          <div class="design__kokeshi-message">
+            <p class="design__message" v-if="isMessage">[[ message ]]</p>
+          </div>
         </div>
-        <div class="design__kokeshi-message">
-          <p class="design__message" v-if="isMessage">[[ message ]]</p>
-        </div>
+        <button form="design-form" type="submit" class="btn design__btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
       </div>
-      <button form="design-form" type="submit" class="btn design__btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
     </div>
   </div>
 </section>

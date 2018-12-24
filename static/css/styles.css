@@ -534,6 +534,8 @@ label {
     flex-direction: row; }
   .keyvisual__heading {
     padding: 1rem 0 1rem 10%; }
+  .design__kokeshi-and-btn {
+    margin-left: 20px; }
   .design__kokeshi-display {
     align-items: center;
     display: flex;
