@@ -345,7 +345,7 @@ label {
   position: relative;
   transition: .25s; }
   .keyvisual.shifted-right {
-    transform: translateX(80%); }
+    transform: translateX(78%); }
 
 .keyvisual__inner {
   position: relative; }
