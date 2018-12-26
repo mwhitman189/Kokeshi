@@ -54,6 +54,12 @@ a {
   }
 }
 
+button {
+  background-color: rgba($color-black, 0);
+  border: 0;
+  cursor: pointer;
+}
+
 p {
   text-align: justify;
 }
@@ -106,6 +112,7 @@ label {
   height: 35px;
   margin: 20px 0;
   max-width: 400px;
+  padding: 5px;
   text-transform: uppercase;
   width: 100%;
 
