@@ -132,11 +132,6 @@ label {
   width: 100%;
 }
 
-.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .container-fluid {
   display: flex;
   justify-content: space-around;
@@ -676,7 +671,7 @@ label {
 @media screen and (min-width: 800px) {
   .container {
     padding: 20px;
-    width: 70%;
+    width: 100%;
   }
 
   .checkout__container-fluid {
@@ -732,5 +727,12 @@ label {
     opacity: 0;
     position: relative;
     top: 90px;
+  }
+
+  .confirmation__container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    width: 70%;
   }
 }
