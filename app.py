@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for, f
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
-from models import Base, Order
+from models import Base, Order, Customer
 from flask_seasurf import SeaSurf
 
 APPLICATION_NAME = "Kokeshi"
@@ -94,13 +94,36 @@ def showOrderPage():
     return render_template('order.html')
 
 
-@app.route('/checkout/')
+@app.route('/checkout/', methods=['GET', 'POST'])
 def showCheckoutPage():
     """
     Display the checkout page
     """
+    if request.method == 'POST':
+        customer = Customer(
+            lastName=request.form['lastName'],
+            firstName=request.form['firstName'],
+            title=request.form['title'],
+            email=request.form['email']
+        )
 
-    return render_template('checkout.html')
+        session.add(customer)
+        session.commit()
+        flash("Thank you, %s %s. We will contact you within 48 hours. We appreciate your patience." %
+              (customer.title, customer.lastName))
+        return redirect(url_for('showConfirmPage'))
+
+    else:
+        return render_template('checkout_1.html')
+
+
+@app.route('/confirmation/')
+def showConfirmPage():
+    """
+    Display the order confirmation page after an order is submitted
+    """
+
+    return render_template('confirmation.html')
 
 
 @app.route('/contact/')

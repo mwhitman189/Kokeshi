@@ -132,6 +132,11 @@ label {
   width: 100%;
 }
 
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .container-fluid {
   display: flex;
   justify-content: space-around;
@@ -671,7 +676,7 @@ label {
 @media screen and (min-width: 800px) {
   .container {
     padding: 20px;
-    width: 100%;
+    width: 70%;
   }
 
   .checkout__container-fluid {
@@ -704,7 +709,7 @@ label {
 
   .blurb2 {
     animation: fadeIn 2s;
-    animation-delay: 2s;
+    animation-delay: 1.8s;
     animation-fill-mode: forwards;
     opacity: 0;
     position: relative;
@@ -713,7 +718,7 @@ label {
 
   .blurb3 {
     animation: fadeIn 2s;
-    animation-delay: 4s;
+    animation-delay: 3.6s;
     animation-fill-mode: forwards;
     opacity: 0;
     position: relative;
@@ -722,7 +727,7 @@ label {
 
   .blurb4 {
     animation: fadeIn 2s;
-    animation-delay: 6s;
+    animation-delay: 5.4s;
     animation-fill-mode: forwards;
     opacity: 0;
     position: relative;

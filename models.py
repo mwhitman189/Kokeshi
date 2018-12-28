@@ -10,10 +10,11 @@ Base = declarative_base()
 class Customer(Base):
     __tablename__ = 'customer'
     customerID = Column(Integer, primary_key=True)
-    lastName = Column(String(32), nullable=False)
+    lastName = Column(String(64), nullable=False)
     firstName = Column(String(64), nullable=False)
+    title = Column(String(32))
     email = Column(String(64), nullable=False)
-    #orderIDs = relationship("Order")
+    orderID = relationship("Order")
 
     @property
     def serialize(self):
@@ -25,6 +26,7 @@ class Customer(Base):
             'lastName': self.lastName,
             'firstName': self.firstName,
             'email': self.email,
+            'orderIDs': self.orderIDs
         }
 
 
@@ -36,8 +38,8 @@ class Order(Base):
     dob = Column(String(32))
     height = Column(Integer)
     weight = Column(Integer)
-    message = Column(String(200))
-    #customer_ID = Column(Integer, ForeignKey('customer.customerID'))
+    message = Column(String(300))
+    customer_ID = Column(Integer, ForeignKey('customer.customerID'))
 
     @property
     def serialize(self):
@@ -47,11 +49,12 @@ class Order(Base):
         return {
             'orderID': self.orderID,
             'item': self.item,
+            'name': self.name,
             'dob': self.dob,
             'height': self.height,
             'weight': self.weight,
             'message': self.message,
-            # 'customer_ID': self.customer_ID
+            'customer_ID': self.customer_ID
         }
 
 
