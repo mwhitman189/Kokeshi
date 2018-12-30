@@ -86,21 +86,20 @@
 
           <main class="content-main-wrapper clearfix">
 
-              {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                  <ul class=flashes>
-                  {% for message in messages %}
-                    <li>{{ message }}</li>
-                  {% endfor %}
-                  </ul>
-                {% endif %}
-              {% endwith %}
-
-
                 <div id="keyvisual" class="keyvisual keyvisual--anchor-fixed">
                   <div id="app">
                     {% block content_1 %}
                     {% endblock %}
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                          <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                    
                   </div>
                 </div>
 

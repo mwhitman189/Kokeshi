@@ -10,11 +10,11 @@ Base = declarative_base()
 class Customer(Base):
     __tablename__ = 'customer'
     customerID = Column(Integer, primary_key=True)
-    lastName = Column(String(64), nullable=False)
-    firstName = Column(String(64), nullable=False)
+    lastName = Column(String(64), index=True)
+    firstName = Column(String(64), index=True)
     title = Column(String(32))
-    email = Column(String(64), nullable=False)
-    orderID = relationship("Order")
+    email = Column(String(120), nullable=False, index=True, unique=True)
+    orderID = relationship('Order', backref='customer')
 
     @property
     def serialize(self):
@@ -25,8 +25,9 @@ class Customer(Base):
             'customerID': self.customerID,
             'lastName': self.lastName,
             'firstName': self.firstName,
+            'title': self.title,
             'email': self.email,
-            'orderIDs': self.orderIDs
+            'orderID': self.orderID
         }
 
 
@@ -39,7 +40,10 @@ class Order(Base):
     height = Column(Integer)
     weight = Column(Integer)
     message = Column(String(300))
-    customer_ID = Column(Integer, ForeignKey('customer.customerID'))
+    #isOrdered = Column(Boolean, unique=False, default=False)
+    #dateOrdered = Column(TIMESTAMP(timezone=True))
+    customer_ID = Column(Integer, ForeignKey(
+        'customer.customerID'))
 
     @property
     def serialize(self):
@@ -54,6 +58,8 @@ class Order(Base):
             'height': self.height,
             'weight': self.weight,
             'message': self.message,
+            # 'isOrdered': self.isOrdered,
+            # 'dateOrdered': self.dateOrdered,
             'customer_ID': self.customer_ID
         }
 

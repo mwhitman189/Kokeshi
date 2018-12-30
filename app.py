@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
+from flask import Flask, render_template, request, redirect, jsonify, url_for, flash, session
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
@@ -16,18 +16,65 @@ app.config['SECRET_KEY'] = 'super duper secret key'
 engine = create_engine('sqlite:///models.db?check_same_thread=False')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
-session = DBSession()
+db_session = DBSession()
 
 
 ##################
 # JSON API calls #
 ##################
+def createCustomer(browsing_session):
+    """
+    Add customer to database
+    """
+    newCustomer = Customer(
+        lastName=request.form['lastName'],
+        firstName=request.form['firstName'],
+        title=request.form['title'],
+        email=request.form['email']
+    )
+
+    db_session.add(customer)
+    try:
+        db_session.commit()
+    except:
+        db_session.rollback()
+        raise
+    customer = db_session.query(Customer).filter_by(
+        email=db_session['email']).one()
+    return customer.customerID
+
+
+def getCustomerInfo(customer_id):
+    customer = db_session.query(Customer).filter_by(
+        customerID=customer_id).one()
+    return customer
+
+
+def getCustomerID(email):
+    try:
+        customer = db_session.query(Customer).filter_by(email=email).one()
+        return customer.customerID
+    except:
+        return None
+
+
+def setCart(cartItem):
+    cart = cartItem
+    session['cart'] = cart
+    print session['cart'].orderID
+    return session['cart']
+
+##################
+# JSON API calls #
+##################
+
+
 @app.route('/orders/JSON/')
 def showOrdersJSON():
     """
     Return order data in JSON
     """
-    orders = session.query(Order).all()
+    orders = db_session.query(Order).all()
     return jsonify(orders=[o.serialize for o in orders])
 
 
@@ -67,6 +114,7 @@ def showDesignPage():
                 weight=request.form['weight'],
                 message=request.form['message']
             )
+
         else:
             new_order = Order(
                 item=request.form['item'],
@@ -75,10 +123,14 @@ def showDesignPage():
                 height=request.form['height'],
                 weight=request.form['weight']
             )
-        session.add(new_order)
-        session.commit()
+
+        db_session.add(new_order)
+        db_session.commit()
+        session['new_order_id'] = new_order.orderID
+
         flash("Success! Your order of '%s kokeshi' has been added to your cart." %
               new_order.item)
+
         return redirect(url_for('showOrderPage'))
 
     else:
@@ -104,11 +156,15 @@ def showCheckoutPage():
             lastName=request.form['lastName'],
             firstName=request.form['firstName'],
             title=request.form['title'],
-            email=request.form['email']
+            email=request.form['email'],
         )
 
-        session.add(customer)
-        session.commit()
+        db_session.add(customer)
+        db_session.commit()
+
+        order = db_session.query(Order).filter_by(
+            orderID=session['new_order_id']).one()
+
         flash("Thank you, %s %s. We will contact you within 48 hours. We appreciate your patience." %
               (customer.title, customer.lastName))
         return redirect(url_for('showConfirmPage'))
@@ -122,8 +178,12 @@ def showConfirmPage():
     """
     Display the order confirmation page after an order is submitted
     """
+    order = db_session.query(Order).filter_by(
+        orderID=session['new_order_id']).one()
+    print order.orderID
+    return jsonify(order)
 
-    return render_template('confirmation.html')
+    # return render_template('confirmation.html')
 
 
 @app.route('/contact/')
