@@ -77,10 +77,15 @@ def showOrdersJSON():
     orders = db_session.query(Order).all()
     return jsonify(orders=[o.serialize for o in orders])
 
+# order = db_session.query(Order).filter_by(
+#    orderID=session['new_order_id']).all()
+# return jsonify(order=[o.serialize for o in order])
 
 #######################
 # Client facing pages #
 #######################
+
+
 @app.route('/')
 @app.route('/home/')
 def showHome():
@@ -131,7 +136,7 @@ def showDesignPage():
         # their data
         session['new_order_id'] = new_order.orderID
 
-        flash("Success! Your order of '%s kokeshi' has been added to your \ cart." %
+        flash("Success! Your order of '%s kokeshi' has been added to your cart." %
               new_order.item)
 
         return redirect(url_for('showOrderPage'))
@@ -170,7 +175,7 @@ def showCheckoutPage():
         db_session.add(customer)
         db_session.commit()
 
-        flash("Thank you, %s %s. We will contact you within 48 hours. We \ appreciate your patience." %
+        flash("Thank you, %s %s. We will contact you within 48 hours. We appreciate your patience." %
               (customer.title, customer.lastName))
         return redirect(url_for('showConfirmPage'))
 
@@ -183,11 +188,8 @@ def showConfirmPage():
     """
     Display the order confirmation page after an order is submitted
     """
-    order = db_session.query(Order).filter_by(
-        orderID=session['new_order_id']).all()
-    return jsonify(order=[o.serialize for o in order])
 
-    # return render_template('confirmation.html')
+    return render_template('confirmation.html')
 
 
 @app.route('/contact/')
