@@ -489,7 +489,8 @@ label {
   justify-content: center; }
 
 .order__message {
-  white-space: pre-wrap; }
+  white-space: pre-wrap;
+  width: 20%; }
 
 .blurb {
   flex-basis: 20%;

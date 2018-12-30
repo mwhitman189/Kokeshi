@@ -22,51 +22,6 @@ db_session = DBSession()
 ##################
 # JSON API calls #
 ##################
-def createCustomer(browsing_session):
-    """
-    Add customer to database
-    """
-    newCustomer = Customer(
-        lastName=request.form['lastName'],
-        firstName=request.form['firstName'],
-        title=request.form['title'],
-        email=request.form['email']
-    )
-
-    db_session.add(customer)
-    try:
-        db_session.commit()
-    except:
-        db_session.rollback()
-        raise
-    customer = db_session.query(Customer).filter_by(
-        email=db_session['email']).one()
-    return customer.customerID
-
-
-def getCustomerInfo(customer_id):
-    customer = db_session.query(Customer).filter_by(
-        customerID=customer_id).one()
-    return customer
-
-
-def getCustomerID(email):
-    try:
-        customer = db_session.query(Customer).filter_by(email=email).one()
-        return customer.customerID
-    except:
-        return None
-
-
-def setCart(cartItem):
-    cart = cartItem
-    session['cart'] = cart
-    print session['cart'].orderID
-    return session['cart']
-
-##################
-# JSON API calls #
-##################
 
 
 @app.route('/orders/JSON/')
