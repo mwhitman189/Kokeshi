@@ -14,7 +14,7 @@ class Customer(Base):
     firstName = Column(String(64), index=True)
     title = Column(String(32))
     email = Column(String(120), nullable=False, index=True, unique=True)
-    orderID = relationship('Order', backref='customer')
+    orderID = relationship("Order", backref="customer")
 
     @property
     def serialize(self):
@@ -43,7 +43,7 @@ class Order(Base):
     #isOrdered = Column(Boolean, unique=False, default=False)
     #dateOrdered = Column(TIMESTAMP(timezone=True))
     customer_ID = Column(Integer, ForeignKey(
-        'customer.customerID'))
+        "customer.customerID"))
 
     @property
     def serialize(self):

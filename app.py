@@ -101,7 +101,7 @@ def showAboutPage():
 @app.route('/design/', methods=['GET', 'POST'])
 def showDesignPage():
     """
-    Display a kokeshi designing page that, when submitted, updates the shopping cart with the order and redirects to the order page.
+    Display a kokeshi designing page that, when submitted, updates the \ shopping cart with the order and redirects to the order page.
     """
 
     if request.method == 'POST':
@@ -126,9 +126,12 @@ def showDesignPage():
 
         db_session.add(new_order)
         db_session.commit()
+
+        # Set order ID session variable to use when the customer enters
+        # their data
         session['new_order_id'] = new_order.orderID
 
-        flash("Success! Your order of '%s kokeshi' has been added to your cart." %
+        flash("Success! Your order of '%s kokeshi' has been added to your \ cart." %
               new_order.item)
 
         return redirect(url_for('showOrderPage'))
@@ -151,6 +154,9 @@ def showCheckoutPage():
     """
     Display the checkout page
     """
+    order = db_session.query(Order).filter_by(
+        orderID=session['new_order_id']).one()
+
     if request.method == 'POST':
         customer = Customer(
             lastName=request.form['lastName'],
@@ -158,14 +164,13 @@ def showCheckoutPage():
             title=request.form['title'],
             email=request.form['email'],
         )
+        # Connect order to freshly entered customer data
+        customer.orderID.append(order)
 
         db_session.add(customer)
         db_session.commit()
 
-        order = db_session.query(Order).filter_by(
-            orderID=session['new_order_id']).one()
-
-        flash("Thank you, %s %s. We will contact you within 48 hours. We appreciate your patience." %
+        flash("Thank you, %s %s. We will contact you within 48 hours. We \ appreciate your patience." %
               (customer.title, customer.lastName))
         return redirect(url_for('showConfirmPage'))
 
