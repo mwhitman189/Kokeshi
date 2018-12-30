@@ -179,9 +179,8 @@ def showConfirmPage():
     Display the order confirmation page after an order is submitted
     """
     order = db_session.query(Order).filter_by(
-        orderID=session['new_order_id']).one()
-    print order.orderID
-    return jsonify(order)
+        orderID=session['new_order_id']).all()
+    return jsonify(order=[o.serialize for o in order])
 
     # return render_template('confirmation.html')
 
