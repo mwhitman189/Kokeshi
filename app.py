@@ -19,6 +19,11 @@ DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
 
 
+@app.before_request
+def force_https():
+    if request.endpoint in app.view_functions and request.headers.get('X-Forwarded-Proto', None) == 'http':
+        return redirect(request.url.replace('http://', 'https://'))
+
 ##################
 # JSON API calls #
 ##################
@@ -135,7 +140,7 @@ def showCheckoutPage():
         return redirect(url_for('showConfirmPage'))
 
     else:
-        return render_template('checkout_1.html')
+        return render_template('checkout.html')
 
 
 @app.route('/confirmation/')
