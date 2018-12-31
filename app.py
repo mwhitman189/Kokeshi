@@ -1,4 +1,5 @@
 import os
+import psycopg2
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash, session
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
@@ -13,7 +14,14 @@ csrf = SeaSurf(app)
 app.config.from_object('config.development')
 app.config['SECRET_KEY'] = 'super duper secret key'
 
-engine = create_engine('sqlite:///models.db?check_same_thread=False')
+hostname = 'localhost'
+username = 'kokeshi'
+password = 'kokeshi189fiend#it'
+database = 'kokeshi'
+
+engine = create_engine('postgresql+psycopg2://' +
+                       username + ':' + password + '@' + hostname + '/' + database)
+#engine = create_engine('sqlite:///models.db?check_same_thread=False')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
@@ -37,9 +45,6 @@ def showOrdersJSON():
     orders = db_session.query(Order).all()
     return jsonify(orders=[o.serialize for o in orders])
 
-# order = db_session.query(Order).filter_by(
-#    orderID=session['new_order_id']).all()
-# return jsonify(order=[o.serialize for o in order])
 
 #######################
 # Client facing pages #
