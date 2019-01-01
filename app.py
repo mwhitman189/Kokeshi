@@ -18,7 +18,7 @@ app.config.from_envvar('KOKESHI_SETTINGS')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', DATABASE_DEFAULT)
 
-engine = create_engine(os.environ['DATABASE_URI'])
+engine = create_engine(os.environ['DATABASE_URL'])
 
 db = SQLAlchemy(app)
 
