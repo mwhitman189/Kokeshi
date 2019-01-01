@@ -1,4 +1,5 @@
 import os
+from os import environ
 import psycopg2
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash, session
 from sqlalchemy.ext.declarative import declarative_base
@@ -11,16 +12,11 @@ APPLICATION_NAME = "Kokeshi"
 
 app = Flask(__name__)
 csrf = SeaSurf(app)
-app.config.from_object('config.development')
-app.config['SECRET_KEY'] = 'super duper secret key'
+app.config.from_object('config.default')
+app.config.from_envvar('KOKESHI_SETTINGS')
 
-hostname = 'localhost'
-username = 'kokeshi'
-password = 'kokeshi189fiend#it'
-database = 'kokeshi'
-
-engine = create_engine('postgresql+psycopg2://' +
-                       username + ':' + password + '@' + hostname + '/' + database)
+engine = create_engine(
+    'postgresql+psycopg2://kokeshi:kokeshi189fiend#it@localhost/kokeshi')
 #engine = create_engine('sqlite:///models.db?check_same_thread=False')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
@@ -31,6 +27,7 @@ db_session = DBSession()
 def force_https():
     if request.endpoint in app.view_functions and request.headers.get('X-Forwarded-Proto', None) == 'http':
         return redirect(request.url.replace('http://', 'https://'))
+
 
 ##################
 # JSON API calls #

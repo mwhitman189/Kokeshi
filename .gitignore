@@ -2,7 +2,6 @@
 # Local environment files #
 ###########################
 node_modules
-*.cfg
 
 ###########
 # Folders #
