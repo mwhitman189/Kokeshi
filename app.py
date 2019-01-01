@@ -15,6 +15,8 @@ app = Flask(__name__)
 csrf = SeaSurf(app)
 app.config.from_pyfile('config_default.cfg')
 app.config.from_envvar('KOKESHI_SETTINGS')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL', DATABASE_DEFAULT)
 
 engine = create_engine(os.environ['DATABASE_URI'])
 
