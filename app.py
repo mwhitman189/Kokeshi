@@ -12,11 +12,11 @@ APPLICATION_NAME = "Kokeshi"
 
 app = Flask(__name__)
 csrf = SeaSurf(app)
-app.config.from_object('config.default')
+app.config.from_pyfile('config_default.cfg')
 app.config.from_envvar('KOKESHI_SETTINGS')
 
 engine = create_engine(
-    'postgresql+psycopg2://kokeshi:kokeshi189fiend#it@localhost/kokeshi')
+    app.config['DATABASE_URL'])
 #engine = create_engine('sqlite:///models.db?check_same_thread=False')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
@@ -165,7 +165,6 @@ def showContactPage():
 
 ### Initialize App ###
 if __name__ == '__main__':
-    app.debug = True
     # Bind to PORT if defined, otherwise default to 8000.
     port = int(os.environ.get('PORT', 8000))
     app.run(host='0.0.0.0', port=port)
