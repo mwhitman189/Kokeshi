@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for, f
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
+from flask_sqlalchemy import SQLAlchemy
 from models import Base, Order, Customer
 from flask_seasurf import SeaSurf
 
@@ -15,8 +16,12 @@ csrf = SeaSurf(app)
 app.config.from_pyfile('config_default.cfg')
 app.config.from_envvar('KOKESHI_SETTINGS')
 
+app.config['SQLALCHEMY_DATABASE_URI'] = environ['DATABASE_URL']
+
 engine = create_engine(
-    app.config['DATABASE_URL'] + '?sslmode=require')
+    app.config['SQLALCHEMY_DATABASE_URI'] + '?sslmode=require')
+
+sqldb = SQLAlchemy(app)
 
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
