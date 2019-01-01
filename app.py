@@ -23,10 +23,10 @@ DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
 
 
-"""@app.before_request
+@app.before_request
 def force_https():
     if request.endpoint in app.view_functions and request.headers.get('X-Forwarded-Proto', None) == 'http':
-        return redirect(request.url.replace('http://', 'https://'))"""
+        return redirect(request.url.replace('http://', 'https://'))
 
 
 ##################
