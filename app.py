@@ -8,10 +8,12 @@ from sqlalchemy import create_engine
 from flask_sqlalchemy import SQLAlchemy
 from models import Base, Order, Customer
 from flask_seasurf import SeaSurf
+from flask.ext.heroku import Heroku
 
 APPLICATION_NAME = "Kokeshi"
 
 app = Flask(__name__)
+heroku = Heroku(app)
 csrf = SeaSurf(app)
 app.config.from_pyfile('config_default.cfg')
 app.config.from_envvar('KOKESHI_SETTINGS')
