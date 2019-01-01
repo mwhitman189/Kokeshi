@@ -15,10 +15,10 @@ app = Flask(__name__)
 csrf = SeaSurf(app)
 app.config.from_pyfile('config_default.cfg')
 app.config.from_envvar('KOKESHI_SETTINGS')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    'DATABASE_URL', DATABASE_DEFAULT)
 
-engine = create_engine(os.environ['DATABASE_URL'])
+print app.config['SQLALCHEMY_DATABASE_URI']
+
+engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 
 db = SQLAlchemy(app)
 
@@ -27,16 +27,22 @@ DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
 
 
+############################
+# Administrative functions #
+############################
+
 @app.before_request
 def force_https():
-    if request.endpoint in app.view_functions and request.headers.get('X-Forwarded-Proto', None) == 'http':
-        return redirect(request.url.replace('http://', 'https://'))
+    if os.environ.get('DATABASE_URL') is not None:
+        if not request.is_secure():
+            url = request.url.replace('http://', 'https://', 1)
+            code = 301
+            return redirect(url, code=code)
 
 
 ##################
 # JSON API calls #
 ##################
-
 
 @app.route('/orders/JSON/')
 def showOrdersJSON():
@@ -170,5 +176,5 @@ def showContactPage():
 ### Initialize App ###
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 8000.
-    port = int(os.environ.get('PORT', 5432))
+    port = int(os.environ.get('PORT', 8000))
     app.run(host='0.0.0.0', port=port)
