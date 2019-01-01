@@ -29,13 +29,13 @@ db_session = DBSession()
 # Administrative functions #
 ############################
 
-@app.before_request
+"""@app.before_request
 def force_https():
     if os.environ.get('DATABASE_URL') is not None:
         if not request.is_secure():
             url = request.url.replace('http://', 'https://', 1)
             code = 301
-            return redirect(url, code=code)
+            return redirect(url, code=code)"""
 
 
 ##################
