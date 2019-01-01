@@ -16,8 +16,7 @@ csrf = SeaSurf(app)
 app.config.from_pyfile('config_default.cfg')
 app.config.from_envvar('KOKESHI_SETTINGS')
 
-engine = create_engine(
-    'postgres://lrgvoozsusbocg:ec548db01c5b176966ce3d5141993a8479eb0862a5b38ebc850326486aba7b35@ec2-54-235-169-191.compute-1.amazonaws.com:5432/d9ngc8vh01vbpt?sslmode=require')
+engine = create_engine(os.environ['DATABASE_URI'])
 
 db = SQLAlchemy(app)
 
