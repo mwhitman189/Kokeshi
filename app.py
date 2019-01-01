@@ -16,8 +16,8 @@ app.config.from_pyfile('config_default.cfg')
 app.config.from_envvar('KOKESHI_SETTINGS')
 
 engine = create_engine(
-    app.config['DATABASE_URL'])
-#engine = create_engine('sqlite:///models.db?check_same_thread=False')
+    app.config['DATABASE_URL'] + '?sslmode=require')
+
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
