@@ -18,6 +18,7 @@ csrf = SeaSurf(app)
 app.config.from_pyfile('config_default.cfg')
 app.config.from_envvar('KOKESHI_SETTINGS')
 
+print app.config['SQLALCHEMY_DATABASE_URI']
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 
 db = SQLAlchemy(app)
