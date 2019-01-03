@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from flask_sqlalchemy import SQLAlchemy
 from models import Base, Order, Customer
 from flask_seasurf import SeaSurf
-from flask.ext.heroku import Heroku
+from flask_heroku import Heroku
 
 APPLICATION_NAME = "Kokeshi"
 
