@@ -17,10 +17,11 @@ heroku = Heroku(app)
 csrf = SeaSurf(app)
 app.config.from_pyfile('config_default.cfg')
 
-try:
-    app.config.from_envvar('KOKESHI_SETTINGS')
-except:
-    print("No environment variable named 'KOKESHI_SETTINGS'")
+if 'KOKESHI_SETTINGS' in app.config:
+    try:
+        app.config.from_envvar('KOKESHI_SETTINGS')
+    except:
+        print("No environment variable named 'KOKESHI_SETTINGS'")
 
 db = SQLAlchemy(app)
 db.create_all()
