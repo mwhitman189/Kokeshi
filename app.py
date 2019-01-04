@@ -17,6 +17,8 @@ heroku = Heroku(app)
 csrf = SeaSurf(app)
 app.config.from_pyfile('config_default.cfg')
 
+app.secret_key = app.config['SECRET_KEY']
+
 try:
     app.config.from_envvar('KOKESHI_SETTINGS')
 except:
