@@ -23,6 +23,7 @@ except:
     print("No environment variable named 'KOKESHI_SETTINGS'")
 
 db = SQLAlchemy(app)
+db.create_all()
 
 
 ############################
