@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
 from flask_sqlalchemy import SQLAlchemy
-from models import Base, Order, Customer
+from models import User, Order, Customer
 from flask_seasurf import SeaSurf
 from flask_heroku import Heroku
 
@@ -18,14 +18,7 @@ csrf = SeaSurf(app)
 app.config.from_pyfile('config_default.cfg')
 app.config.from_envvar('KOKESHI_SETTINGS')
 
-
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-
 db = SQLAlchemy(app)
-
-Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine)
-db_session = DBSession()
 
 
 ############################
@@ -50,7 +43,7 @@ def showOrdersJSON():
     """
     Return order data in JSON
     """
-    orders = db_session.query(Order).all()
+    orders = db.session.query(Order).all()
     return jsonify(orders=[o.serialize for o in orders])
 
 
@@ -102,8 +95,8 @@ def showDesignPage():
                 weight=request.form['weight']
             )
 
-        db_session.add(new_order)
-        db_session.commit()
+        db.session.add(new_order)
+        db.session.commit()
 
         # Set order ID session variable to use when the customer enters
         # their data
@@ -132,7 +125,7 @@ def showCheckoutPage():
     """
     Display the checkout page
     """
-    order = db_session.query(Order).filter_by(
+    order = db.session.query(Order).filter_by(
         orderID=session['new_order_id']).one()
 
     if request.method == 'POST':
@@ -145,8 +138,8 @@ def showCheckoutPage():
         # Connect order to freshly entered customer data
         customer.orderID.append(order)
 
-        db_session.add(customer)
-        db_session.commit()
+        db.session.add(customer)
+        db.session.commit()
 
         flash("Thank you, %s %s. We will contact you within 48 hours. We appreciate your patience." %
               (customer.title, customer.lastName))
