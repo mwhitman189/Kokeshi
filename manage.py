@@ -6,7 +6,6 @@ from app import app, db
 
 
 app.config.from_pyfile('config_default.cfg')
-app.config.from_envvar('KOKESHI_SETTINGS')
 
 migrate = Migrate(app, db)
 manager = Manager(app)
