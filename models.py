@@ -16,10 +16,11 @@ db = SQLAlchemy()
 
 class User(db.Model):
     __tablename__ = 'user'
-    id = Column(db.Integer, primary_key=True)
-    username = Column(db.String(64), nullable=False, index=True, unique=True)
-    is_authorized = Column(db.Boolean, unique=False, default=False)
-    password_hash = Column(db.String(64))
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), nullable=False,
+                         index=True, unique=True)
+    is_authorized = db.Column(db.Boolean, unique=False, default=False)
+    password_hash = db.Column(db.String(64))
 
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)
@@ -57,11 +58,11 @@ class User(db.Model):
 
 class Customer(db.Model):
     __tablename__ = 'customer'
-    customerID = Column(db.Integer, primary_key=True)
-    lastName = Column(db.String(64), index=True)
-    firstName = Column(db.String(64), index=True)
-    title = Column(db.String(32))
-    email = Column(db.String(120), nullable=False, index=True, unique=True)
+    customerID = db.Column(db.Integer, primary_key=True)
+    lastName = db.Column(db.String(64), index=True)
+    firstName = db.Column(db.String(64), index=True)
+    title = db.Column(db.String(32))
+    email = db.Column(db.String(120), nullable=False, index=True, unique=True)
     orderID = db.relationship(
         'Order', backref=db.backref('customer', lazy=True))
 
@@ -82,16 +83,16 @@ class Customer(db.Model):
 
 class Order(db.Model):
     __tablename__ = 'order'
-    orderID = Column(db.Integer, primary_key=True)
-    item = Column(db.String(64), nullable=False)
-    name = Column(db.String(64))
-    dob = Column(db.String(32))
-    height = Column(db.Integer)
-    weight = Column(db.Integer)
-    message = Column(db.String(300))
-    isOrdered = Column(db.Boolean, unique=False, default=False)
-    dateOrdered = Column(DateTime, default=datetime.datetime.utcnow)
-    customer_ID = Column(db.Integer, db.ForeignKey(
+    orderID = db.Column(db.Integer, primary_key=True)
+    item = db.Column(db.String(64), nullable=False)
+    name = db.Column(db.String(64))
+    dob = db.Column(db.String(32))
+    height = db.Column(db.Integer)
+    weight = db.Column(db.Integer)
+    message = db.Column(db.String(300))
+    isOrdered = db.Column(db.Boolean, unique=False, default=False)
+    dateOrdered = db.Column(DateTime, default=datetime.datetime.utcnow)
+    customer_ID = db.Column(db.Integer, db.ForeignKey(
         "customer.customerID"), nullable=False)
 
     @property
