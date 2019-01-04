@@ -93,7 +93,7 @@ class Order(db.Model):
     isOrdered = db.Column(db.Boolean, unique=False, default=False)
     dateOrdered = db.Column(DateTime, default=datetime.datetime.utcnow)
     customer_ID = db.Column(db.Integer, db.ForeignKey(
-        "customer.customerID"), nullable=False)
+        "customer.customerID"))
 
     @property
     def serialize(self):
