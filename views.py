@@ -7,29 +7,14 @@ from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
 from flask_sqlalchemy import SQLAlchemy
 from models import User, Order, Customer
-from flask_seasurf import SeaSurf
-from flask_heroku import Heroku
-
-APPLICATION_NAME = "Kokeshi"
-
-app = Flask(__name__)
-heroku = Heroku(app)
-csrf = SeaSurf(app)
-app.config.from_pyfile('config_default.cfg')
-
-if 'KOKESHI_SETTINGS' in app.config:
-    try:
-        app.config.from_envvar('KOKESHI_SETTINGS')
-    except:
-        print("No environment variable named 'KOKESHI_SETTINGS'")
-
-db = SQLAlchemy(app)
-db.create_all()
+from run import app
+from __init__ import db
 
 
 ############################
 # Administrative functions #
 ############################
+
 
 @app.before_request
 def force_https():
@@ -171,10 +156,3 @@ def showContactPage():
     """
 
     return render_template('contact.html')
-
-
-### Initialize App ###
-if __name__ == '__main__':
-    # Bind to PORT if defined, otherwise default to 8000.
-    port = int(os.environ.get('PORT', 8000))
-    app.run(host='0.0.0.0', port=port)

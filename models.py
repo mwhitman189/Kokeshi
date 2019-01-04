@@ -10,8 +10,7 @@ import random
 import string
 from itsdangerous import(
     TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
-
-db = SQLAlchemy()
+from __init__ import db
 
 
 class User(db.Model):
