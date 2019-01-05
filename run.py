@@ -1,5 +1,5 @@
 import os
-from app import create_app
+from appInit import create_app
 app = create_app()
 
 ### Initialize App ###
