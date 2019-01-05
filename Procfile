@@ -1,1 +1,1 @@
-web: gunicorn kokeshi:app
+web: gunicorn app:app
