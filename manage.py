@@ -3,7 +3,7 @@ from flask import Flask
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from models import Customer, User, Order
-from app import create_app
+from appInit import create_app
 
 app = Flask(__name__)
 
