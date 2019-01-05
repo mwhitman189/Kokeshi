@@ -10,7 +10,7 @@ import random
 import string
 from itsdangerous import(
     TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
-from app import db
+from appInit import db
 
 
 class User(db.Model):

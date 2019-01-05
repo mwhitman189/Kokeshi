@@ -19,7 +19,6 @@ def create_app():
     from sqlalchemy import create_engine
     from flask_sqlalchemy import SQLAlchemy
     from models import User, Order, Customer
-    from app import db
 
     APPLICATION_NAME = "Kokeshi"
 
