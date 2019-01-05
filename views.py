@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from flask_sqlalchemy import SQLAlchemy
 from models import User, Order, Customer
 from run import app
-from __init__ import db
+from app import db
 
 
 ############################
