@@ -63,7 +63,7 @@ class Customer(db.Model):
     title = db.Column(db.String(32))
     email = db.Column(db.String(120), nullable=False, index=True, unique=True)
     orderID = db.relationship(
-        'Order', backref=db.backref('customer', lazy=True))
+        'Order', backref=db.backref('customers', lazy=True))
 
     @property
     def serialize(self):
@@ -92,7 +92,7 @@ class Order(db.Model):
     isOrdered = db.Column(db.Boolean, unique=False, default=False)
     dateOrdered = db.Column(DateTime, default=datetime.datetime.utcnow)
     customer_ID = db.Column(db.Integer, db.ForeignKey(
-        "customer.customerID"))
+        "customers.customerID"))
 
     @property
     def serialize(self):

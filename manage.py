@@ -11,6 +11,7 @@ app.config.from_pyfile('config_default.cfg')
 
 migrate = Migrate(app, db)
 manager = Manager(app)
+
 manager.add_command('db', MigrateCommand)
 
 
