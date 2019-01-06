@@ -33,8 +33,6 @@ def create_app():
         pass
 
     db = SQLAlchemy(app)
-    db.reflect()
-    db.drop_all()
 
     ############################
     # Administrative functions #
