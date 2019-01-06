@@ -14,7 +14,7 @@ from appInit import db
 
 
 class User(db.Model):
-    __tablename__ = 'user'
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), nullable=False,
                          index=True, unique=True)
@@ -56,7 +56,7 @@ class User(db.Model):
 
 
 class Customer(db.Model):
-    __tablename__ = 'customer'
+    __tablename__ = 'customers'
     customerID = db.Column(db.Integer, primary_key=True)
     lastName = db.Column(db.String(64), index=True)
     firstName = db.Column(db.String(64), index=True)
@@ -81,7 +81,7 @@ class Customer(db.Model):
 
 
 class Order(db.Model):
-    __tablename__ = 'order'
+    __tablename__ = 'orders'
     orderID = db.Column(db.Integer, primary_key=True)
     item = db.Column(db.String(64), nullable=False)
     name = db.Column(db.String(64))
