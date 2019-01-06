@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config.from_pyfile('config_default.cfg')
 
 migrate = Migrate(app, db)
-manager = Manager(create_app)
+manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 
