@@ -18,7 +18,7 @@ def create_app():
     from sqlalchemy.orm import relationship, sessionmaker
     from sqlalchemy import create_engine
     from flask_sqlalchemy import SQLAlchemy
-    from models import User, Order, Customer, user_schema, order_schema, orders_schema, customer_schema
+    from models import User, Order, Customer, user_schema, order_schema, orders_schema, customers_schema
 
     APPLICATION_NAME = "Kokeshi"
 
@@ -74,7 +74,7 @@ def create_app():
         """
         customers = Customer.query.all()
 
-        return jsonify(customer_schema.dump(customers).data)
+        return jsonify(customers_schema.dump(customers).data)
 
     #######################
     # Client facing pages #

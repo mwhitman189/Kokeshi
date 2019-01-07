@@ -87,7 +87,7 @@ class CustomerSchema(ModelSchema):
         model = Customer
 
 
-customer_schema = CustomerSchema()
+customers_schema = CustomerSchema(many=True)
 
 
 class OrderSchema(ModelSchema):
