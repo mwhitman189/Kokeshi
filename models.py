@@ -71,6 +71,14 @@ class Order(db.Model):
         "customers.customerID"))
 
 
+class OrderSchema(ModelSchema):
+    class Meta:
+        model = Order
+
+
+orders_schema = OrderSchema(many=True)
+
+
 class Customer(db.Model):
     __tablename__ = 'customers'
     customerID = db.Column(db.Integer, primary_key=True)
@@ -88,12 +96,3 @@ class CustomerSchema(ModelSchema):
 
 
 customers_schema = CustomerSchema(many=True)
-
-
-class OrderSchema(ModelSchema):
-    class Meta:
-        model = Order
-
-
-order_schema = OrderSchema()
-orders_schema = OrderSchema(many=True)
