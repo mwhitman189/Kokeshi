@@ -1,8 +1,8 @@
 import os
 from sqlalchemy import Column, Integer, Boolean, String, DateTime, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
+from sqlalchemy.sql import func
 from flask_sqlalchemy import SQLAlchemy
 from passlib.apps import custom_app_context as pwd_context
 import datetime
@@ -13,9 +13,30 @@ from itsdangerous import(
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
 from appInit import db
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_login import UserMixin, LoginManager
 
 
-class User(db.Model):
+class User(db.model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(32))
+
+
+class MyModelView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('login'))
+
+
+admin = Admin(app)
+admin.add_view(ModelView(User, db.session))
+
+
+"""class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), nullable=False,
@@ -45,7 +66,7 @@ class User(db.Model):
             # Invalid Token
             return None
         user_id = data['id']
-        return user_id
+        return user_id"""
 
 
 class UserSchema(ModelSchema):
@@ -66,7 +87,8 @@ class Order(db.Model):
     weight = db.Column(db.Integer)
     message = db.Column(db.String(300))
     wasOrdered = db.Column(db.Boolean, unique=False, default=False)
-    dateOrdered = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    dateOrdered = db.Column(
+        db.DateTime, server_default=func.now())
     wasFulfilled = db.Column(db.Boolean, unique=False, default=False)
     customer_ID = db.Column(db.Integer, db.ForeignKey(
         "customers.customerID"))

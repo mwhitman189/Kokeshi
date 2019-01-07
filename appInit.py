@@ -13,12 +13,14 @@ def create_app():
     import os
     from os import environ
     import psycopg2
-    from flask import Flask, render_template, request, redirect, jsonify, url_for, flash, session
+    from flask import render_template, request, redirect, jsonify, url_for, flash, session
     from sqlalchemy.ext.declarative import declarative_base
     from sqlalchemy.orm import relationship, sessionmaker
     from sqlalchemy import create_engine
     from flask_sqlalchemy import SQLAlchemy
     from models import User, Order, Customer, user_schema, orders_schema, customers_schema
+    from flask_admin import Admin
+    from flask_login import UserMixin, LoginManager, current_user, login_user, logout_user
 
     APPLICATION_NAME = "Kokeshi"
 
@@ -33,10 +35,30 @@ def create_app():
         pass
 
     db = SQLAlchemy(app)
+    login = LoginManager(app)
 
-    ############################
-    # Administrative functions #
-    ############################
+    #######################
+    # User administration #
+    #######################
+
+    @login.user_loader
+    def load_user(user_id):
+        return User.query.get(user_id)
+
+    @app.route('/login')
+    def login():
+        user = User.query.get(1)
+        login_user(user)
+        return 'Logged in'
+
+    @app.route('/logout')
+    def logout():
+        logout_user()
+        return 'Logged out'
+
+        ##########################
+        # General Administration #
+        ##########################
 
     @app.before_request
     def force_https():
@@ -161,6 +183,7 @@ def create_app():
             )
             # Connect order to freshly entered customer data
             customer.orders.append(order)
+            order.wasOrdered = True
 
             db.session.add(customer)
             db.session.commit()
