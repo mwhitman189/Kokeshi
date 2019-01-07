@@ -1,11 +1,15 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_seasurf import SeaSurf
 from flask_heroku import Heroku
+from flask_admin.contrib.sqla import ModelView
+from flask_wtf.csrf import CSRFProtect
+from flask_security import login_required
+
 
 db = SQLAlchemy()
 migrate = Migrate()
+csrf = CSRFProtect()
 
 
 def create_app():
@@ -18,41 +22,58 @@ def create_app():
     from sqlalchemy.orm import relationship, sessionmaker
     from sqlalchemy import create_engine
     from flask_sqlalchemy import SQLAlchemy
-    from models import User, Order, Customer, user_schema, orders_schema, customers_schema
+    from models import User, Order, Customer, Role, user_schema, orders_schema, customers_schema, MyAdminIndexView, UserAdmin, RoleAdmin
     from flask_admin import Admin
     from flask_login import UserMixin, LoginManager, current_user, login_user, logout_user
+    from flask_security import SQLAlchemyUserDatastore, Security, utils
+    from wtforms.fields import PasswordField
+    from passlib.hash import pbkdf2_sha256
 
     APPLICATION_NAME = "Kokeshi"
 
     app = Flask(__name__)
     heroku = Heroku(app)
-    csrf = SeaSurf(app)
+    csrf.init_app(app)
     app.config.from_pyfile('config_default.cfg')
 
     try:
         app.config.from_envvar('KOKESHI_SETTINGS')
     except:
         pass
+    app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
+    app.config['SECURITY_PASSWORD_SALT'] = '$2b$12$1pO0bbJOrozMPSKdzOB6a.'
 
     db = SQLAlchemy(app)
     login = LoginManager(app)
+    admin = Admin(app, index_view=MyAdminIndexView())
+    admin.add_view(UserAdmin(User, db.session))
+    admin.add_view(RoleAdmin(Role, db.session))
+    print db.session
+
+    # Initialize the SQLAlchemy data store and Flask-Security.
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    security = Security(app, user_datastore)
 
     #######################
     # User administration #
     #######################
 
-    @login.user_loader
-    def load_user(user_id):
-        return User.query.get(user_id)
+    @app.route('/login/', methods=['GET', 'POST'])
+    def showLogin():
+        if request.method == 'POST':
+            encrypted_password = utils.encrypt_password(
+                request.form['password'])
+            user_datastore.create_user(
+                email=request.form['email'],
+                password=encrypted_password)
 
-    @app.route('/login')
-    def login():
-        user = User.query.get(1)
-        login_user(user)
-        return 'Logged in'
+            return redirect(url_for('showOrdersJSON'))
+
+        else:
+            return render_template('login.html')
 
     @app.route('/logout')
-    def logout():
+    def showLogout():
         logout_user()
         return 'Logged out'
 
@@ -73,6 +94,7 @@ def create_app():
     ##################
 
     @app.route('/orders/JSON/')
+    @login_required
     def showOrdersJSON():
         """
         Return order data in JSON
@@ -81,6 +103,7 @@ def create_app():
         return jsonify(orders_schema.dump(orders).data)
 
     @app.route('/orders/unfulfilled/JSON/')
+    @login_required
     def showUnfulfilledOrdersJSON():
         """
         Return unfulfilled order data in JSON
@@ -90,6 +113,7 @@ def create_app():
         return jsonify(orders_schema.dump(unful_orders).data)
 
     @app.route('/customers/JSON/')
+    @login_required
     def showCustomersJSON():
         """
         Return customer data in JSON

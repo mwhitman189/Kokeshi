@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from models import Customer, User, Order
+from models import User, Order, Customer, Role, user_schema, orders_schema, customers_schema, MyAdminIndexView, UserAdmin, RoleAdmin
 from appInit import create_app, db
 
 app = Flask(__name__)
