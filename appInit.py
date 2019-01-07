@@ -151,7 +151,6 @@ def create_app():
         """
         order = db.session.query(Order).filter_by(
             orderID=session['new_order_id']).one()
-        print order.orderID
 
         if request.method == 'POST':
             customer = Customer(
