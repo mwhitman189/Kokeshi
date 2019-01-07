@@ -86,7 +86,7 @@ class Customer(db.Model):
     lastName = db.Column(db.String(64), index=True)
     firstName = db.Column(db.String(64), index=True)
     title = db.Column(db.String(32))
-    email = db.Column(db.String(120), nullable=False, index=True, unique=True)
+    email = db.Column(db.String(120), nullable=False, index=True)
     orders = db.relationship(
         'Order', backref=db.backref('customers', lazy=True))
 

@@ -10,6 +10,7 @@ enum34==1.1.6
 Flask==1.0.2
 flask-heroku==0.1.9
 Flask-HTTPAuth==3.2.4
+flask-marshmallow==0.9.0
 Flask-Migrate==2.3.1
 Flask-Script==2.0.6
 Flask-SeaSurf==0.2.2
@@ -26,6 +27,8 @@ itsdangerous==0.24
 Jinja2==2.10
 Mako==1.0.7
 MarkupSafe==1.0
+marshmallow==2.17.0
+marshmallow-sqlalchemy==0.15.0
 oauth2client==4.1.2
 packaging==17.1
 passlib==1.7.1
