@@ -11,6 +11,7 @@ import string
 from itsdangerous import(
     TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
 from marshmallow_sqlalchemy import ModelSchema
+from marshmallow import fields
 from appInit import db
 
 
@@ -93,6 +94,7 @@ class Customer(db.Model):
 class CustomerSchema(ModelSchema):
     class Meta:
         model = Customer
+    orders = fields.Nested(OrderSchema, many=True)
 
 
 customers_schema = CustomerSchema(many=True)
