@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: fe027e5cf88a
+Revision ID: 6fb48e65ff93
 Revises: 
-Create Date: 2019-01-06 13:58:01.163936
+Create Date: 2019-01-07 12:39:41.258708
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'fe027e5cf88a'
+revision = '6fb48e65ff93'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,7 +32,7 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=64), nullable=False),
-    sa.Column('is_authorized', sa.Boolean(), nullable=True),
+    sa.Column('authorization', sa.String(length=64), nullable=True),
     sa.Column('password_hash', sa.String(length=64), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
@@ -45,8 +45,9 @@ def upgrade():
     sa.Column('height', sa.Integer(), nullable=True),
     sa.Column('weight', sa.Integer(), nullable=True),
     sa.Column('message', sa.String(length=300), nullable=True),
-    sa.Column('isOrdered', sa.Boolean(), nullable=True),
+    sa.Column('wasOrdered', sa.Boolean(), nullable=True),
     sa.Column('dateOrdered', sa.DateTime(), nullable=True),
+    sa.Column('wasFulfilled', sa.Boolean(), nullable=True),
     sa.Column('customer_ID', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['customer_ID'], ['customers.customerID'], ),
     sa.PrimaryKeyConstraint('orderID')

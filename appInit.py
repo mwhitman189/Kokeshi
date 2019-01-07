@@ -18,7 +18,7 @@ def create_app():
     from sqlalchemy.orm import relationship, sessionmaker
     from sqlalchemy import create_engine
     from flask_sqlalchemy import SQLAlchemy
-    from models import User, Order, Customer
+    from models import User, Order, Customer, user_schema, order_schema, orders_schema, customer_schema
 
     APPLICATION_NAME = "Kokeshi"
 
@@ -55,8 +55,26 @@ def create_app():
         """
         Return order data in JSON
         """
-        orders = db.session.query(Order).all()
-        return jsonify(orders=[o.serialize for o in orders])
+        orders = Order.query.all()
+        return jsonify(orders_schema.dump(orders).data)
+
+    @app.route('/orders/unfulfilled/JSON/')
+    def showUnfulfilledOrdersJSON():
+        """
+        Return unfulfilled order data in JSON
+        """
+        unful_orders = Order.query.filter_by(wasOrdered=False).all()
+
+        return jsonify(orders_schema.dump(unful_orders).data)
+
+    @app.route('/customers/JSON/')
+    def showCustomersJSON():
+        """
+        Return customer data in JSON
+        """
+        customers = Customer.query.all()
+
+        return jsonify(customer_schema.dump(customers).data)
 
     #######################
     # Client facing pages #
@@ -80,7 +98,7 @@ def create_app():
     @app.route('/design/', methods=['GET', 'POST'])
     def showDesignPage():
         """
-        Display a kokeshi designing page that, when submitted, updates the \ shopping cart with the order and redirects to the order page.
+        Display a kokeshi designing page that, when submitted, updates the shopping cart with the order and redirects to the order page.
         """
 
         if request.method == 'POST':
@@ -133,6 +151,7 @@ def create_app():
         """
         order = db.session.query(Order).filter_by(
             orderID=session['new_order_id']).one()
+        print order.orderID
 
         if request.method == 'POST':
             customer = Customer(
@@ -142,7 +161,7 @@ def create_app():
                 email=request.form['email'],
             )
             # Connect order to freshly entered customer data
-            customer.orderID.append(order)
+            customer.orders.append(order)
 
             db.session.add(customer)
             db.session.commit()
