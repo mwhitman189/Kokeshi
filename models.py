@@ -132,7 +132,7 @@ class RoleAdmin(sqla.ModelView):
         return current_user.has_role('admin')
 
 
-class Schema(ma.Schema):
+class Schema(ModelSchema):
     def __init__(self, strict=True, **kwargs):
         super(Schema, self).__init__(strict=strict, **kwargs)
 
