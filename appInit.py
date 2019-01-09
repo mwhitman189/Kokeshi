@@ -1,15 +1,4 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_heroku import Heroku
-from flask_admin.contrib.sqla import ModelView
-from flask_wtf.csrf import CSRFProtect
-from flask_security import login_required
-
-
-db = SQLAlchemy()
-migrate = Migrate()
-csrf = CSRFProtect()
+from extensions import db, migrate, csrf, ma, heroku, login_manager
 
 
 def create_app():
@@ -17,22 +6,27 @@ def create_app():
     import os
     from os import environ
     import psycopg2
-    from flask import render_template, request, redirect, jsonify, url_for, flash, session
-    from sqlalchemy.ext.declarative import declarative_base
-    from sqlalchemy.orm import relationship, sessionmaker
-    from sqlalchemy import create_engine
+    from flask import Flask
     from flask_sqlalchemy import SQLAlchemy
-    from models import User, Order, Customer, Role, user_schema, orders_schema, customers_schema, MyAdminIndexView, UserAdmin, RoleAdmin
+    from flask_migrate import Migrate
+    from flask_heroku import Heroku
+    from flask_admin.contrib.sqla import ModelView
+    from flask_wtf.csrf import CSRFProtect
+    from flask_security import login_required
+    from flask import render_template, request, redirect, jsonify, url_for, flash, session
+    from sqlalchemy.orm import relationship, sessionmaker
+    from flask_sqlalchemy import SQLAlchemy
+    from models import User, Order, Customer, Role, user_schema, orders_schema, customers_schema, MyAdminIndexView, UserAdmin, RoleAdmin, MyModelView
     from flask_admin import Admin
     from flask_login import UserMixin, LoginManager, current_user, login_user, logout_user
     from flask_security import SQLAlchemyUserDatastore, Security, utils
     from wtforms.fields import PasswordField
     from passlib.hash import pbkdf2_sha256
+    from flask_marshmallow import Marshmallow
 
     APPLICATION_NAME = "Kokeshi"
 
     app = Flask(__name__)
-    heroku = Heroku(app)
     csrf.init_app(app)
     app.config.from_pyfile('config_default.cfg')
 
@@ -44,8 +38,6 @@ def create_app():
     app.config['SECURITY_PASSWORD_SALT'] = '$2b$12$1pO0bbJOrozMPSKdzOB6a.'
     app.config['SECURITY_REGISTERABLE'] = True
 
-    db = SQLAlchemy(app)
-    login = LoginManager(app)
     admin = Admin(app, index_view=MyAdminIndexView())
     # Initialize the SQLAlchemy data store and Flask-Security.
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
@@ -258,3 +250,14 @@ def create_app():
     migrate.init_app(app, db)
 
     return app
+
+
+def register_extensions(app):
+
+    db.init_app(app)
+    login_manager.init_app(app)
+    migrate.init_app(app, db)
+    ma.init_app(app)
+    heroku.init_app(app)
+
+    return None

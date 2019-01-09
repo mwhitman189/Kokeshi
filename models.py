@@ -2,18 +2,15 @@ import os
 from flask import redirect, url_for
 from sqlalchemy import Column, Integer, Boolean, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, sessionmaker
-from sqlalchemy import create_engine
 from sqlalchemy.sql import func
 from flask_sqlalchemy import SQLAlchemy
 from passlib.apps import custom_app_context as pwd_context
 import datetime
-import random
 import string
 from itsdangerous import(
     TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
-from appInit import db
 from flask_admin import Admin, AdminIndexView
 from flask_login import LoginManager, current_user
 from flask_admin.contrib import sqla
@@ -21,8 +18,9 @@ from flask_admin.contrib.sqla import ModelView
 from flask_wtf import Form
 from flask_admin.model import BaseModelView
 from flask_security import Security, SQLAlchemyUserDatastore, \
-    UserMixin, RoleMixin
+    UserMixin, RoleMixin, utils
 from wtforms.fields import PasswordField
+from extensions import db, ma
 
 
 # Create a table to support a many-to-many relationship between Users and Roles
@@ -64,6 +62,9 @@ class User(db.Model, UserMixin):
         backref=db.backref('users', lazy='dynamic')
     )
 
+    def __str__(self):
+        return self.email
+
 
 class MyModelView(BaseModelView):
     form_base_class = Form
@@ -82,7 +83,7 @@ class MyModelView(BaseModelView):
 
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
-        if current_user.is_authenticated and current_user.has_role('super'):
+        if current_user.is_authenticated and current_user.has_role('admin'):
             return True
         else:
             return False
@@ -131,7 +132,12 @@ class RoleAdmin(sqla.ModelView):
         return current_user.has_role('admin')
 
 
-class UserSchema(ModelSchema):
+class Schema(ma.Schema):
+    def __init__(self, strict=True, **kwargs):
+        super(Schema, self).__init__(strict=strict, **kwargs)
+
+
+class UserSchema(Schema):
     class Meta:
         model = User
 
@@ -156,7 +162,7 @@ class Order(db.Model):
         "customers.customerID"))
 
 
-class OrderSchema(ModelSchema):
+class OrderSchema(Schema):
     class Meta:
         model = Order
 
@@ -175,7 +181,7 @@ class Customer(db.Model):
         'Order', backref=db.backref('customers', lazy=True))
 
 
-class CustomerSchema(ModelSchema):
+class CustomerSchema(Schema):
     class Meta:
         model = Customer
     orders = fields.Nested(OrderSchema, many=True)
