@@ -42,35 +42,54 @@ def create_app():
         pass
     app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
     app.config['SECURITY_PASSWORD_SALT'] = '$2b$12$1pO0bbJOrozMPSKdzOB6a.'
+    app.config['SECURITY_REGISTERABLE'] = True
 
     db = SQLAlchemy(app)
     login = LoginManager(app)
     admin = Admin(app, index_view=MyAdminIndexView())
-    admin.add_view(UserAdmin(User, db.session))
-    admin.add_view(RoleAdmin(Role, db.session))
-    print db.session
-
     # Initialize the SQLAlchemy data store and Flask-Security.
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
+
+    admin.add_view(UserAdmin(User, db.session))
+    admin.add_view(RoleAdmin(Role, db.session))
 
     #######################
     # User administration #
     #######################
 
+    @app.before_first_request
+    def before_first_request():
+        db.create_all()
+        user_datastore.find_or_create_role(
+            name='admin', description='Administrator')
+        user_datastore.find_or_create_role(
+            name='end-user', description='End user')
+
+        encrypted_password = utils.encrypt_password('password')
+
+        if not user_datastore.get_user('someone@example.com'):
+            user_datastore.create_user(
+                email='someone@example.com',
+                password=encrypted_password
+            )
+        if not user_datastore.get_user('admin@example.com'):
+            user_datastore.create_user(
+                email='admin@example.com',
+                password=encrypted_password
+            )
+
+        db.session.commit()
+
+        user_datastore.add_role_to_user('someone@example.com', 'end-user')
+        user_datastore.add_role_to_user('admin@example.com', 'admin')
+        db.session.commit()
+
     @app.route('/login/', methods=['GET', 'POST'])
     def showLogin():
         if request.method == 'POST':
-            encrypted_password = utils.encrypt_password(
-                request.form['password'])
-            user_datastore.create_user(
-                email=request.form['email'],
-                password=encrypted_password)
-
-            return redirect(url_for('showOrdersJSON'))
-
-        else:
-            return render_template('login.html')
+            return redirect(url_for('showHome'))
+        return render_template('login.html')
 
     @app.route('/logout')
     def showLogout():

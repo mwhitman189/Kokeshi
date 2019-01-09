@@ -28,13 +28,13 @@ from wtforms.fields import PasswordField
 # Create a table to support a many-to-many relationship between Users and Roles
 UsersRoles = db.Table(
     'roles_users',
-    db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-    db.Column('role_id', db.Integer(), db.ForeignKey('role.id'))
+    db.Column('user_id', db.Integer(), db.ForeignKey('users.id')),
+    db.Column('role_id', db.Integer(), db.ForeignKey('roles.id'))
 )
 
 
 class Role(db.Model, RoleMixin):
-    __tablename__ = 'role'
+    __tablename__ = 'roles'
     # Our Role has three fields, ID, name and description
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
@@ -52,7 +52,7 @@ class Role(db.Model, RoleMixin):
 
 # User class
 class User(db.Model, UserMixin):
-    __tablename__ = 'user'
+    __tablename__ = 'users'
     id = db.Column(db.Integer(), primary_key=True)
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
@@ -70,8 +70,8 @@ class MyModelView(BaseModelView):
 
     def is_accessible(self):
         if current_user.is_authenticated \
-            and current_user.has_role('Admin') \
-                or current_user.has_role('Super'):
+            and current_user.has_role('admin') \
+                or current_user.has_role('super'):
             return True
         else:
             return False
@@ -82,7 +82,7 @@ class MyModelView(BaseModelView):
 
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
-        if current_user.is_authenticated and current_user.has_role('Super'):
+        if current_user.is_authenticated and current_user.has_role('super'):
             return True
         else:
             return False
@@ -93,19 +93,16 @@ class MyAdminIndexView(AdminIndexView):
 
 # Customized User model for SQL-Admin
 class UserAdmin(sqla.ModelView):
-
     # Don't display the password on the list of Users
     column_exclude_list = ('password',)
-
     # Don't include the standard password field when creating or editing a User (but see below)
     form_excluded_columns = ('password',)
-
     # Automatically display human-readable names for the current and available Roles when creating or editing a User
     column_auto_select_related = True
-
     # Prevent administration of Users unless the currently logged-in user has the "admin" role
+
     def is_accessible(self):
-        return current_user.has_role('admin')
+        return True  # current_user.has_role('admin')
 
     # On the form for creating or editing a User, don't display a field corresponding to the model's password field.
     # There are two reasons for this. First, we want to encrypt the password before storing in the database. Second,
@@ -156,7 +153,7 @@ class Order(db.Model):
         db.DateTime, server_default=func.now())
     wasFulfilled = db.Column(db.Boolean(), unique=False, default=False)
     customer_ID = db.Column(db.Integer(), db.ForeignKey(
-        "customer.customerID"))
+        "customers.customerID"))
 
 
 class OrderSchema(ModelSchema):
@@ -168,14 +165,14 @@ orders_schema = OrderSchema(many=True)
 
 
 class Customer(db.Model):
-    __tablename__ = 'customer'
+    __tablename__ = 'customers'
     customerID = db.Column(db.Integer(), primary_key=True)
     lastName = db.Column(db.String(64), index=True)
     firstName = db.Column(db.String(64), index=True)
     title = db.Column(db.String(32))
     email = db.Column(db.String(120), nullable=False, index=True)
     orders = db.relationship(
-        'Order', backref=db.backref('customer', lazy=True))
+        'Order', backref=db.backref('customers', lazy=True))
 
 
 class CustomerSchema(ModelSchema):
