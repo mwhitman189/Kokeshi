@@ -83,7 +83,7 @@ class MyModelView(BaseModelView):
 
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
-        if current_user.is_authenticated and current_user.has_role('admin'):
+        if current_user.is_authenticated and current_user.has_role('super'):
             return True
         else:
             return False
