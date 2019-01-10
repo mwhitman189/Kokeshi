@@ -154,6 +154,7 @@ class Order(db.Model):
     height = db.Column(db.Integer())
     weight = db.Column(db.Integer())
     message = db.Column(db.String(300))
+    total = db.Column(db.Integer())
     wasOrdered = db.Column(db.Boolean(), unique=False, default=False)
     dateOrdered = db.Column(
         db.DateTime, server_default=func.now())

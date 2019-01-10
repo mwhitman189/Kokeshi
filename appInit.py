@@ -54,15 +54,17 @@ def create_app():
     def before_first_request():
         db.create_all()
         user_datastore.find_or_create_role(
+            name='super', description='Super User')
+        user_datastore.find_or_create_role(
             name='admin', description='Administrator')
         user_datastore.find_or_create_role(
-            name='end-user', description='End user')
+            name='artisan', description='Artisan')
 
         encrypted_password = utils.encrypt_password('password')
 
-        if not user_datastore.get_user('someone@example.com'):
+        if not user_datastore.get_user('super@example.com'):
             user_datastore.create_user(
-                email='someone@example.com',
+                email='super@example.com',
                 password=encrypted_password
             )
         if not user_datastore.get_user('admin@example.com'):
@@ -70,27 +72,52 @@ def create_app():
                 email='admin@example.com',
                 password=encrypted_password
             )
+        if not user_datastore.get_user('artisan@example.com'):
+            user_datastore.create_user(
+                email='artisan@example.com',
+                password=encrypted_password
+            )
 
         db.session.commit()
 
-        user_datastore.add_role_to_user('someone@example.com', 'end-user')
+        user_datastore.add_role_to_user('super@example.com', 'super')
         user_datastore.add_role_to_user('admin@example.com', 'admin')
+        user_datastore.add_role_to_user('artisan@example.com', 'artisan')
         db.session.commit()
 
-    @app.route('/login/', methods=['GET', 'POST'])
+    @app.route('/login', methods=['GET', 'POST'])
     def showLogin():
-        if request.method == 'POST':
-            return redirect(url_for('showHome'))
-        return render_template('login.html')
+        # Here we use a class of some kind to represent and validate our
+        # client-side form data. For example, WTForms is a library that will
+        # handle this for us, and we use a custom LoginForm to validate.
+        form = LoginForm()
+        if form.validate_on_submit():
+            # Login and validate the user.
+            # user should be an instance of your `User` class
+            login_user(user)
+
+            flask.flash('Logged in successfully.')
+
+            next = flask.request.args.get('next')
+            # is_safe_url should check if the url is safe for redirects.
+            # See http://flask.pocoo.org/snippets/62/ for an example.
+            if not is_safe_url(next):
+                return flask.abort(400)
+
+            return flask.redirect(next or flask.url_for('index'))
+        return flask.render_template('login.html', form=form)
 
     @app.route('/logout')
     def showLogout():
         logout_user()
+
+        flask.flash('Logged out successfully.')
+
         return 'Logged out'
 
-        ##########################
-        # General Administration #
-        ##########################
+    ##########################
+    # General Administration #
+    ##########################
 
     @app.before_request
     def force_https():
@@ -166,7 +193,8 @@ def create_app():
                     dob=request.form['dob'],
                     height=request.form['height'],
                     weight=request.form['weight'],
-                    message=request.form['message']
+                    message=request.form['message'],
+                    total=250
                 )
 
             else:
@@ -175,7 +203,8 @@ def create_app():
                     name=request.form['name'],
                     dob=request.form['dob'],
                     height=request.form['height'],
-                    weight=request.form['weight']
+                    weight=request.form['weight'],
+                    total=200
                 )
 
             db.session.add(new_order)
@@ -184,6 +213,7 @@ def create_app():
             # Set order ID session variable to use when the customer enters
             # their data
             session['new_order_id'] = new_order.orderID
+            session['new_order_total'] = new_order.total
 
             flash("Success! Your order of '%s kokeshi' has been added to your cart." %
                   new_order.item)
