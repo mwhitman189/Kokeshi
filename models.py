@@ -142,33 +142,148 @@ class UserSchema(Schema):
         model = User
 
 
-user_schema = UserSchema()
+users_schema = UserSchema(many=True)
 
 
-class Order(db.Model):
-    __tablename__ = 'orders'
-    orderID = db.Column(db.Integer(), primary_key=True)
-    item = db.Column(db.String(64), nullable=False)
+class KokeshiDetails(db.Model):
+    __tablename__ = 'kokeshi_details'
+    kokeshiDetailsID = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(64))
     dob = db.Column(db.String(32))
     height = db.Column(db.Integer())
     weight = db.Column(db.Integer())
     message = db.Column(db.String(300))
+    is_message = db.Column(db.Boolean(), default=False)
+    product_ID = db.Column(db.Integer(), db.ForeignKey(
+        "products.productID"))
+
+
+class KokeshiDetailsSchema(Schema):
+    class Meta:
+        model = KokeshiDetails
+
+
+kokeshi_details_schema = KokeshiDetailsSchema(many=True)
+
+
+class OrderDetails(db.Model):
+    __tablename__ = 'order_details'
+    orderDetailsID = db.Column(db.Integer(), primary_key=True)
     total = db.Column(db.Integer())
+    product_ID = db.Column(db.Integer(), db.ForeignKey(
+        "products.productID"))
+    kokeshi_details_ID = db.Column(db.Integer(), db.ForeignKey(
+        "kokeshi_details.kokeshiDetailsID"))
+    order_ID = db.Column(db.Integer(), db.ForeignKey(
+        "orders.orderID"))
+
+
+class OrderDetailsSchema(Schema):
+    class Meta:
+        model = OrderDetails
+    kokeshi_details = fields.Nested(KokeshiDetailsSchema, many=True)
+
+
+order_details_schema = OrderDetailsSchema(many=True)
+
+
+class Product(db.Model):
+    __tablename__ = 'products'
+    productID = db.Column(db.Integer(), primary_key=True)
+    productName = db.Column(db.String(64), index=True)
+    productDescription = db.Column(db.String(120))
+    price = db.Column(db.Integer())
+    is_available = db.Column(db.Boolean(), default=True)
+    payment_ID = db.Column(db.Integer(), db.ForeignKey(
+        "suppliers.supplierID"))
+    order_details = db.relationship(
+        'OrderDetails', backref=db.backref('products', lazy=True))
+
+
+class ProductSchema(Schema):
+    class Meta:
+        model = Product
+
+
+products_schema = ProductSchema(many=True)
+
+
+class Supplier(db.Model):
+    __tablename__ = 'suppliers'
+    supplierID = db.Column(db.Integer(), primary_key=True)
+    supplierName = db.Column(db.String(128), index=True)
+    supplierPhone = db.Column(db.Integer(), nullable=False)
+    supplierEmail = db.Column(db.String(255))
+    supplier = db.relationship(
+        'Product', backref=db.backref('suppliers', lazy=True))
+
+
+class SupplierSchema(Schema):
+    class Meta:
+        model = Supplier
+
+
+suppliers_schema = ProductSchema(many=True)
+
+
+class Order(db.Model):
+    __tablename__ = 'orders'
+    orderID = db.Column(db.Integer(), primary_key=True)
     wasOrdered = db.Column(db.Boolean(), unique=False, default=False)
     dateOrdered = db.Column(
         db.DateTime, server_default=func.now())
     wasFulfilled = db.Column(db.Boolean(), unique=False, default=False)
     customer_ID = db.Column(db.Integer(), db.ForeignKey(
         "customers.customerID"))
+    payment_ID = db.Column(db.Integer(), db.ForeignKey(
+        "payments.paymentID"))
+    shipper_ID = db.Column(db.Integer(), db.ForeignKey("shippers.shipperID"))
+    order_details = db.relationship(
+        'OrderDetails', backref=db.backref('order_details', lazy=True))
 
 
 class OrderSchema(Schema):
     class Meta:
         model = Order
+    order_details = fields.Nested(OrderDetailsSchema, many=True)
 
 
 orders_schema = OrderSchema(many=True)
+
+
+class Payment(db.Model):
+    __tablename__ = 'payments'
+    paymentID = db.Column(db.Integer(), primary_key=True)
+    paymentType = db.Column(db.String())
+    orders = db.relationship(
+        'Order', backref=db.backref('payments', lazy=True))
+
+
+class PaymentSchema(Schema):
+    class Meta:
+        model = Payment
+
+
+payments_schema = PaymentSchema(many=True)
+
+
+class Shipper(db.Model):
+    __tablename__ = 'shippers'
+    shipperID = db.Column(db.Integer(), primary_key=True)
+    company = db.Column(db.String(64), nullable=False)
+    phone = db.Column(db.Integer(), nullable=False)
+    email = db.Column(db.String(255))
+    contactName = db.Column(db.String(64))
+    orders = db.relationship(
+        'Order', backref=db.backref('shippers', lazy=True))
+
+
+class ShipperSchema(Schema):
+    class Meta:
+        model = Shipper
+
+
+shippers_schema = ShipperSchema(many=True)
 
 
 class Customer(db.Model):
@@ -177,7 +292,14 @@ class Customer(db.Model):
     lastName = db.Column(db.String(64), index=True)
     firstName = db.Column(db.String(64), index=True)
     title = db.Column(db.String(32))
-    email = db.Column(db.String(120), nullable=False, index=True)
+    email = db.Column(db.String(255), nullable=False, index=True)
+    shipAddress = db.Column(db.String(120), nullable=False)
+    building = db.Column(db.String(64))
+    address1 = db.Column(db.String(64))
+    address2 = db.Column(db.String(64))
+    city = db.Column(db.String(64), nullable=False)
+    state = db.Column(db.String(32), nullable=False)
+    postalCode = db.Column(db.Integer(), nullable=False)
     orders = db.relationship(
         'Order', backref=db.backref('customers', lazy=True))
 

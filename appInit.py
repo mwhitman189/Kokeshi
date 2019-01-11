@@ -16,7 +16,7 @@ def create_app():
     from flask import render_template, request, redirect, jsonify, url_for, flash, session
     from sqlalchemy.orm import relationship, sessionmaker
     from flask_sqlalchemy import SQLAlchemy
-    from models import User, Order, Customer, Role, user_schema, orders_schema, customers_schema, MyAdminIndexView, UserAdmin, RoleAdmin, MyModelView
+    from models import User, Order, Customer, Role, KokeshiDetails, OrderDetails, Product, Supplier, Payment, Shipper, users_schema, orders_schema, products_schema, customers_schema, kokeshi_details_schema, order_details_schema, suppliers_schema, payments_schema, shippers_schema, MyAdminIndexView, UserAdmin, RoleAdmin
     from flask_admin import Admin
     from flask_login import UserMixin, LoginManager, current_user, login_user, logout_user
     from flask_security import SQLAlchemyUserDatastore, Security, utils
@@ -50,7 +50,7 @@ def create_app():
     # User administration #
     #######################
 
-    """@app.before_first_request
+    @app.before_first_request
     def before_first_request():
         db.create_all()
         user_datastore.find_or_create_role(
@@ -83,7 +83,7 @@ def create_app():
         user_datastore.add_role_to_user('super@example.com', 'super')
         user_datastore.add_role_to_user('admin@example.com', 'admin')
         user_datastore.add_role_to_user('artisan@example.com', 'artisan')
-        db.session.commit()"""
+        db.session.commit()
 
     @app.route('/login', methods=['GET', 'POST'])
     def showLogin():
