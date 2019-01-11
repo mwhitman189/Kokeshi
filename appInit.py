@@ -85,6 +85,21 @@ def create_app():
         user_datastore.add_role_to_user('artisan@example.com', 'artisan')
         db.session.commit()
 
+        product1 = Product(
+            productName="Kokeshi",
+            productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
+            price=200,
+            is_available=True
+        )
+
+        product2 = Product(
+            productName="Kokeshi",
+            productDescription="A handwritten message on the back of the kokeshi doll",
+            price=50,
+            is_available=True
+        )
+        db.session.commit()
+
     @app.route('/login', methods=['GET', 'POST'])
     def showLogin():
         # Here we use a class of some kind to represent and validate our
@@ -197,19 +212,21 @@ def create_app():
 
             else:
                 kokeshi = KokeshiDetails(
-                    item=request.form['item'],
                     name=request.form['name'],
                     dob=request.form['dob'],
                     height=request.form['height'],
                     weight=request.form['weight'],
                 )
 
-            db.session.add(new_order)
+            db.session.add(kokeshi)
             db.session.commit()
+            session['kokeshi_details'] = kokeshi.kokeshiDetailsID
 
             # Set order ID session variable to use when the customer enters
             # their data
             session['new_order_id'] = kokeshi.kokeshiDetailsID
+            print kokeshi
+            print kokeshi.kokeshiDetailsID
             session['new_order_total'] = 250
 
             flash("Success! Your order for '%s kokeshi' has been added to your cart." %
@@ -225,6 +242,7 @@ def create_app():
         """
         Display the order page.
         """
+        print db.session.query(Order).all()
 
         return render_template('order.html')
 
@@ -233,8 +251,8 @@ def create_app():
         """
         Display the checkout page
         """
-        order = db.session.query(Order).filter_by(
-            orderID=session['new_order_id']).one()
+        kokeshi = db.session.query(KokeshiDetails).filter_by(
+            kokeshiDetailsID=session['new_order_id']).one()
 
         if request.method == 'POST':
             customer = Customer(
@@ -245,7 +263,6 @@ def create_app():
             )
             # Connect order to freshly entered customer data
             customer.orders.append(order)
-            order.wasOrdered = True
 
             db.session.add(customer)
             db.session.commit()

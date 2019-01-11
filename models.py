@@ -194,10 +194,10 @@ class Product(db.Model):
     productDescription = db.Column(db.String(120))
     price = db.Column(db.Integer())
     is_available = db.Column(db.Boolean(), default=True)
-    payment_ID = db.Column(db.Integer(), db.ForeignKey(
-        "suppliers.supplierID"))
     order_details = db.relationship(
         'OrderDetails', backref=db.backref('products', lazy=True))
+    supplier_ID = db.Column(
+        db.Integer(), db.ForeignKey("suppliers.supplierID"))
 
 
 class ProductSchema(Schema):
