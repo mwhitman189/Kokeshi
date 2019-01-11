@@ -187,24 +187,21 @@ def create_app():
 
         if request.method == 'POST':
             if 'message' in request.form:
-                new_order = Order(
-                    item=request.form['item'],
+                kokeshi = KokeshiDetails(
                     name=request.form['name'],
                     dob=request.form['dob'],
                     height=request.form['height'],
                     weight=request.form['weight'],
                     message=request.form['message'],
-                    total=250
                 )
 
             else:
-                new_order = Order(
+                kokeshi = KokeshiDetails(
                     item=request.form['item'],
                     name=request.form['name'],
                     dob=request.form['dob'],
                     height=request.form['height'],
                     weight=request.form['weight'],
-                    total=200
                 )
 
             db.session.add(new_order)
@@ -212,11 +209,11 @@ def create_app():
 
             # Set order ID session variable to use when the customer enters
             # their data
-            session['new_order_id'] = new_order.orderID
-            session['new_order_total'] = new_order.total
+            session['new_order_id'] = kokeshi.kokeshiDetailsID
+            session['new_order_total'] = 250
 
-            flash("Success! Your order of '%s kokeshi' has been added to your cart." %
-                  new_order.item)
+            flash("Success! Your order for '%s kokeshi' has been added to your cart." %
+                  kokeshi.name)
 
             return redirect(url_for('showOrderPage'))
 
