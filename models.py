@@ -194,8 +194,6 @@ class Product(db.Model):
     productDescription = db.Column(db.String(120))
     price = db.Column(db.Integer())
     is_available = db.Column(db.Boolean(), default=True)
-    order_details = db.relationship(
-        'OrderDetails', backref=db.backref('products', lazy=True))
     supplier_ID = db.Column(
         db.Integer(), db.ForeignKey("suppliers.supplierID"))
 
@@ -206,24 +204,6 @@ class ProductSchema(Schema):
 
 
 products_schema = ProductSchema(many=True)
-
-
-class Supplier(db.Model):
-    __tablename__ = 'suppliers'
-    supplierID = db.Column(db.Integer(), primary_key=True)
-    supplierName = db.Column(db.String(128), index=True)
-    supplierPhone = db.Column(db.Integer(), nullable=False)
-    supplierEmail = db.Column(db.String(255))
-    supplier = db.relationship(
-        'Product', backref=db.backref('suppliers', lazy=True))
-
-
-class SupplierSchema(Schema):
-    class Meta:
-        model = Supplier
-
-
-suppliers_schema = ProductSchema(many=True)
 
 
 class Order(db.Model):
@@ -239,7 +219,9 @@ class Order(db.Model):
         "payments.paymentID"))
     shipper_ID = db.Column(db.Integer(), db.ForeignKey("shippers.shipperID"))
     order_details = db.relationship(
-        'OrderDetails', backref=db.backref('order_details', lazy=True))
+        'OrderDetails', backref=db.backref('orders', lazy=True))
+    supplier_ID = db.Column(
+        db.Integer(), db.ForeignKey("suppliers.supplierID"))
 
 
 class OrderSchema(Schema):
@@ -251,12 +233,29 @@ class OrderSchema(Schema):
 orders_schema = OrderSchema(many=True)
 
 
+class Supplier(db.Model):
+    __tablename__ = 'suppliers'
+    supplierID = db.Column(db.Integer(), primary_key=True)
+    supplierName = db.Column(db.String(128), index=True)
+    supplierPhone = db.Column(db.BigInteger(), nullable=False)
+    supplierEmail = db.Column(db.String(255))
+    orders = db.relationship(
+        'Order', backref=db.backref('suppliers', lazy=True))
+
+
+class SupplierSchema(Schema):
+    class Meta:
+        model = Supplier
+    products = fields.Nested(ProductSchema, many=True)
+
+
+suppliers_schema = SupplierSchema(many=True)
+
+
 class Payment(db.Model):
     __tablename__ = 'payments'
     paymentID = db.Column(db.Integer(), primary_key=True)
     paymentType = db.Column(db.String())
-    orders = db.relationship(
-        'Order', backref=db.backref('payments', lazy=True))
 
 
 class PaymentSchema(Schema):
@@ -270,12 +269,10 @@ payments_schema = PaymentSchema(many=True)
 class Shipper(db.Model):
     __tablename__ = 'shippers'
     shipperID = db.Column(db.Integer(), primary_key=True)
-    company = db.Column(db.String(64), nullable=False)
-    phone = db.Column(db.Integer(), nullable=False)
-    email = db.Column(db.String(255))
+    companyName = db.Column(db.String(64), nullable=False)
+    companyPhone = db.Column(db.BigInteger(), nullable=False)
+    companyEmail = db.Column(db.String(255))
     contactName = db.Column(db.String(64))
-    orders = db.relationship(
-        'Order', backref=db.backref('shippers', lazy=True))
 
 
 class ShipperSchema(Schema):
@@ -299,7 +296,7 @@ class Customer(db.Model):
     address2 = db.Column(db.String(64))
     city = db.Column(db.String(64), nullable=False)
     state = db.Column(db.String(32), nullable=False)
-    postalCode = db.Column(db.Integer(), nullable=False)
+    postalCode = db.Column(db.BigInteger(), nullable=False)
     orders = db.relationship(
         'Order', backref=db.backref('customers', lazy=True))
 

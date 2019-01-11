@@ -85,19 +85,40 @@ def create_app():
         user_datastore.add_role_to_user('artisan@example.com', 'artisan')
         db.session.commit()
 
-        product1 = Product(
-            productName="Kokeshi",
-            productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
-            price=200,
-            is_available=True
-        )
+        db_items = [
+            Product(
+                productName="Kokeshi",
+                productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
+                price=200,
+                is_available=True
+            ),
+            Product(
+                productName="Message",
+                productDescription="A handwritten message on the back of the kokeshi doll",
+                price=50,
+                is_available=True
+            ),
+            Supplier(
+                supplierName="Sato",
+                supplierPhone="08011112222",
+                supplierEmail="satosan@example.com"
+            ),
+            Supplier(
+                supplierName="Miyagi",
+                supplierPhone="090000009999",
+                supplierEmail="waxOnWaxOff@example.com"
+            ),
+            Shipper(
+                companyName="Kuro Neko",
+                companyPhone="08051516161",
+                companyEmail="blackCat@example.com",
+                contactName="Kurosawa"
+            )
+        ]
 
-        product2 = Product(
-            productName="Kokeshi",
-            productDescription="A handwritten message on the back of the kokeshi doll",
-            price=50,
-            is_available=True
-        )
+        for item in db_items:
+            db.session.add(item)
+
         db.session.commit()
 
     @app.route('/login', methods=['GET', 'POST'])
@@ -145,6 +166,36 @@ def create_app():
     ##################
     # JSON API calls #
     ##################
+
+    @app.route('/suppliers/JSON/')
+    @login_required
+    def showSuppliersJSON():
+        """
+        Return order data in JSON
+        """
+        suppliers = Supplier.query.all()
+
+        return jsonify(suppliers_schema.dump(suppliers).data)
+
+    @app.route('/shippers/JSON/')
+    @login_required
+    def showShippersJSON():
+        """
+        Return order data in JSON
+        """
+        shippers = Shipper.query.all()
+
+        return jsonify(shippers_schema.dump(shippers).data)
+
+    @app.route('/products/JSON/')
+    @login_required
+    def showProductsJSON():
+        """
+        Return order data in JSON
+        """
+        products = Product.query.all()
+
+        return jsonify(products_schema.dump(products).data)
 
     @app.route('/orders/JSON/')
     @login_required
@@ -220,13 +271,12 @@ def create_app():
 
             db.session.add(kokeshi)
             db.session.commit()
-            session['kokeshi_details'] = kokeshi.kokeshiDetailsID
+            session['kokeshi_details'] = kokeshi
 
             # Set order ID session variable to use when the customer enters
             # their data
             session['new_order_id'] = kokeshi.kokeshiDetailsID
-            print kokeshi
-            print kokeshi.kokeshiDetailsID
+
             session['new_order_total'] = 250
 
             flash("Success! Your order for '%s kokeshi' has been added to your cart." %

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 1a06eab244f6
+Revision ID: d5b086e9ecea
 Revises: 
-Create Date: 2019-01-11 13:37:48.141867
+Create Date: 2019-01-11 22:16:30.278992
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1a06eab244f6'
+revision = 'd5b086e9ecea'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,7 +30,7 @@ def upgrade():
     sa.Column('address2', sa.String(length=64), nullable=True),
     sa.Column('city', sa.String(length=64), nullable=False),
     sa.Column('state', sa.String(length=32), nullable=False),
-    sa.Column('postalCode', sa.Integer(), nullable=False),
+    sa.Column('postalCode', sa.BigInteger(), nullable=False),
     sa.PrimaryKeyConstraint('customerID')
     )
     op.create_index(op.f('ix_customers_email'), 'customers', ['email'], unique=False)
@@ -50,16 +50,16 @@ def upgrade():
     )
     op.create_table('shippers',
     sa.Column('shipperID', sa.Integer(), nullable=False),
-    sa.Column('company', sa.String(length=64), nullable=False),
-    sa.Column('phone', sa.Integer(), nullable=False),
-    sa.Column('email', sa.String(length=255), nullable=True),
+    sa.Column('companyName', sa.String(length=64), nullable=False),
+    sa.Column('companyPhone', sa.BigInteger(), nullable=False),
+    sa.Column('companyEmail', sa.String(length=255), nullable=True),
     sa.Column('contactName', sa.String(length=64), nullable=True),
     sa.PrimaryKeyConstraint('shipperID')
     )
     op.create_table('suppliers',
     sa.Column('supplierID', sa.Integer(), nullable=False),
     sa.Column('supplierName', sa.String(length=128), nullable=True),
-    sa.Column('supplierPhone', sa.Integer(), nullable=False),
+    sa.Column('supplierPhone', sa.BigInteger(), nullable=False),
     sa.Column('supplierEmail', sa.String(length=255), nullable=True),
     sa.PrimaryKeyConstraint('supplierID')
     )
@@ -81,9 +81,11 @@ def upgrade():
     sa.Column('customer_ID', sa.Integer(), nullable=True),
     sa.Column('payment_ID', sa.Integer(), nullable=True),
     sa.Column('shipper_ID', sa.Integer(), nullable=True),
+    sa.Column('supplier_ID', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['customer_ID'], ['customers.customerID'], ),
     sa.ForeignKeyConstraint(['payment_ID'], ['payments.paymentID'], ),
     sa.ForeignKeyConstraint(['shipper_ID'], ['shippers.shipperID'], ),
+    sa.ForeignKeyConstraint(['supplier_ID'], ['suppliers.supplierID'], ),
     sa.PrimaryKeyConstraint('orderID')
     )
     op.create_table('products',
