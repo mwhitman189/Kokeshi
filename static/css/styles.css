@@ -106,6 +106,14 @@ label {
 .center-text {
   text-align: center; }
 
+.flex-item {
+  width: 90%; }
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; }
+
 .form-group {
   margin-top: 40px;
   width: 100%; }
@@ -345,6 +353,9 @@ label {
   background: white;
   position: relative;
   top: -40px; }
+
+.content-block {
+  padding: 10px; }
 
 .keyvisual {
   margin-top: -40px;

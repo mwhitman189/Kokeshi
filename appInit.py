@@ -50,7 +50,7 @@ def create_app():
     # User administration #
     #######################
 
-    @app.before_first_request
+    """@app.before_first_request
     def before_first_request():
         db.create_all()
         user_datastore.find_or_create_role(
@@ -83,7 +83,7 @@ def create_app():
         user_datastore.add_role_to_user('super@example.com', 'super')
         user_datastore.add_role_to_user('admin@example.com', 'admin')
         user_datastore.add_role_to_user('artisan@example.com', 'artisan')
-        db.session.commit()
+        db.session.commit()"""
 
     @app.route('/login', methods=['GET', 'POST'])
     def showLogin():
