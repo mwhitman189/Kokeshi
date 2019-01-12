@@ -267,7 +267,7 @@ def create_app():
             customer.order_ID = order.orderID
             print customer.order_ID
 
-            if 'message' in request.form:
+            if request.form.get('is-message', False) == 'on':
                 order_details = OrderDetails(
                     name=request.form['name'],
                     dob=request.form['dob'],
@@ -289,12 +289,13 @@ def create_app():
                     order_ID=order.orderID,
                     customer_ID=customer.customerID
                 )
-            if order_details.is_message:
+            if request.form.get('is-message', False) == 'on':
                 total = 250
             else:
                 total = 200
 
             order.total = total
+
             db.session.add(customer)
             db.session.add(order)
             db.session.add(order_details)
