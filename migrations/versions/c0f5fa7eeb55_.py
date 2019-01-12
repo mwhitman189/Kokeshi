@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d5b086e9ecea
+Revision ID: c0f5fa7eeb55
 Revises: 
-Create Date: 2019-01-11 22:16:30.278992
+Create Date: 2019-01-12 22:24:54.997545
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd5b086e9ecea'
+revision = 'c0f5fa7eeb55'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,13 +24,13 @@ def upgrade():
     sa.Column('firstName', sa.String(length=64), nullable=True),
     sa.Column('title', sa.String(length=32), nullable=True),
     sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column('shipAddress', sa.String(length=120), nullable=False),
+    sa.Column('shipAddress', sa.String(length=120), nullable=True),
     sa.Column('building', sa.String(length=64), nullable=True),
     sa.Column('address1', sa.String(length=64), nullable=True),
     sa.Column('address2', sa.String(length=64), nullable=True),
-    sa.Column('city', sa.String(length=64), nullable=False),
-    sa.Column('state', sa.String(length=32), nullable=False),
-    sa.Column('postalCode', sa.BigInteger(), nullable=False),
+    sa.Column('city', sa.String(length=64), nullable=True),
+    sa.Column('state', sa.String(length=32), nullable=True),
+    sa.Column('postalCode', sa.BigInteger(), nullable=True),
     sa.PrimaryKeyConstraint('customerID')
     )
     op.create_index(op.f('ix_customers_email'), 'customers', ['email'], unique=False)
@@ -56,14 +56,6 @@ def upgrade():
     sa.Column('contactName', sa.String(length=64), nullable=True),
     sa.PrimaryKeyConstraint('shipperID')
     )
-    op.create_table('suppliers',
-    sa.Column('supplierID', sa.Integer(), nullable=False),
-    sa.Column('supplierName', sa.String(length=128), nullable=True),
-    sa.Column('supplierPhone', sa.BigInteger(), nullable=False),
-    sa.Column('supplierEmail', sa.String(length=255), nullable=True),
-    sa.PrimaryKeyConstraint('supplierID')
-    )
-    op.create_index(op.f('ix_suppliers_supplierName'), 'suppliers', ['supplierName'], unique=False)
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=True),
@@ -78,16 +70,31 @@ def upgrade():
     sa.Column('wasOrdered', sa.Boolean(), nullable=True),
     sa.Column('dateOrdered', sa.DateTime(), server_default=sa.text(u'now()'), nullable=True),
     sa.Column('wasFulfilled', sa.Boolean(), nullable=True),
+    sa.Column('total', sa.BigInteger(), nullable=True),
     sa.Column('customer_ID', sa.Integer(), nullable=True),
     sa.Column('payment_ID', sa.Integer(), nullable=True),
     sa.Column('shipper_ID', sa.Integer(), nullable=True),
-    sa.Column('supplier_ID', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['customer_ID'], ['customers.customerID'], ),
     sa.ForeignKeyConstraint(['payment_ID'], ['payments.paymentID'], ),
     sa.ForeignKeyConstraint(['shipper_ID'], ['shippers.shipperID'], ),
-    sa.ForeignKeyConstraint(['supplier_ID'], ['suppliers.supplierID'], ),
     sa.PrimaryKeyConstraint('orderID')
     )
+    op.create_table('roles_users',
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('role_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], )
+    )
+    op.create_table('suppliers',
+    sa.Column('supplierID', sa.Integer(), nullable=False),
+    sa.Column('supplierName', sa.String(length=128), nullable=True),
+    sa.Column('supplierPhone', sa.BigInteger(), nullable=False),
+    sa.Column('supplierEmail', sa.String(length=255), nullable=True),
+    sa.Column('customer_ID', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['customer_ID'], ['customers.customerID'], ),
+    sa.PrimaryKeyConstraint('supplierID')
+    )
+    op.create_index(op.f('ix_suppliers_supplierName'), 'suppliers', ['supplierName'], unique=False)
     op.create_table('products',
     sa.Column('productID', sa.Integer(), nullable=False),
     sa.Column('productName', sa.String(length=64), nullable=True),
@@ -99,33 +106,22 @@ def upgrade():
     sa.PrimaryKeyConstraint('productID')
     )
     op.create_index(op.f('ix_products_productName'), 'products', ['productName'], unique=False)
-    op.create_table('roles_users',
-    sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('role_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], )
-    )
-    op.create_table('kokeshi_details',
-    sa.Column('kokeshiDetailsID', sa.Integer(), nullable=False),
+    op.create_table('order_details',
+    sa.Column('orderDetailsID', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=64), nullable=True),
     sa.Column('dob', sa.String(length=32), nullable=True),
     sa.Column('height', sa.Integer(), nullable=True),
     sa.Column('weight', sa.Integer(), nullable=True),
     sa.Column('message', sa.String(length=300), nullable=True),
     sa.Column('is_message', sa.Boolean(), nullable=True),
-    sa.Column('product_ID', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['product_ID'], ['products.productID'], ),
-    sa.PrimaryKeyConstraint('kokeshiDetailsID')
-    )
-    op.create_table('order_details',
-    sa.Column('orderDetailsID', sa.Integer(), nullable=False),
-    sa.Column('total', sa.Integer(), nullable=True),
-    sa.Column('product_ID', sa.Integer(), nullable=True),
-    sa.Column('kokeshi_details_ID', sa.Integer(), nullable=True),
     sa.Column('order_ID', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['kokeshi_details_ID'], ['kokeshi_details.kokeshiDetailsID'], ),
+    sa.Column('product_ID', sa.Integer(), nullable=True),
+    sa.Column('shipper_ID', sa.Integer(), nullable=True),
+    sa.Column('customer_ID', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['customer_ID'], ['customers.customerID'], ),
     sa.ForeignKeyConstraint(['order_ID'], ['orders.orderID'], ),
     sa.ForeignKeyConstraint(['product_ID'], ['products.productID'], ),
+    sa.ForeignKeyConstraint(['shipper_ID'], ['shippers.shipperID'], ),
     sa.PrimaryKeyConstraint('orderDetailsID')
     )
     # ### end Alembic commands ###
@@ -134,14 +130,13 @@ def upgrade():
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
     op.drop_table('order_details')
-    op.drop_table('kokeshi_details')
-    op.drop_table('roles_users')
     op.drop_index(op.f('ix_products_productName'), table_name='products')
     op.drop_table('products')
-    op.drop_table('orders')
-    op.drop_table('users')
     op.drop_index(op.f('ix_suppliers_supplierName'), table_name='suppliers')
     op.drop_table('suppliers')
+    op.drop_table('roles_users')
+    op.drop_table('orders')
+    op.drop_table('users')
     op.drop_table('shippers')
     op.drop_table('roles')
     op.drop_table('payments')

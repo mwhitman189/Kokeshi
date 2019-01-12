@@ -16,7 +16,7 @@ def create_app():
     from flask import render_template, request, redirect, jsonify, url_for, flash, session
     from sqlalchemy.orm import relationship, sessionmaker
     from flask_sqlalchemy import SQLAlchemy
-    from models import User, Order, Customer, Role, KokeshiDetails, OrderDetails, Product, Supplier, Payment, Shipper, users_schema, orders_schema, products_schema, customers_schema, kokeshi_details_schema, order_details_schema, suppliers_schema, payments_schema, shippers_schema, MyAdminIndexView, UserAdmin, RoleAdmin
+    from models import User, Order, Customer, Role, OrderDetails, Product, Supplier, Payment, Shipper, users_schema, orders_schema, products_schema, customers_schema, order_details_schema, suppliers_schema, payments_schema, shippers_schema, MyAdminIndexView, UserAdmin, RoleAdmin
     from flask_admin import Admin
     from flask_login import UserMixin, LoginManager, current_user, login_user, logout_user
     from flask_security import SQLAlchemyUserDatastore, Security, utils
@@ -204,6 +204,7 @@ def create_app():
         Return order data in JSON
         """
         orders = Order.query.all()
+
         return jsonify(orders_schema.dump(orders).data)
 
     @app.route('/orders/unfulfilled/JSON/')
@@ -252,35 +253,57 @@ def create_app():
         """
 
         if request.method == 'POST':
+
+            customer = Customer(email="")
+            db.session.add(customer)
+            db.session.commit()
+
+            print customer.customerID
+
+            order = Order(customer_ID=customer.customerID)
+            db.session.add(order)
+            db.session.commit()
+
+            customer.order_ID = order.orderID
+            print customer.order_ID
+
             if 'message' in request.form:
-                kokeshi = KokeshiDetails(
+                order_details = OrderDetails(
                     name=request.form['name'],
                     dob=request.form['dob'],
                     height=request.form['height'],
                     weight=request.form['weight'],
+                    is_message=True,
                     message=request.form['message'],
+                    order_ID=order.orderID,
+                    customer_ID=customer.customerID
                 )
 
             else:
-                kokeshi = KokeshiDetails(
+                order_details = OrderDetails(
                     name=request.form['name'],
                     dob=request.form['dob'],
                     height=request.form['height'],
                     weight=request.form['weight'],
+                    is_message=False,
+                    order_ID=order.orderID,
+                    customer_ID=customer.customerID
                 )
+            if order_details.is_message:
+                total = 250
+            else:
+                total = 200
 
-            db.session.add(kokeshi)
+            order.total = total
+            db.session.add(customer)
+            db.session.add(order)
+            db.session.add(order_details)
             db.session.commit()
-            session['kokeshi_details'] = kokeshi
 
-            # Set order ID session variable to use when the customer enters
-            # their data
-            session['new_order_id'] = kokeshi.kokeshiDetailsID
-
-            session['new_order_total'] = 250
+            session['customer_ID'] = customer.customerID
 
             flash("Success! Your order for '%s kokeshi' has been added to your cart." %
-                  kokeshi.name)
+                  order_details.name)
 
             return redirect(url_for('showOrderPage'))
 
@@ -292,7 +315,6 @@ def create_app():
         """
         Display the order page.
         """
-        print db.session.query(Order).all()
 
         return render_template('order.html')
 
@@ -301,18 +323,13 @@ def create_app():
         """
         Display the checkout page
         """
-        kokeshi = db.session.query(KokeshiDetails).filter_by(
-            kokeshiDetailsID=session['new_order_id']).one()
-
+        customer = Customer.query.filter_by(
+            customerID=session['customer_ID']).one()
         if request.method == 'POST':
-            customer = Customer(
-                lastName=request.form['lastName'],
-                firstName=request.form['firstName'],
-                title=request.form['title'],
-                email=request.form['email'],
-            )
-            # Connect order to freshly entered customer data
-            customer.orders.append(order)
+            customer.lastName = request.form['lastName']
+            customer.firstName = request.form['firstName']
+            customer.title = request.form['title']
+            customer.email = request.form['email']
 
             db.session.add(customer)
             db.session.commit()
