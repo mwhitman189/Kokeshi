@@ -258,14 +258,11 @@ def create_app():
             db.session.add(customer)
             db.session.commit()
 
-            print customer.customerID
-
             order = Order(customer_ID=customer.customerID)
             db.session.add(order)
             db.session.commit()
 
             customer.order_ID = order.orderID
-            print customer.order_ID
 
             if request.form.get('is-message', False) == 'on':
                 order_details = OrderDetails(
