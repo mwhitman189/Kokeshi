@@ -85,8 +85,6 @@
           </header>
 
           <main class="content-main-wrapper clearfix">
-            {% block content_1 %}
-            {% endblock %}
             {% with messages = get_flashed_messages() %}
               {% if messages %}
                 <ul class=flashes>
@@ -98,6 +96,8 @@
             {% endwith %}
                 <div id="keyvisual" class="keyvisual keyvisual--anchor-fixed">
                   <div id="app">
+                    {% block content_1 %}
+                    {% endblock %}
                   </div>
                 </div>
 
