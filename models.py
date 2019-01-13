@@ -159,6 +159,7 @@ class Order(db.Model):
     __tablename__ = 'orders'
     orderID = db.Column(db.Integer(), primary_key=True)
     wasOrdered = db.Column(db.Boolean(), unique=False, default=False)
+    wasAccepted = db.Column(db.Boolean(), default=False)
     dateOrdered = db.Column(
         db.DateTime(), server_default=func.now())
     wasFulfilled = db.Column(db.Boolean(), unique=False, default=False)

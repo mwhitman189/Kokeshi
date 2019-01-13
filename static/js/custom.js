@@ -61,14 +61,5 @@ const app = new Vue({
       localStorage.weight = this.weight;
       localStorage.message = this.message;
     }
-  },
-  computed: {
-    total: function () {
-      if (this.isMessage == "true") {
-        return parseInt(this.price) + parseInt(this.messagePrice);
-      } else {
-        return parseInt(this.price);
-      }
-    }
   }
 })

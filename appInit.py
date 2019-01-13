@@ -101,7 +101,7 @@ def create_app():
             Supplier(
                 supplierName="Sato",
                 supplierPhone="08011112222",
-                supplierEmail="satosan@example.com"
+                supplierEmail="admin@example.com"
             ),
             Supplier(
                 supplierName="Miyagi",
@@ -167,7 +167,7 @@ def create_app():
     # JSON API calls #
     ##################
 
-    @app.route('/suppliers/JSON/')
+    @app.route('/suppliers/JSON')
     @login_required
     def showSuppliersJSON():
         """
@@ -177,7 +177,7 @@ def create_app():
 
         return jsonify(suppliers_schema.dump(suppliers).data)
 
-    @app.route('/shippers/JSON/')
+    @app.route('/shippers/JSON')
     @login_required
     def showShippersJSON():
         """
@@ -187,7 +187,7 @@ def create_app():
 
         return jsonify(shippers_schema.dump(shippers).data)
 
-    @app.route('/products/JSON/')
+    @app.route('/products/JSON')
     @login_required
     def showProductsJSON():
         """
@@ -197,7 +197,7 @@ def create_app():
 
         return jsonify(products_schema.dump(products).data)
 
-    @app.route('/orders/JSON/')
+    @app.route('/orders/JSON')
     @login_required
     def showOrdersJSON():
         """
@@ -207,7 +207,7 @@ def create_app():
 
         return jsonify(orders_schema.dump(orders).data)
 
-    @app.route('/orders/unfulfilled/JSON/')
+    @app.route('/orders/unfulfilled/JSON')
     @login_required
     def showUnfulfilledOrdersJSON():
         """
@@ -217,7 +217,7 @@ def create_app():
 
         return jsonify(orders_schema.dump(unful_orders).data)
 
-    @app.route('/customers/JSON/')
+    @app.route('/customers/JSON')
     @login_required
     def showCustomersJSON():
         """
@@ -231,22 +231,55 @@ def create_app():
     # Client facing pages #
     #######################
 
+    @app.route('/orders')
+    @login_required
+    def showOrders():
+        """
+        Display the supplier-facing orders page. The supplier can check the
+        next order in the list.
+        """
+        unaccepted_orders = Order.query.filter_by(wasAccepted=False).all()
+
+        session['supplier'] = current_user.email
+        print session['supplier']
+        return render_template('unassigned_orders.html', orders=unaccepted_orders)
+
+    @app.route('/orders/<int:order_id>/accepted', methods=['GET', 'POST'])
+    @login_required
+    def showAcceptOrderPage(order_id):
+        """
+        Display the supplier-facing order accept page. The supplier can accept
+        the job.
+        """
+        order = Order.query.filter_by(orderID=order_id).first()
+        supplier = Supplier.query.filter_by(
+            supplierEmail=session['supplier']).first()
+        selected_order = OrderDetails.query.filter_by(
+            order_ID=order_id).first()
+        supplier_id = supplier.supplierID
+
+        order.wasAccepted = True
+        selected_order.supplier_ID = supplier_id
+        db.session.add(selected_order)
+        db.session.commit()
+        return render_template('selected_order.html', order=selected_order)
+
     @app.route('/')
-    @app.route('/home/')
+    @app.route('/home')
     def showHome():
         """
         Display the landing page.
         """
         return render_template('home.html')
 
-    @app.route('/about/')
+    @app.route('/about')
     def showAboutPage():
         """
         Display the About Us page.
         """
         return render_template('about.html')
 
-    @app.route('/design/', methods=['GET', 'POST'])
+    @app.route('/design', methods=['GET', 'POST'])
     def showDesignPage():
         """
         Display a kokeshi designing page that, when submitted, updates the shopping cart with the order and redirects to the order page.
@@ -310,7 +343,7 @@ def create_app():
         else:
             return render_template('design.html')
 
-    @app.route('/order/')
+    @app.route('/order')
     def showOrderPage():
         """
         Display the order page.
@@ -318,7 +351,7 @@ def create_app():
 
         return render_template('order.html')
 
-    @app.route('/checkout/', methods=['GET', 'POST'])
+    @app.route('/checkout', methods=['GET', 'POST'])
     def showCheckoutPage():
         """
         Display the checkout page
@@ -341,7 +374,7 @@ def create_app():
         else:
             return render_template('checkout.html')
 
-    @app.route('/confirmation/')
+    @app.route('/confirmation')
     def showConfirmPage():
         """
         Display the order confirmation page after an order is submitted
@@ -349,7 +382,7 @@ def create_app():
 
         return render_template('confirmation.html')
 
-    @app.route('/contact/')
+    @app.route('/contact')
     def showContactPage():
         """
         Display the contact information page

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>選択を確認しました | KokeMama</title>
+{% endblock %}
+
+{% block content_1 %}
+<div class="keyvisual keyvisual__inner">
+  <div class="keyvisual__img">
+    <h2 class="keyvisual__heading">
+      <span class="keyvisual__heading-text">Traditional Kokeshi</span>
+      <span class="keyvisual__heading-description">A lasting reminder of baby's birth</span>
+      <span class="keyvisual__description"></span>
+    </h2>
+  </div>
+</div>
+
+<section class="about__content content container">
+  <h1 class="title center-text">ご注文　{{ order.order_ID }}番の詳細</h1>
+  <p class="center-text">名前：{{ order.name }}</p>
+  <p class="center-text">生年月日：{{ order.dob }}</p>
+  <p class="center-text">身長：{{ order.height }}</p>
+  <p class="center-text">体重：{{ order.weight }}</p>
+  <p class="center-text">メッセージ：{{ order.message }}</p>
+
+</section>
+{% endblock %}
