@@ -293,6 +293,8 @@ def create_app():
 
             order.total = total
 
+            session['new_order_total'] = total
+
             db.session.add(customer)
             db.session.add(order)
             db.session.add(order_details)
