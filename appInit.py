@@ -241,7 +241,6 @@ def create_app():
         unaccepted_orders = Order.query.filter_by(wasAccepted=False).all()
 
         session['supplier'] = current_user.email
-        print session['supplier']
         return render_template('unassigned_orders.html', orders=unaccepted_orders)
 
     @app.route('/orders/<int:order_id>/accepted', methods=['GET', 'POST'])
