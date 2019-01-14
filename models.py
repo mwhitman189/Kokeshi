@@ -1,6 +1,6 @@
 import os
 from flask import redirect, url_for
-from sqlalchemy import Column, Integer, Boolean, String, DateTime, ForeignKey, Sequence
+from sqlalchemy import Column, Integer, Boolean, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.sql import func
 from flask_sqlalchemy import SQLAlchemy
@@ -157,8 +157,7 @@ class Product(db.Model):
 
 class Order(db.Model):
     __tablename__ = 'orders'
-    orderID = db.Column(db.Integer(), Sequence(
-        'seq_orders_id', start=1483, increment=1), primary_key=True)
+    orderID = db.Column(db.Integer(), primary_key=True)
     wasOrdered = db.Column(db.Boolean(), unique=False, default=False)
     wasAccepted = db.Column(db.Boolean(), default=False)
     dateOrdered = db.Column(

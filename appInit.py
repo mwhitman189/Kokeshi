@@ -23,6 +23,7 @@ def create_app():
     from wtforms.fields import PasswordField
     from passlib.hash import pbkdf2_sha256
     from flask_marshmallow import Marshmallow
+    import stripe
 
     APPLICATION_NAME = "Kokeshi"
 
@@ -45,6 +46,14 @@ def create_app():
 
     admin.add_view(UserAdmin(User, db.session))
     admin.add_view(RoleAdmin(Role, db.session))
+
+    # Stripe payments implementation
+    stripe_keys = {
+        'secret_key': ['STRIPE_SECRET_KEY'],
+        'publishable_key': ['STRIPE_PUBLISHABLE_KEY']
+    }
+
+    stripe.api_key = stripe_keys['secret_key']
 
     #######################
     # User administration #
@@ -371,7 +380,28 @@ def create_app():
             return redirect(url_for('showConfirmPage'))
 
         else:
-            return render_template('checkout.html')
+            return render_template('checkout.html', key=stripe_keys['publishable_key'])
+
+    @app.route('/charge', methods=['POST'])
+    def charge():
+        db_customer = Customer.query.filter_by(
+            customerID=session['customer_ID']).one()
+        # Amount in cents
+        amount = session['new_order_total'] * 100
+
+        customer = stripe.Customer.create(
+            email=db_customer.email,
+            source=request.form['stripeToken']
+        )
+
+        charge = stripe.Charge.create(
+            customer=customer.id,
+            amount=amount,
+            currency='usd',
+            description='Flask Charge'
+        )
+
+        return render_template('charge.html', amount=amount)
 
     @app.route('/confirmation')
     def showConfirmPage():
