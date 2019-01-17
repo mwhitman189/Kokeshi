@@ -1,3 +1,4 @@
+
 const app = new Vue({
   el: "#app",
   delimiters: ['[[',']]'],
@@ -24,42 +25,48 @@ const app = new Vue({
     }
   },
   mounted() {
-    if (localStorage.item) {
-      this.item = localStorage.item;
+    if (window.sessionStorage.item) {
+      this.item = window.sessionStorage.item;
     }
-    if (localStorage.price) {
-      this.price = localStorage.price;
+    if (window.sessionStorage.price) {
+      this.price = window.sessionStorage.price;
     }
-    if (localStorage.isMessage) {
-      this.isMessage = localStorage.isMessage;
+    if (window.sessionStorage.isMessage) {
+      this.isMessage = window.sessionStorage.isMessage;
     }
-    if (localStorage.name) {
-      this.name = localStorage.name;
+    if (window.sessionStorage.name) {
+      this.name = window.sessionStorage.name;
     }
-    if (localStorage.dob) {
-      this.dob = localStorage.dob;
+    if (window.sessionStorage.dob) {
+      this.dob = window.sessionStorage.dob;
     }
-    if (localStorage.height) {
-      this.height = localStorage.height;
+    if (window.sessionStorage.height) {
+      this.height = window.sessionStorage.height;
     }
-    if (localStorage.weight) {
-      this.weight = localStorage.weight;
+    if (window.sessionStorage.weight) {
+      this.weight = window.sessionStorage.weight;
     }
-    if (localStorage.message) {
-      this.message = localStorage.message;
+    if (window.sessionStorage.message) {
+      this.message = window.sessionStorage.message;
     }
   },
   methods: {
     persist() {
-      localStorage.item = this.item;
-      localStorage.price = this.price;
-      localStorage.isMessage = this.isMessage;
-      localStorage.messagePrice = this.messagePrice;
-      localStorage.name = this.name;
-      localStorage.dob = this.dob;
-      localStorage.height = this.height;
-      localStorage.weight = this.weight;
-      localStorage.message = this.message;
+      window.sessionStorage.item = this.item;
+      window.sessionStorage.price = this.price;
+      window.sessionStorage.isMessage = this.isMessage;
+      window.sessionStorage.messagePrice = this.messagePrice;
+      window.sessionStorage.name = this.name;
+      window.sessionStorage.dob = this.dob;
+      window.sessionStorage.height = this.height;
+      window.sessionStorage.weight = this.weight;
+      window.sessionStorage.message = this.message;
+    }
+  },
+  filters: {
+    moment: function (date) {
+      if ( date !== '')
+        return moment(date).format('MMMM Do, YYYY');
     }
   }
 })

@@ -24,6 +24,7 @@ def create_app():
     from passlib.hash import pbkdf2_sha256
     from flask_marshmallow import Marshmallow
     import stripe
+    import datetime
 
     APPLICATION_NAME = "Kokeshi"
 
@@ -47,13 +48,18 @@ def create_app():
     admin.add_view(UserAdmin(User, db.session))
     admin.add_view(RoleAdmin(Role, db.session))
 
+    STRIPE_PUBLISHABLE_KEY = 'pk_test_GM1d2F2DgrIl6jnkIwSaZ8Dd'
     # Stripe payments implementation
     stripe_keys = {
-        'secret_key': ['STRIPE_SECRET_KEY'],
-        'publishable_key': ['STRIPE_PUBLISHABLE_KEY']
+        'secret_key': os.environ['STRIPE_SECRET_KEY'],
+        'publishable_key': STRIPE_PUBLISHABLE_KEY
     }
 
     stripe.api_key = stripe_keys['secret_key']
+
+    #################
+    # App functions #
+    #################
 
     #######################
     # User administration #
@@ -380,7 +386,7 @@ def create_app():
             return redirect(url_for('showConfirmPage'))
 
         else:
-            return render_template('checkout.html', key=stripe_keys['publishable_key'])
+            return render_template('index.html', key=stripe_keys['publishable_key'])
 
     @app.route('/charge', methods=['POST'])
     def charge():

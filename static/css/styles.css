@@ -450,10 +450,10 @@ label {
   width: 80%; }
 
 .design__kokeshi-model {
-  background-image: url("/static/img/kokeshi_model.svg");
+  background-image: url("/static/img/yamagata_kokeshi(cut).svg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   font-family: "Handlee", cursive;
   height: 645px;
   margin: 0 20px 20px;
@@ -461,26 +461,32 @@ label {
   width: 240px; }
 
 .design__kokeshi-info {
-  margin-left: 8%;
+  margin-left: auto;
   margin-right: auto;
-  position: absolute;
+  position: relative;
   text-align: center;
   top: 250px;
-  width: 80%; }
+  width: 50%; }
 
 .design__info {
-  text-align: center; }
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  white-space: pre-wrap;
+  word-break: break-word; }
 
 .design__date-picker {
   max-height: 100px; }
 
 .design__kokeshi-message {
-  margin-left: 20%;
+  margin-left: auto;
   margin-right: auto;
-  position: absolute;
+  position: relative;
   text-align: justify;
   top: 370px;
-  width: 60%; }
+  white-space: pre-wrap;
+  width: 50%;
+  word-break: break-word; }
 
 .design__message {
   display: inline-block;

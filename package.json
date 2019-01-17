@@ -13,6 +13,7 @@
   "author": "Miles Whitman",
   "license": "ISC",
   "dependencies": {
-    "node-sass": "^4.10.0"
+    "moment": "^2.23.0",
+    "node-sass": "^4.11.0"
   }
 }
