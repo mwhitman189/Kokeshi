@@ -1,0 +1,11 @@
+<div class="cart cart__container">
+  <div class="cart__title">
+    My Items
+  </div>
+  <ul id="cart-items">
+    <li v-for="item in myCart">
+      <span>[[ item.name ]]'s <span class="red-text">[[ item.item ]]</span></span>
+      <span class="cart__price">[[ item.price ]]</span>
+    </li>
+  </ul>
+</div>

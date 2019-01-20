@@ -28,120 +28,102 @@
     </head>
 
     <body>
-      <div class="wrapper">
-        <div id="page-wrapper" class="page-wrapper">
-          <div id="overlay" class=""></div>
-          <header class="header">
-            <div id="header" class="header__upper">
+      <div id="app">
+        <div class="wrapper">
+          <div id="page-wrapper" class="page-wrapper">
+            <div id="overlay" class=""></div>
+            <header class="header">
+              <div id="header" class="header__upper">
 
-              <!-- Navigation -->
-              <div class="header__utility-container">
-                <ul class="header__icons">
-                  <li class="header__icon header__bars">
-                    <button id="menu-toggle" role="navigation" class="header__link-icon" href="#"><i class="fas fa-bars" aria-label="Navigation" aria-controls="menu"></i></button>
-                  </li>
-                  <li class="header__icon header__cart">
-                    <a class="header__link-icon" href="{{ url_for('showAboutPage')}}"><i class="fas fa-baby-carriage"></i></a>
-                  </li>
-                </ul>
-                <div class="header__mobile-brand">
-                  <a class="header__brand-inner" href="{{ url_for('showHome') }}">
-                    <img src="../static/img/KokeMama(diamond).svg" width="100%" alt="White diamond KokeMama logo" class="header__brand-img svg-fit">
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div id="menu" class="header__lower">
-              <nav class="header__lower-container">
-                <div class="header__brand">
-                  <a class="header__brand-inner" href="{{ url_for('showHome') }}">
-                    <img src="../static/img/KokeMama(diamond-black).svg" width="100%" alt="Black diamond KokeMama logo" class="header__brand-img svg-fit">
-                  </a>
-                </div>
-                <div class="header__mobile-head">
-                  <a href="{{ url_for('showHome') }}">
-                    <img src="../static/img/KokeMama(diamond-black).svg" width="100%" alt="Black diamond KokeMama logo" class="header__brand-img svg-fit">
-                  </a>
-                  <span class="back">Back</span>
-                </div>
-                <ul class="header__menus menus-depth-0 clearfix">
-                  <li class="header__menu menu-depth-0 header__dropdown-toggle">
-                    <a class="header__link default" href="{{ url_for('showAboutPage')}}">
-                      <span>About us</span>
+                <!-- Navigation -->
+                <div class="header__utility-container">
+                  <ul class="header__icons">
+                    <li class="header__icon header__bars">
+                      <div id="menu-toggle" role="navigation" class="header__link-icon"
+                       v-on:click="toggleMenu">
+                       <i class="fas fa-bars" aria-label="Navigation" aria-controls="menu"></i>
+                      </div>
+                    </li>
+                    <li class="header__icon header__cart">
+                      <a class="header__link-icon" href="{{ url_for('showAboutPage')}}"><i class="fas fa-baby-carriage">([[ myCart[0].name ]])</i></a>
+                    </li>
+                  </ul>
+                  <div class="header__mobile-brand">
+                    <a class="header__brand-inner" href="{{ url_for('showHome') }}">
+                      <img src="../static/img/KokeMama(diamond).svg" width="100%" alt="White diamond KokeMama logo" class="header__brand-img svg-fit">
                     </a>
-                  </li>
-                  <li class="header__menu menu-depth-0 header__dropdown-toggle">
-                    <a class="header__link default" href="{{ url_for('showDesignPage')}}">
-                      <span>Design a kokeshi</span>
-                    </a>
-                  </li>
-                  <li class="header__menu menu-depth-0 header__dropdown-toggle">
-                    <a class="header__link default" href="{{ url_for('showContactPage')}}">
-                      <span>Contact us</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </header>
-
-          <main class="content-main-wrapper clearfix">
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                <ul class=flashes>
-                {% for message in messages %}
-                  <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-              {% endif %}
-            {% endwith %}
-                <div id="keyvisual" class="keyvisual keyvisual--anchor-fixed">
-                  <div id="app">
-                    {% block content_1 %}
-                    {% endblock %}
                   </div>
                 </div>
-
-                {% block content_2 %}
-                {% endblock %}
-          </main>
-
-
-          <!-- Footer -->
-
-          <footer class="footer">
-            <div class="dark">
-              <p class="footer__text center-text">Copyright &copy; KokeMama
-                  2018</p>
               </div>
-          </footer>
+              <div id="menu" class="header__lower">
+                <nav class="header__lower-container">
+                  <div class="header__brand">
+                    <a class="header__brand-inner" href="{{ url_for('showHome') }}">
+                      <img src="../static/img/KokeMama(diamond-black).svg" width="100%" alt="Black diamond KokeMama logo" class="header__brand-img svg-fit">
+                    </a>
+                  </div>
+                  <div class="header__mobile-head">
+                    <a href="{{ url_for('showHome') }}">
+                      <img src="../static/img/KokeMama(diamond-black).svg" width="100%" alt="Black diamond KokeMama logo" class="header__brand-img svg-fit">
+                    </a>
+                    <span class="back">Back</span>
+                  </div>
+                  <ul class="header__menus menus-depth-0 clearfix">
+                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
+                      <a class="header__link default" href="{{ url_for('showAboutPage')}}">
+                        <span>About us</span>
+                      </a>
+                    </li>
+                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
+                      <a class="header__link default" href="{{ url_for('showDesignPage')}}">
+                        <span>Design a kokeshi</span>
+                      </a>
+                    </li>
+                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
+                      <a class="header__link default" href="{{ url_for('showContactPage')}}">
+                        <span>Contact us</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </header>
+
+            <main class="content-main-wrapper clearfix">
+                  <div id="keyvisual" class="keyvisual keyvisual--anchor-fixed">
+
+                      {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                          <ul class=flashes>
+                          {% for message in messages %}
+                            <li>{{ message }}</li>
+                          {% endfor %}
+                          </ul>
+                        {% endif %}
+                      {% endwith %}
+
+                      {% block content_1 %}
+                      {% endblock %}
+                    </div>
+                  </div>
+
+                  {% block content_2 %}
+                  {% endblock %}
+            </main>
+
+
+            <!-- Footer -->
+
+            <footer class="footer">
+              <div class="dark">
+                <p class="footer__text center-text">Copyright &copy; KokeMama
+                    2018</p>
+                </div>
+            </footer>
+          </div>
         </div>
       </div>
 
-      <script>
-      // Drawer menu
-        const toggleBtn = document.querySelector('#menu-toggle');
-        const menuEl = document.querySelector('#menu');
-        const headerEl = document.querySelector('#header');
-        const pageWrapEl = document.querySelector('#page-wrapper');
-        const visualEl = document.querySelector('#keyvisual');
-        const overlay = document.querySelector('#overlay');
-
-        toggleBtn.addEventListener('click', function() {
-          menuEl.classList.toggle('active');
-          headerEl.classList.toggle('shifted-right');
-          visualEl.classList.toggle('shifted-right');
-          overlay.classList.toggle('overlay');
-
-          if (pageWrapEl.style.width !== window.innerWidth + 'px') {
-            pageWrapEl.style.width = window.innerWidth + 'px';
-            headerEl.style.width = window.innerWidth + 'px';
-          } else {
-            pageWrapEl.style.width = '';
-            headerEl.style.width = '';
-          }
-        });
-      </script>
       {% block scripts %}
       {% endblock %}
       <!-- development version, includes helpful console warnings -->

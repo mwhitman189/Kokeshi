@@ -12,6 +12,7 @@ const app = new Vue({
     let height = "";
     let weight = "";
     let message = "";
+    showMenu = false;
     return {
       item: item,
       price: price,
@@ -22,6 +23,18 @@ const app = new Vue({
       height: height,
       weight: weight,
       message: message,
+      myCart: [
+        {
+          item: window.sessionStorage.item,
+          price: window.sessionStorage.price,
+          isMessage: window.sessionStorage.isMessage,
+          name: window.sessionStorage.name,
+          dob: window.sessionStorage.dob,
+          height: window.sessionStorage.height,
+          weight: window.sessionStorage.weight,
+          message: window.sessionStorage.message
+        }
+      ]
     }
   },
   mounted() {
@@ -61,6 +74,27 @@ const app = new Vue({
       window.sessionStorage.height = this.height;
       window.sessionStorage.weight = this.weight;
       window.sessionStorage.message = this.message;
+    },
+    toggleMenu: function() {
+      const toggleBtn = document.querySelector('#menu-toggle');
+      const menuEl = document.querySelector('#menu');
+      const headerEl = document.querySelector('#header');
+      const pageWrapEl = document.querySelector('#page-wrapper');
+      const visualEl = document.querySelector('#keyvisual');
+      const overlay = document.querySelector('#overlay');
+
+      menuEl.classList.toggle('active');
+      headerEl.classList.toggle('shifted-right');
+      visualEl.classList.toggle('shifted-right');
+      overlay.classList.toggle('overlay');
+
+      if (pageWrapEl.style.width !== window.innerWidth + 'px') {
+        pageWrapEl.style.width = window.innerWidth + 'px';
+        headerEl.style.width = window.innerWidth + 'px';
+      } else {
+        pageWrapEl.style.width = '';
+        headerEl.style.width = '';
+      }
     }
   },
   filters: {
