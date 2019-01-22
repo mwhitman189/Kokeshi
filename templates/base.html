@@ -45,7 +45,7 @@
                       </div>
                     </li>
                     <li class="header__icon header__cart">
-                      <a class="header__link-icon" href="{{ url_for('showAboutPage')}}"><i class="fas fa-baby-carriage">([[ myCart[0].name ]])</i></a>
+                      <button id="cart-toggle" v-on:click="toggleCart" class="header__link-icon"><i class="fas fa-baby-carriage">({{ session['cart'] | length }})</i></button>
                     </li>
                   </ul>
                   <div class="header__mobile-brand">
@@ -88,19 +88,26 @@
                 </nav>
               </div>
             </header>
+            <div id="cart" class="cart cart__container">
+              <button v-on:click="toggleCart" class="cart__close-btn">X</button>
+              <div class="cart__title center-text">
+                My Items
+              </div>
+                <ul id="cart-items">
+                  {% for item in session['cart'] %}
+                  <li>
+                    <div class="cart__item-info">{{ item.name }}'s <span class="red-text">{{ item.item }}</span>
+                      <span class="cart__price">{{ item.price }}</span>
+                    </div>
+                  </li>
+                  {% endfor %}
+                </ul>
+                <div class="cart__total">Total: {{ session['cart'] | sum(attribute='price') }}</div>
+                <button class="cart__checkout-btn">Checkout</button>
+            </div>
 
             <main class="content-main-wrapper clearfix">
                   <div id="keyvisual" class="keyvisual keyvisual--anchor-fixed">
-
-                      {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                          <ul class=flashes>
-                          {% for message in messages %}
-                            <li>{{ message }}</li>
-                          {% endfor %}
-                          </ul>
-                        {% endif %}
-                      {% endwith %}
 
                       {% block content_1 %}
                       {% endblock %}

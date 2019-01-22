@@ -65,7 +65,7 @@ def create_app():
     # User administration #
     #######################
 
-    @app.before_first_request
+    """@app.before_first_request
     def before_first_request():
         db.create_all()
         user_datastore.find_or_create_role(
@@ -102,7 +102,25 @@ def create_app():
 
         db_items = [
             Product(
-                productName="Kokeshi",
+                productName="Zao Kokeshi",
+                productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
+                price=200,
+                is_available=True
+            ),
+            Product(
+                productName="Yonezawa Kokeshi",
+                productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
+                price=200,
+                is_available=True
+            ),
+            Product(
+                productName="Sagae Kokeshi",
+                productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
+                price=200,
+                is_available=True
+            ),
+            Product(
+                productName="Tendo Kokeshi",
                 productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
                 price=200,
                 is_available=True
@@ -134,7 +152,7 @@ def create_app():
         for item in db_items:
             db.session.add(item)
 
-        db.session.commit()
+        db.session.commit()"""
 
     @app.route('/login', methods=['GET', 'POST'])
     def showLogin():
@@ -298,6 +316,8 @@ def create_app():
         """
         Display a kokeshi designing page that, when submitted, updates the shopping cart with the order and redirects to the order page.
         """
+        if 'cart' not in session:
+            session['cart'] = []
 
         if request.method == 'POST':
 
@@ -309,10 +329,14 @@ def create_app():
             db.session.add(order)
             db.session.commit()
 
+            product = Product.query.filter_by(
+                productName=request.form['item']).one()
+
             customer.order_ID = order.orderID
 
             if request.form.get('is-message', False) == 'on':
                 order_details = OrderDetails(
+                    item=request.form['item'],
                     name=request.form['name'],
                     dob=request.form['dob'],
                     height=request.form['height'],
@@ -320,18 +344,21 @@ def create_app():
                     is_message=True,
                     message=request.form['message'],
                     order_ID=order.orderID,
-                    customer_ID=customer.customerID
+                    customer_ID=customer.customerID,
+                    product_ID=product.productID
                 )
 
             else:
                 order_details = OrderDetails(
+                    item=request.form['item'],
                     name=request.form['name'],
                     dob=request.form['dob'],
                     height=request.form['height'],
                     weight=request.form['weight'],
                     is_message=False,
                     order_ID=order.orderID,
-                    customer_ID=customer.customerID
+                    customer_ID=customer.customerID,
+                    product_ID=product.productID
                 )
             if request.form.get('is-message', False) == 'on':
                 total = 250
@@ -346,6 +373,20 @@ def create_app():
             db.session.add(order)
             db.session.add(order_details)
             db.session.commit()
+
+            session['cart'].append(
+                {
+                    'item': order_details.item,
+                    'name': order_details.name,
+                    'dob': order_details.dob,
+                    'height': order_details.height,
+                    'weight': order_details.weight,
+                    'isMessage': order_details.is_message,
+                    'message': order_details.message,
+                    'product': product.productName,
+                    'price': total
+                }
+            )
 
             session['customer_ID'] = customer.customerID
 

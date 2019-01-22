@@ -127,6 +127,14 @@ label {
   padding: 3px 60px 10px;
 }
 
+.flashes {
+  color: $color-white;
+  font-size: 18px;
+  position: absolute;
+  top: 0;
+  z-index: 100000;
+}
+
 .svg-fit {
   display: block;
   height: 100%;
@@ -145,6 +153,56 @@ label {
 
 .filler {
   height: 80px;
+}
+
+.cart {
+  animation: fadeIn .7s;
+  background-color: $color-white;
+  border: 1px solid $color-dark;
+  box-shadow: 0 4px 5px 4px rgba($color-dark, .7);
+  color: $color-black;
+  display: none;
+  height: 400px;
+  padding: 40px 10px 10px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 200px;
+  z-index: 20000;
+
+  &.active {
+    display: block;
+  }
+}
+
+.cart__container {
+  line-height: 30px;
+  width: 100%;
+}
+
+.cart__title {
+  margin-bottom: 15px;
+}
+
+.cart__price,
+.cart__total {
+  float: right;
+}
+
+.cart__item-info {
+  border-bottom: 1px solid $color-gray;
+}
+
+.cart__total {
+  font-weight: 700;
+  margin-top: 15px;
+}
+
+.cart__close-btn {
+  margin: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .checkout__container-fluid {
@@ -552,6 +610,12 @@ label {
   height: 180px;
 }
 
+.about-btn {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
 .design__form {
   align-items: center;
   margin-bottom: 10px;
@@ -637,14 +701,6 @@ label {
   margin-bottom: 20px;
 }
 
-.cart__container {
-  width: 100%;
-}
-
-.cart__price {
-  float: right;
-}
-
 .flex-order {
   align-items: center;
   display: flex;
@@ -660,7 +716,7 @@ label {
 .order__message {
   overflow-wrap: break-word;
   white-space: pre-wrap;
-  width: 100%;
+  width: 120px;
 }
 
 .blurb {
@@ -717,6 +773,13 @@ label {
   .container {
     padding: 20px;
     width: 100%;
+  }
+
+  .about-btn {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 30%;
   }
 
   .checkout__container-fluid {

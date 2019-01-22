@@ -175,6 +175,7 @@ class Order(db.Model):
 class OrderDetails(db.Model):
     __tablename__ = 'order_details'
     orderDetailsID = db.Column(db.Integer(), primary_key=True)
+    item = db.Column(db.String(64))
     name = db.Column(db.String(64), index=True)
     dob = db.Column(db.String(32), index=True)
     height = db.Column(db.Integer())

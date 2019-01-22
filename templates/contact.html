@@ -15,6 +15,16 @@
   </div>
 </div>
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 <section class="contact__content content container">
   <h1 class="title center-text">Contact us</h1>
   <p class="center-text">Please contact us with any comments, suggestions, or questions. You will receive a response within 48 hours.</p>

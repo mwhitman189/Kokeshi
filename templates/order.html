@@ -15,34 +15,39 @@
   </div>
 </div>
 
-<section class="order__content content container">
-  <div class="cart cart__container">
-    <div class="cart__title">
-      My Items
-    </div>
-    <ul id="cart-items">
-      <li v-for="item in myCart">
-        <span>[[ item.name ]]'s <span class="red-text">[[ item.item ]]</span></span>
-        <span class="cart__price">[[ item.price ]]</span>
-      </li>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
     </ul>
-  </div>
+  {% endif %}
+{% endwith %}
+
+<section class="order__content content container">
   <template v-if="item">
     <h1 class="title center-text">Design Confirmation</h1>
     <p class="instructions center-text"><b>Please confirm your design, then proceed to checkout.</b></p><br>
     <div class="flex-order">
       <div class="kokeshi-order">
-        <div class="order-item"><h4><b>Style: </b>[[ item ]] Kokeshi</h4><br></div>
-        <div class="kokeshi-info order-item">
-          <p class="info"><b>Name: </b>[[ name ]]</p><br>
-          <p class="info"><b>Date of birth: </b>[[ dob ]]</p><br>
-          <p class="info"><b>Height: </b>[[ height ]] cm</p><br>
-          <p class="info"><b>Weight: </b>[[ weight ]] grams</p><br>
-        </div>
-        <div class="kokeshi-message">
-          <p class="order__message"><b>Message: </b><br>[[ message ]]</p><br>
-        </div>
-        <div class="order-price order-item"><h4 class="total">Your total: ${{ session['new_order_total'] }}</h4></div>
+        <ul>
+        {% for item in session['cart'] %}
+          <li>
+            <div class="order-item"><h4><b>Style: </b>{{ item.item }}</h4><br></div>
+            <div class="kokeshi-info order-item">
+              <p class="info"><b>Name: </b>{{ item.name }}</p><br>
+              <p class="info"><b>Date of birth: </b>{{ item.dob }}</p><br>
+              <p class="info"><b>Height: </b>{{ item.height }} cm</p><br>
+              <p class="info"><b>Weight: </b>{{ item.weight }} grams</p><br>
+            </div>
+            <div class="kokeshi-message">
+              <p class="order__message"><b>Message: </b><br>{{ item.message }}</p><br>
+            </div>
+          </li>
+        {% endfor %}
+        </ul>
+        <div class="order-price order-item"><h4 class="total">Your total: ${{ session['cart'] | sum(attribute='price') }}</h4></div>
       </div>
       <form action="{{ url_for('showCheckoutPage') }}">
           <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>

@@ -95,6 +95,11 @@ const app = new Vue({
         pageWrapEl.style.width = '';
         headerEl.style.width = '';
       }
+    },
+    toggleCart: function() {
+      const cart = document.querySelector('#cart');
+      cart.classList.toggle('active');
+      console.log('toggle-active')
     }
   },
   filters: {
