@@ -97,13 +97,15 @@
                   {% for item in session['cart'] %}
                   <li>
                     <div class="cart__item-info">{{ item.name }}'s <span class="red-text">{{ item.item }}</span>
-                      <span class="cart__price">{{ item.price }}</span>
+                      <span class="cart__price">{{ item.price }}.00</span>
                     </div>
                   </li>
                   {% endfor %}
                 </ul>
-                <div class="cart__total">Total: {{ session['cart'] | sum(attribute='price') }}</div>
-                <button class="cart__checkout-btn">Checkout</button>
+                <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
+                <form action="{{ url_for('showCheckoutPage') }}">
+                    <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
+                </form>
             </div>
 
             <main class="content-main-wrapper clearfix">

@@ -3,7 +3,7 @@
   <form action="/charge" method="post">
     <article>
       <label>
-        <span>Amount is ${{ session['new_order_total'] }}</span>
+        <span>Amount is ${{ amount }}</span>
       </label>
     </article>
 
@@ -12,5 +12,6 @@
             data-description="A Flask Charge"
             data-amount="amount"
             data-locale="auto"></script>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
   </form>
 {% endblock %}

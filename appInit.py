@@ -361,13 +361,11 @@ def create_app():
                     product_ID=product.productID
                 )
             if request.form.get('is-message', False) == 'on':
-                total = 250
+                price = 250
             else:
-                total = 200
+                price = 200
 
-            order.total = total
-
-            session['new_order_total'] = total
+            order.price = price
 
             db.session.add(customer)
             db.session.add(order)
@@ -384,7 +382,7 @@ def create_app():
                     'isMessage': order_details.is_message,
                     'message': order_details.message,
                     'product': product.productName,
-                    'price': total
+                    'price': price
                 }
             )
 
@@ -411,6 +409,11 @@ def create_app():
         """
         Display the checkout page
         """
+        amount = 0
+
+        for item in session['cart']:
+            amount += item['price']
+
         customer = Customer.query.filter_by(
             customerID=session['customer_ID']).one()
         if request.method == 'POST':
@@ -427,14 +430,19 @@ def create_app():
             return redirect(url_for('showConfirmPage'))
 
         else:
-            return render_template('index.html', key=stripe_keys['publishable_key'])
+            return render_template('index.html', key=stripe_keys['publishable_key'], amount=amount)
 
-    @app.route('/charge', methods=['POST'])
+    @app.route('/charge', methods=['GET', 'POST'])
     def charge():
         db_customer = Customer.query.filter_by(
             customerID=session['customer_ID']).one()
         # Amount in cents
-        amount = session['new_order_total'] * 100
+        amount = 0
+        items = []
+        for item in session['cart']:
+            amount += item['price']
+            items.append(item['item'])
+        print items
 
         customer = stripe.Customer.create(
             email=db_customer.email,
@@ -445,10 +453,10 @@ def create_app():
             customer=customer.id,
             amount=amount,
             currency='usd',
-            description='Flask Charge'
+            description='KokeMama Charge'
         )
 
-        return render_template('charge.html', amount=amount)
+        return render_template('charge.html', amount=amount, items=items)
 
     @app.route('/confirmation')
     def showConfirmPage():

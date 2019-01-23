@@ -1,4 +1,4 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h2>Thanks, you paid <strong>${{ session['new_order_total'] }}</strong>!</h2>
+  <h2>Thanks, you purchased <strong>{% for item in items %}{{ item }}, {% endfor %}</strong> for <strong>${{ amount }}</strong>!</h2>
 {% endblock %}
