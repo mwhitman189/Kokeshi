@@ -489,7 +489,14 @@ label {
 .keyvisual__svg {
   height: 180px; }
 
-.about-btn {
+.home__btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px; }
+
+.about__btn {
+  display: block;
   margin-left: auto;
   margin-right: auto;
   width: 100%; }
@@ -628,10 +635,7 @@ label {
   .container {
     padding: 20px;
     width: 100%; }
-  .about-btn {
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
+  .about__btn {
     width: 30%; }
   .checkout__container-fluid {
     flex-direction: row; }
