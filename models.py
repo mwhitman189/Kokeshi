@@ -168,6 +168,8 @@ class Order(db.Model):
         db.Integer(), db.ForeignKey('customers.customerID'))
     payment_ID = db.Column(db.Integer(), db.ForeignKey('payments.paymentID'))
     shipper_ID = db.Column(db.Integer(), db.ForeignKey('shippers.shipperID'))
+    supplier_ID = db.Column(
+        db.Integer(), db.ForeignKey('suppliers.supplierID'))
 
     order_details = db.relationship('OrderDetails', backref='order')
 
@@ -195,7 +197,7 @@ class Supplier(db.Model):
     supplierID = db.Column(db.Integer(), primary_key=True)
     supplierName = db.Column(db.String(128), index=True)
     supplierPhone = db.Column(db.BigInteger(), nullable=False)
-    supplierEmail = db.Column(db.String(255), index=True)
+    supplierEmail = db.Column(db.String(255), unique=True, index=True)
     customer_ID = db.Column(
         db.Integer(), db.ForeignKey('customers.customerID'))
 

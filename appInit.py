@@ -286,7 +286,8 @@ def create_app():
         order = Order.query.filter_by(orderID=order_id).first()
         supplier = Supplier.query.filter_by(
             supplierEmail=session['supplier']).first()
-        selected_order = OrderDetails.query.filter_by(
+        selected_order = Order.query.filter_by(orderID=order_id).first()
+        selected_order_details = OrderDetails.query.filter_by(
             order_ID=order_id).first()
         supplier_id = supplier.supplierID
 
@@ -294,7 +295,7 @@ def create_app():
         selected_order.supplier_ID = supplier_id
         db.session.add(selected_order)
         db.session.commit()
-        return render_template('selected_order.html', order=selected_order)
+        return render_template('selected_order.html', order=selected_order_details)
 
     @app.route('/')
     @app.route('/home')

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: abfcfd9fde26
+Revision ID: f113041aaaf5
 Revises: 
-Create Date: 2019-01-27 00:09:02.223698
+Create Date: 2019-01-27 01:11:35.716682
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'abfcfd9fde26'
+revision = 'f113041aaaf5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -65,22 +65,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
-    op.create_table('orders',
-    sa.Column('orderID', sa.Integer(), nullable=False),
-    sa.Column('wasOrdered', sa.Boolean(), nullable=True),
-    sa.Column('wasAccepted', sa.Boolean(), nullable=True),
-    sa.Column('dateOrdered', sa.DateTime(), server_default=sa.text(u'now()'), nullable=True),
-    sa.Column('wasFulfilled', sa.Boolean(), nullable=True),
-    sa.Column('total', sa.BigInteger(), nullable=True),
-    sa.Column('customer_ID', sa.Integer(), nullable=True),
-    sa.Column('payment_ID', sa.Integer(), nullable=True),
-    sa.Column('shipper_ID', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['customer_ID'], ['customers.customerID'], ),
-    sa.ForeignKeyConstraint(['payment_ID'], ['payments.paymentID'], ),
-    sa.ForeignKeyConstraint(['shipper_ID'], ['shippers.shipperID'], ),
-    sa.PrimaryKeyConstraint('orderID')
-    )
-    op.create_index(op.f('ix_orders_dateOrdered'), 'orders', ['dateOrdered'], unique=False)
     op.create_table('roles_users',
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('role_id', sa.Integer(), nullable=True),
@@ -96,8 +80,26 @@ def upgrade():
     sa.ForeignKeyConstraint(['customer_ID'], ['customers.customerID'], ),
     sa.PrimaryKeyConstraint('supplierID')
     )
-    op.create_index(op.f('ix_suppliers_supplierEmail'), 'suppliers', ['supplierEmail'], unique=False)
+    op.create_index(op.f('ix_suppliers_supplierEmail'), 'suppliers', ['supplierEmail'], unique=True)
     op.create_index(op.f('ix_suppliers_supplierName'), 'suppliers', ['supplierName'], unique=False)
+    op.create_table('orders',
+    sa.Column('orderID', sa.Integer(), nullable=False),
+    sa.Column('wasOrdered', sa.Boolean(), nullable=True),
+    sa.Column('wasAccepted', sa.Boolean(), nullable=True),
+    sa.Column('dateOrdered', sa.DateTime(), server_default=sa.text(u'now()'), nullable=True),
+    sa.Column('wasFulfilled', sa.Boolean(), nullable=True),
+    sa.Column('total', sa.BigInteger(), nullable=True),
+    sa.Column('customer_ID', sa.Integer(), nullable=True),
+    sa.Column('payment_ID', sa.Integer(), nullable=True),
+    sa.Column('shipper_ID', sa.Integer(), nullable=True),
+    sa.Column('supplier_ID', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['customer_ID'], ['customers.customerID'], ),
+    sa.ForeignKeyConstraint(['payment_ID'], ['payments.paymentID'], ),
+    sa.ForeignKeyConstraint(['shipper_ID'], ['shippers.shipperID'], ),
+    sa.ForeignKeyConstraint(['supplier_ID'], ['suppliers.supplierID'], ),
+    sa.PrimaryKeyConstraint('orderID')
+    )
+    op.create_index(op.f('ix_orders_dateOrdered'), 'orders', ['dateOrdered'], unique=False)
     op.create_table('products',
     sa.Column('productID', sa.Integer(), nullable=False),
     sa.Column('productName', sa.String(length=64), nullable=True),
@@ -140,12 +142,12 @@ def downgrade():
     op.drop_table('order_details')
     op.drop_index(op.f('ix_products_productName'), table_name='products')
     op.drop_table('products')
+    op.drop_index(op.f('ix_orders_dateOrdered'), table_name='orders')
+    op.drop_table('orders')
     op.drop_index(op.f('ix_suppliers_supplierName'), table_name='suppliers')
     op.drop_index(op.f('ix_suppliers_supplierEmail'), table_name='suppliers')
     op.drop_table('suppliers')
     op.drop_table('roles_users')
-    op.drop_index(op.f('ix_orders_dateOrdered'), table_name='orders')
-    op.drop_table('orders')
     op.drop_table('users')
     op.drop_table('shippers')
     op.drop_table('roles')
