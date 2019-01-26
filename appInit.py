@@ -65,7 +65,7 @@ def create_app():
     # User administration #
     #######################
 
-    """@app.before_first_request
+    @app.before_first_request
     def before_first_request():
         db.create_all()
         user_datastore.find_or_create_role(
@@ -139,7 +139,7 @@ def create_app():
             Supplier(
                 supplierName="Miyagi",
                 supplierPhone="090000009999",
-                supplierEmail="waxOnWaxOff@example.com"
+                supplierEmail="artisan@example.com"
             ),
             Shipper(
                 companyName="Kuro Neko",
@@ -152,7 +152,7 @@ def create_app():
         for item in db_items:
             db.session.add(item)
 
-        db.session.commit()"""
+        db.session.commit()
 
     @app.route('/login', methods=['GET', 'POST'])
     def showLogin():
