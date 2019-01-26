@@ -442,7 +442,6 @@ def create_app():
         for item in session['cart']:
             amount += item['price']
             items.append(item['item'])
-        print items
 
         customer = stripe.Customer.create(
             email=db_customer.email,

@@ -650,7 +650,18 @@ label {
   width: 80%;
 }
 
-.design__kokeshi-model {
+.design__kokeshi-model-front {
+  background-image: url('/static/img/yamagata_kokeshi(cut).svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 645px;
+  margin: 0 20px 20px;
+  position: relative;
+  width: 240px;
+}
+
+.design__kokeshi-model-back {
   background-image: url('/static/img/yamagata_kokeshi(cut).svg');
   background-position: center;
   background-repeat: no-repeat;

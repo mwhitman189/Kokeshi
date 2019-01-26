@@ -103,7 +103,7 @@ class UserAdmin(sqla.ModelView):
     # Prevent administration of Users unless the currently logged-in user has the "admin" role
 
     def is_accessible(self):
-        return True  # current_user.has_role('admin')
+        return current_user.has_role('super')  # current_user.has_role('admin')
 
     # On the form for creating or editing a User, don't display a field corresponding to the model's password field.
     # There are two reasons for this. First, we want to encrypt the password before storing in the database. Second,
@@ -127,9 +127,9 @@ class UserAdmin(sqla.ModelView):
 
 class RoleAdmin(sqla.ModelView):
 
-    # Prevent administration of Roles unless the currently logged-in user has the "admin" role
+    # Prevent administration of Roles unless the currently logged-in user has the "super" role
     def is_accessible(self):
-        return current_user.has_role('admin')
+        return current_user.has_role('super')
 
 
 class Schema(ModelSchema):
