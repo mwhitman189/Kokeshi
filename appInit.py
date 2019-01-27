@@ -444,17 +444,23 @@ def create_app():
             amount += item['price']
             items.append(item['item'])
 
-        customer = stripe.Customer.create(
-            email=db_customer.email,
-            source=request.form['stripeToken']
-        )
+        try:
+            customer = stripe.Customer.create(
+                email=db_customer.email,
+                source=request.form['stripeToken']
+            )
 
-        charge = stripe.Charge.create(
-            customer=customer.id,
-            amount=amount,
-            currency='usd',
-            description='KokeMama Charge'
-        )
+            charge = stripe.Charge.create(
+                customer=customer.id,
+                amount=amount,
+                currency='usd',
+                description='KokeMama Charge'
+            )
+
+            session['cart'] = []
+
+        except:
+            None
 
         return render_template('charge.html', amount=amount, items=items)
 
