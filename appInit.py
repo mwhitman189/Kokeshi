@@ -493,5 +493,6 @@ def register_extensions(app):
     migrate.init_app(app, db)
     ma.init_app(app)
     heroku.init_app(app)
+    mail.init_app(app)
 
     return None
