@@ -1,4 +1,4 @@
-from extensions import db, migrate, csrf, ma, heroku, login_manager
+from extensions import db, migrate, csrf, ma, heroku, login_manager, mail
 
 
 def create_app():
@@ -25,6 +25,7 @@ def create_app():
     from flask_marshmallow import Marshmallow
     import stripe
     import datetime
+    from flask_mail import Mail, Message
 
     APPLICATION_NAME = "Kokeshi"
 
@@ -36,9 +37,18 @@ def create_app():
         app.config.from_envvar('KOKESHI_SETTINGS')
     except:
         pass
+
+    # Flask Security Config
     app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
     app.config['SECURITY_PASSWORD_SALT'] = '$2b$12$1pO0bbJOrozMPSKdzOB6a.'
     app.config['SECURITY_REGISTERABLE'] = True
+
+    # Flask-Mail Config
+    app.config['MAIL_SERVER'] = 'mail.peraperaexchange.com'
+    app.config['MAIL_PORT'] = 465
+    app.config['MAIL_USERNAME'] = 'administrator@peraperaexchange.com'
+    app.config['MAIL_USE_TLS'] = False
+    app.config['MAIL_USE_SSL'] = True
 
     admin = Admin(app, index_view=MyAdminIndexView())
     # Initialize the SQLAlchemy data store and Flask-Security.
@@ -383,7 +393,8 @@ def create_app():
                     'isMessage': order_details.is_message,
                     'message': order_details.message,
                     'product': product.productName,
-                    'price': price
+                    'price': price,
+                    'orderID': order_details.order_ID
                 }
             )
 
@@ -415,6 +426,8 @@ def create_app():
         for item in session['cart']:
             amount += item['price']
 
+        amount_cents = amount * 100
+
         customer = Customer.query.filter_by(
             customerID=session['customer_ID']).one()
         if request.method == 'POST':
@@ -431,7 +444,7 @@ def create_app():
             return redirect(url_for('showConfirmPage'))
 
         else:
-            return render_template('index.html', key=stripe_keys['publishable_key'], amount=amount)
+            return render_template('index.html', key=stripe_keys['publishable_key'], total=amount, amount=amount_cents)
 
     @app.route('/charge', methods=['GET', 'POST'])
     def charge():
@@ -446,7 +459,7 @@ def create_app():
 
         try:
             customer = stripe.Customer.create(
-                email=db_customer.email,
+                email=email,
                 source=request.form['stripeToken']
             )
 
@@ -454,23 +467,40 @@ def create_app():
                 customer=customer.id,
                 amount=amount,
                 currency='usd',
-                description='KokeMama Charge'
+                description='KokeMama Charge',
+                receipt_email=email
             )
-
-            session['cart'] = []
 
         except:
             None
 
-        return render_template('charge.html', amount=amount, items=items)
+        return redirect(url_for('showConfirmPage'))
 
     @app.route('/confirmation')
     def showConfirmPage():
         """
         Display the order confirmation page after an order is submitted
         """
+        db_customer = Customer.query.filter_by(
+            customerID=session['customer_ID']).one()
 
-        return render_template('confirmation.html')
+        items = []
+        firstItem = session['cart'][0]
+        orderID = firstItem['orderID']
+
+        for item in session['cart']:
+            items += item['item']
+
+        msg = Message(
+            'Confirmation', sender='administrator@peraperaexchange.com', recipients=['mileswhitman01@gmail.com'])
+        msg.body = "Thank you for your order of: %s. Your order number is: %d." % (
+            items, orderID)
+        mail.send(msg)
+
+        session['cart'] = []
+
+        return "Sent"
+        # render_template('confirmation.html')
 
     @app.route('/contact')
     def showContactPage():
@@ -481,18 +511,10 @@ def create_app():
         return render_template('contact.html')
 
     db.init_app(app)
-    migrate.init_app(app, db)
-
-    return app
-
-
-def register_extensions(app):
-
-    db.init_app(app)
     login_manager.init_app(app)
     migrate.init_app(app, db)
     ma.init_app(app)
     heroku.init_app(app)
     mail.init_app(app)
 
-    return None
+    return app
