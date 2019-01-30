@@ -39,8 +39,6 @@ def create_app():
         pass
 
     # Flask Security Config
-    app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
-    app.config['SECURITY_PASSWORD_SALT'] = '$2b$12$1pO0bbJOrozMPSKdzOB6a.'
     app.config['SECURITY_REGISTERABLE'] = True
 
     # Flask-Mail Config
