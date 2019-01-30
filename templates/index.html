@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-  <form action="/charge" method="post">
+  <form action="{{ url_for('charge') }}" method="post">
     <article>
       <label>
         <span>Amount is ${{ total }}</span>

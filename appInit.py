@@ -459,9 +459,11 @@ def create_app():
 
         try:
             customer = stripe.Customer.create(
-                email=email,
+                email=request.form['email'],
                 source=request.form['stripeToken']
             )
+
+            session['customer_email'] = request.form['email']
 
             charge = stripe.Charge.create(
                 customer=customer.id,
@@ -470,6 +472,8 @@ def create_app():
                 description='KokeMama Charge',
                 receipt_email=email
             )
+
+            db_customer.email = session['customer_email']
 
         except:
             None
@@ -484,23 +488,21 @@ def create_app():
         db_customer = Customer.query.filter_by(
             customerID=session['customer_ID']).one()
 
-        items = []
+        items = [dic['item'] for dic in session['cart'] if 'item' in dic]
+
         firstItem = session['cart'][0]
+
         orderID = firstItem['orderID']
 
-        for item in session['cart']:
-            items += item['item']
-
         msg = Message(
-            'Confirmation', sender='administrator@peraperaexchange.com', recipients=['mileswhitman01@gmail.com'])
+            'Confirmation', sender='administrator@peraperaexchange.com', recipients=[session['customer_email']])
         msg.body = "Thank you for your order of: %s. Your order number is: %d." % (
             items, orderID)
         mail.send(msg)
 
         session['cart'] = []
 
-        return "Sent"
-        # render_template('confirmation.html')
+        return render_template('confirmation.html')
 
     @app.route('/contact')
     def showContactPage():
