@@ -471,8 +471,6 @@ def create_app():
                 receipt_email=email
             )
 
-            db_customer.email = session['customer_email']
-
         except:
             None
 
@@ -491,13 +489,12 @@ def create_app():
         firstItem = session['cart'][0]
 
         orderID = firstItem['orderID']
-        print(session['customer_email'])
 
-        """msg = Message(
+        msg = Message(
             'Confirmation', sender='administrator@peraperaexchange.com', recipients=[session['customer_email']])
         msg.body = "Thank you for your order of: %s. Your order number is: %d." % (
             items, orderID)
-        mail.send(msg)"""
+        mail.send(msg)
 
         session['cart'] = []
 
