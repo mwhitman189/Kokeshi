@@ -68,14 +68,6 @@ def create_app():
     #################
     # App functions #
     #################
-    @app.after_request
-    def add_header(response):
-        """
-        Add headers to both force latest IE rendering engine or Chrome Frame,
-        and also to cache the rendered page for 10 minutes.
-        """
-        response.headers['Cache-Control'] = 'public, max-age=0'
-        return response
 
     #######################
     # User administration #
@@ -499,12 +491,13 @@ def create_app():
         firstItem = session['cart'][0]
 
         orderID = firstItem['orderID']
+        print(session['customer_email'])
 
-        msg = Message(
+        """msg = Message(
             'Confirmation', sender='administrator@peraperaexchange.com', recipients=[session['customer_email']])
         msg.body = "Thank you for your order of: %s. Your order number is: %d." % (
             items, orderID)
-        mail.send(msg)
+        mail.send(msg)"""
 
         session['cart'] = []
 
