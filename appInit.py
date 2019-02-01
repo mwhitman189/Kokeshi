@@ -47,7 +47,8 @@ def create_app():
         MAIL_PORT=465,
         MAIL_USERNAME='administrator@peraperaexchange.com',
         MAIL_USE_TLS=False,
-        MAIL_USE_SSL=True
+        MAIL_USE_SSL=True,
+        MAIL_PASSWORD='Kokun#it'
     ))
 
     admin = Admin(app, index_view=MyAdminIndexView())
