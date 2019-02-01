@@ -42,11 +42,13 @@ def create_app():
     app.config['SECURITY_REGISTERABLE'] = True
 
     # Flask-Mail Config
-    app.config['MAIL_SERVER'] = 'mail.peraperaexchange.com'
-    app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USERNAME'] = 'administrator@peraperaexchange.com'
-    app.config['MAIL_USE_TLS'] = False
-    app.config['MAIL_USE_SSL'] = True
+    app.config.update(dict(
+        MAIL_SERVER='mail.peraperaexchange.com',
+        MAIL_PORT=465,
+        MAIL_USERNAME='administrator@peraperaexchange.com',
+        MAIL_USE_TLS=False,
+        MAIL_USE_SSL=True
+    ))
 
     admin = Admin(app, index_view=MyAdminIndexView())
     # Initialize the SQLAlchemy data store and Flask-Security.
