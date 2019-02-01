@@ -455,24 +455,20 @@ def create_app():
             amount += item['price']
             items.append(item['item'])
 
-        try:
-            customer = stripe.Customer.create(
-                email=request.form['email'],
-                source=request.form['stripeToken']
-            )
+        customer = stripe.Customer.create(
+            email=request.form['stripeEmail'],
+            source=request.form['stripeToken']
+        )
 
-            session['customer_email'] = request.form['email']
+        session['customer_email'] = request.form['stripeEmail']
 
-            charge = stripe.Charge.create(
-                customer=customer.id,
-                amount=amount,
-                currency='usd',
-                description='KokeMama Charge',
-                receipt_email=email
-            )
-
-        except:
-            None
+        charge = stripe.Charge.create(
+            customer=customer.id,
+            amount=amount,
+            currency='usd',
+            description='KokeMama Charge',
+            receipt_email=session['customer_email']
+        )
 
         return redirect(url_for('showConfirmPage'))
 
