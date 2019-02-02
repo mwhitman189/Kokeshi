@@ -66,6 +66,11 @@ class User(db.Model, UserMixin):
         return self.email
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+
 class MyModelView(BaseModelView):
     form_base_class = Form
 
