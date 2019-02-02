@@ -3,14 +3,14 @@
   <form action="{{ url_for('charge') }}" method="post">
     <article>
       <label>
-        <span>Amount is ${{ total }}</span>
+        <span>Amount is ${{ amount_usd }}</span>
       </label>
     </article>
 
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{{ key }}"
             data-description="KokeMama Checkout"
-            data-amount="{{ amount }}"
+            data-amount="{{ amount_cents }}"
             data-locale="auto"></script>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
   </form>

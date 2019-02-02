@@ -422,30 +422,14 @@ def create_app():
         """
         Display the checkout page
         """
-        amount = 0
+        amount_usd = 0
 
         for item in session['cart']:
-            amount += item['price']
+            amount_usd += item['price']
 
-        amount_cents = amount * 100
+        amount_cents = amount_usd * 100
 
-        customer = Customer.query.filter_by(
-            customerID=session['customer_ID']).one()
-        if request.method == 'POST':
-            customer.lastName = request.form['lastName']
-            customer.firstName = request.form['firstName']
-            customer.title = request.form['title']
-            customer.email = request.form['email']
-
-            db.session.add(customer)
-            db.session.commit()
-
-            flash("Thank you, %s %s. We will contact you within 48 hours. We appreciate your patience." %
-                  (customer.title, customer.lastName))
-            return redirect(url_for('showConfirmPage'))
-
-        else:
-            return render_template('index.html', key=stripe_keys['publishable_key'], total=amount, amount=amount_cents)
+        return render_template('index.html', key=stripe_keys['publishable_key'], amount_usd=amount_usd, amount_cents=amount_cents)
 
     @app.route('/charge', methods=['GET', 'POST'])
     def charge():
@@ -455,7 +439,7 @@ def create_app():
         amount = 0
         items = []
         for item in session['cart']:
-            amount += item['price']
+            amount += item['price'] * 100
             items.append(item['item'])
 
         customer = stripe.Customer.create(
