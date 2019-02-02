@@ -48,7 +48,9 @@ def create_app():
         MAIL_USERNAME='administrator@peraperaexchange.com',
         MAIL_USE_TLS=False,
         MAIL_USE_SSL=True,
-        MAIL_PASSWORD=os.environ['MAIL_PASSWORD']
+        MAIL_PASSWORD=os.environ['MAIL_PASSWORD'],
+        SECURITY_PASSWORD_HASH='pbkdf2_sha512',
+        SECURITY_PASSWORD_SALT=os.environ['SECURITY_PASSWORD_SALT']
     ))
 
     admin = Admin(app, index_view=MyAdminIndexView())
