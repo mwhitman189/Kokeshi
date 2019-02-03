@@ -26,6 +26,8 @@ def create_app():
     import stripe
     import datetime
     from flask_mail import Mail, Message
+    import simplejson as json
+    from decimal import Decimal
 
     APPLICATION_NAME = "Kokeshi"
 
@@ -53,16 +55,17 @@ def create_app():
         SECURITY_PASSWORD_SALT=os.environ['SECURITY_PASSWORD_SALT']
     ))
 
-    admin = Admin(app, index_view=MyAdminIndexView())
     # Initialize the SQLAlchemy data store and Flask-Security.
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
 
+    # Create admin views.
+    admin = Admin(app, index_view=MyAdminIndexView())
     admin.add_view(UserAdmin(User, db.session))
     admin.add_view(RoleAdmin(Role, db.session))
 
+    # Stripe payments implementation.
     STRIPE_PUBLISHABLE_KEY = 'pk_test_GM1d2F2DgrIl6jnkIwSaZ8Dd'
-    # Stripe payments implementation
     stripe_keys = {
         'secret_key': os.environ['STRIPE_SECRET_KEY'],
         'publishable_key': STRIPE_PUBLISHABLE_KEY
@@ -169,13 +172,13 @@ def create_app():
 
     @app.route('/login', methods=['GET', 'POST'])
     def showLogin():
-        # Here we use a class of some kind to represent and validate our
-        # client-side form data. For example, WTForms is a library that will
-        # handle this for us, and we use a custom LoginForm to validate.
+        """
+        Use a custom LoginForm to validate with WTForms
+        """
         form = LoginForm()
         if form.validate_on_submit():
             # Login and validate the user.
-            # user should be an instance of your `User` class
+            # user should be an instance of the `User` class
             login_user(user)
 
             flask.flash('Logged in successfully.')
@@ -191,8 +194,8 @@ def create_app():
 
     @app.route('/logout')
     def showLogout():
-        logout_user()
 
+        logout_user()
         flask.flash('Logged out successfully.')
 
         return 'Logged out'
@@ -203,6 +206,9 @@ def create_app():
 
     @app.before_request
     def force_https():
+        """
+        Redirect from http to https
+        """
         if os.environ.get('DATABASE_URL') is not None:
             if not request.is_secure:
                 url = request.url.replace('http://', 'https://', 1)
@@ -281,12 +287,13 @@ def create_app():
     @login_required
     def showOrders():
         """
-        Display the supplier-facing orders page. The supplier can check the
+        Display the supplier-facing orders page. The supplier can select the
         next order in the list.
         """
         unaccepted_orders = Order.query.filter_by(wasAccepted=False).all()
 
         session['supplier'] = current_user.email
+
         return render_template('unassigned_orders.html', orders=unaccepted_orders)
 
     @app.route('/orders/<int:order_id>/accepted', methods=['GET', 'POST'])
@@ -330,15 +337,17 @@ def create_app():
         """
         Display a kokeshi designing page that, when submitted, updates the shopping cart with the order and redirects to the order page.
         """
+        # Create a new cart list.
         if 'cart' not in session:
             session['cart'] = []
 
         if request.method == 'POST':
-
+            # Create a customer object without an email, to attach to the cart items in the database.
             customer = Customer(email="")
             db.session.add(customer)
             db.session.commit()
 
+            # Create an order object and tie it to the customer.
             order = Order(customer_ID=customer.customerID)
             db.session.add(order)
             db.session.commit()
@@ -374,6 +383,7 @@ def create_app():
                     customer_ID=customer.customerID,
                     product_ID=product.productID
                 )
+            # Set the price of the item, dependent on the presence or absence of a message.
             if request.form.get('is-message', False) == 'on':
                 price = 250
             else:
@@ -386,6 +396,7 @@ def create_app():
             db.session.add(order_details)
             db.session.commit()
 
+            # Append the item to the cart.
             session['cart'].append(
                 {
                     'item': order_details.item,
@@ -401,6 +412,7 @@ def create_app():
                 }
             )
 
+            # Create a session variable to select the customer in order to append information.
             session['customer_ID'] = customer.customerID
 
             flash("Success! Your order for '%s kokeshi' has been added to your cart." %
@@ -414,7 +426,7 @@ def create_app():
     @app.route('/order')
     def showOrderPage():
         """
-        Display the order page.
+        Display the order page -- a list of all the items in the cart.
         """
 
         return render_template('order.html')
@@ -422,7 +434,7 @@ def create_app():
     @app.route('/checkout', methods=['GET', 'POST'])
     def showCheckoutPage():
         """
-        Display the checkout page
+        Display the checkout page, which displays the total, and a Stripe payments button.
         """
         amount_usd = 0
 
@@ -441,6 +453,7 @@ def create_app():
         amount = 0
         items = []
         for item in session['cart']:
+            # Add the item prices in cents.
             amount += item['price'] * 100
             items.append(item['item'])
 
@@ -449,8 +462,15 @@ def create_app():
             source=request.form['stripeToken']
         )
 
+        # Create a session variable with the customer's email for sending a confirmation email.
         session['customer_email'] = request.form['stripeEmail']
 
+        # Add email to the database customer object.
+        db_customer.email = request.form['stripeEmail']
+        db.session.add(db_customer)
+        db.session.commit()
+
+        # Create a Stripe charge object which sends a confirmation email.
         charge = stripe.Charge.create(
             customer=customer.id,
             amount=amount,
@@ -464,7 +484,7 @@ def create_app():
     @app.route('/confirmation')
     def showConfirmPage():
         """
-        Display the order confirmation page after an order is submitted
+        Display the order confirmation page after an order is submitted.
         """
         db_customer = Customer.query.filter_by(
             customerID=session['customer_ID']).one()
@@ -500,6 +520,7 @@ def create_app():
     heroku.init_app(app)
     mail.init_app(app)
 
+    # Load the current logged in user.
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(user_id)

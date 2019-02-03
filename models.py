@@ -1,6 +1,6 @@
 import os
 from flask import redirect, url_for
-from sqlalchemy import Column, Integer, Boolean, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, Boolean, String, DateTime, ForeignKey, Numeric
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.sql import func
 from flask_sqlalchemy import SQLAlchemy
@@ -150,7 +150,7 @@ class Product(db.Model):
     productID = db.Column(db.Integer(), primary_key=True)
     productName = db.Column(db.String(64), index=True)
     productDescription = db.Column(db.String(120))
-    price = db.Column(db.Integer())
+    price = db.Column(db.Numeric(scale=2))
     is_available = db.Column(db.Boolean(), default=True)
     supplier_ID = db.Column(db.Integer(), ForeignKey('suppliers.supplierID'))
 
@@ -163,7 +163,7 @@ class Order(db.Model):
     dateOrdered = db.Column(
         db.DateTime(), server_default=func.now(), index=True)
     wasFulfilled = db.Column(db.Boolean(), unique=False, default=False)
-    total = db.Column(db.BigInteger())
+    total = db.Column(db.Numeric(scale=2))
     customer_ID = db.Column(
         db.Integer(), db.ForeignKey('customers.customerID'))
     payment_ID = db.Column(db.Integer(), db.ForeignKey('payments.paymentID'))
@@ -178,10 +178,10 @@ class OrderDetails(db.Model):
     __tablename__ = 'order_details'
     orderDetailsID = db.Column(db.Integer(), primary_key=True)
     item = db.Column(db.String(64))
-    name = db.Column(db.String(64), index=True)
+    name = db.Column(db.String(215), index=True)
     dob = db.Column(db.String(32), index=True)
-    height = db.Column(db.Integer())
-    weight = db.Column(db.Integer())
+    height = db.Column(db.Numeric(scale=2))
+    weight = db.Column(db.Numeric(scale=2))
     message = db.Column(db.String(300))
     is_message = db.Column(db.Boolean(), default=False)
     order_ID = db.Column(

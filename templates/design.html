@@ -57,8 +57,8 @@
           </select><br>
         </div>
         <div class="form-group">
-          <label for="name-input">Name <span class="red-text">*</span></label><br>
-          <input id="name-input" class="form-control" v-model="name" name="name" placeholder="ex: Jennifer Smith" required><br>
+          <label for="name-input">Baby's Name <span class="red-text">*</span></label><br>
+          <input id="name-input" class="form-control" v-model="name" name="name" maxlength="215" placeholder="ex: Jennifer Smith" required><br>
         </div>
         <div class="form-group">
           <label for="dob-input">Date of Birth <span class="red-text">*</span></label><br>
@@ -66,16 +66,16 @@
         </div>
         <div class="form-group">
           <label for="height-input">Height at birth <span class="red-text">*</span></label><br>
-          <input id="height-input" class="form-control" v-model="height" name="height" placeholder="ex: 51" required>cm<br>
+          <input id="height-input" class="form-control" v-model="height" name="height" maxlength="10" placeholder="ex: 51" required>cm<br>
         </div>
         <div class="form-group">
           <label for="weight-input">Weight at birth <span class="red-text">*</span></label><br>
-          <input id="weight-input" class="form-control" v-model="weight" name="weight" placeholder="ex: 3200" required>grams<br>
+          <input id="weight-input" class="form-control" v-model="weight" name="weight" maxlength="10" placeholder="ex: 3200" required>grams<br>
         </div>
         <div class="form-group">
           <label class="design__message-checkbox-label">Personalized message for $50 <input id="message-checkbox" class="design__checkbox" v-model="isMessage" name="is-message" type="checkbox" onclick="document.getElementById('message-input').disabled=!this.checked;"></label><br>
           <label for="message-input">Message</label>
-          <textarea id="message-input" class="form-control design__message-input" maxlength="200" v-model="message" name="message" placeholder="Hit 'Enter' to start a new line"></textarea><br>
+          <textarea id="message-input" class="form-control design__message-input" maxlength="300" v-model="message" name="message" placeholder="Hit 'Enter' to start a new line"></textarea><br>
         </div>
         <button form="design-form" type="submit" class="btn design__btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
