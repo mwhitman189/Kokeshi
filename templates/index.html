@@ -1,17 +1,125 @@
 {% extends "layout.html" %}
 {% block content %}
-  <form action="{{ url_for('charge') }}" method="post">
-    <article>
-      <label>
-        <span class="checkout__text">Amount is ${{ amount_usd }}</span>
-      </label>
-    </article>
+<style>
+  .cart__title {
+    margin-bottom: 15px;
+  }
 
-    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="{{ key }}"
-            data-description="KokeMama Checkout"
-            data-amount="{{ amount_cents }}"
-            data-locale="auto"></script>
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-  </form>
+  .cart__price,
+  .cart__total {
+    float: right;
+  }
+
+  .cart__item-info {
+    border-bottom: 1px solid $color-gray;
+  }
+
+  .cart__total {
+    font-weight: 700;
+    margin-top: 15px;
+  }
+
+  .checkout__container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  .checkout__btn {
+    background-color: rgba(0,0,0, 0);
+    border: 2px solid rgba(0,0,0, .8);
+    border-radius: 4px;
+    cursor: pointer;
+    height: 35px;
+    margin: 20px 0;
+    max-width: 400px;
+    padding: 5px;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  .checkout__btn:hover {
+    background-image: linear-gradient(rgba(0,0,0, 0), rgba(0,0,0, .1));
+  }
+</style>
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<form id="payment-form" action="{{ url_for('charge') }}" method="post">
+  <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+</form>
+
+<div class="checkout__container">
+  <ul id="cart-items">
+    {% for item in session['cart'] %}
+    <li>
+      <div class="cart__item-info">{{ item.name }}'s <span class="red-text">{{ item.item }}</span>
+        <span class="cart__price">{{ item.price }}.00</span>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
+
+  <button id="customButton" class="checkout__btn">Purchase</button>
+</div>
+
+<script>
+var handler = StripeCheckout.configure({
+  key: '{{ key }}',
+  image: '/static/img/KokeMama(diamond-black).png',
+  locale: 'auto',
+  token: function(token) {
+
+    // Dynamically create a form element to submit the results
+    // to your backend server
+    var form = document.getElementById("payment-form");
+    form.setAttribute('method', "POST");
+    form.setAttribute('action', "{{ url_for('charge') }}");
+
+    // Add the token ID as a hidden field to the form payment-form
+    var inputToken = document.createElement("input");
+    inputToken.setAttribute('type', "hidden");
+    inputToken.setAttribute('name', "stripeToken");
+    inputToken.setAttribute('value', token.id);
+    form.appendChild(inputToken);
+
+    // Add the email as a hidden field to the form
+    var inputEmail = document.createElement("input");
+    inputEmail.setAttribute('type', "hidden");
+    inputEmail.setAttribute('name', "stripeEmail");
+    inputEmail.setAttribute('value', token.email);
+    form.appendChild(inputEmail);
+
+        // Finally, submit the form
+    document.body.appendChild(form);
+
+    document.forms["payment-form"].submit()
+  }
+});
+
+document.getElementById('customButton').addEventListener('click', function(e) {
+  // Open Checkout with further options:
+  handler.open({
+    name: 'KokeMama.com',
+    description: "{% for item in cart %}{{ item['item'] }},{% endfor %}",
+    zipCode: true,
+    billingAddress: true,
+    shippingAddress: true,
+    amount: {{ amount_cents }},
+    panelLabel: "Pay "{{ amount }},
+  });
+  e.preventDefault();
+});
+
+// Close Checkout on page navigation:
+window.addEventListener('popstate', function() {
+  handler.close();
+});
+</script>
+
 {% endblock %}

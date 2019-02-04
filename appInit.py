@@ -443,7 +443,7 @@ def create_app():
 
         amount_cents = amount_usd * 100
 
-        return render_template('index.html', key=stripe_keys['publishable_key'], amount_usd=amount_usd, amount_cents=amount_cents)
+        return render_template('index.html', key=stripe_keys['publishable_key'], amount_usd=amount_usd, amount_cents=amount_cents, cart=session['cart'])
 
     @app.route('/charge', methods=['GET', 'POST'])
     def charge():
@@ -501,6 +501,7 @@ def create_app():
             items, orderID)
         mail.send(msg)
 
+        # Clear the cart after payment is received and confirmation is sent.
         session['cart'] = []
 
         return render_template('confirmation.html')
@@ -508,7 +509,7 @@ def create_app():
     @app.route('/contact')
     def showContactPage():
         """
-        Display the contact information page
+        Display the contact information page.
         """
 
         return render_template('contact.html')
