@@ -120,6 +120,7 @@ label {
   color: #000;
   display: none;
   height: 400px;
+  overflow-y: auto;
   padding: 40px 10px 10px;
   position: fixed;
   right: 0;

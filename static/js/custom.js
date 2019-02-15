@@ -91,37 +91,14 @@ const app = new Vue({
       }
     },
     toggleCart: function() {
-      let cart = document.querySelector('#cart');
-      cart.classList.toggle('active');
+      let cartEl = document.querySelector('#cart');
+      cartEl.classList.toggle('active');
       console.log('toggle-active')
-    },
-    setCart: function() {
-      let url = "/setCart";
-
-      fetch(url, {
-        method: 'GET',
-        mode: 'no-cors',
-        dataType: 'json',
-      }).then(
-        response => response.json()
-      ).then(
-        response => {
-          this.cart.push(response)
-      })
-      .catch(err => console.log(err))
-    },
-    itemCount: function() {
-      itemCount = cart.length
-      return itemCount
-    },
-    beforeUpdate() {
-      setCart()
     },
     removeItem: function() {
       let url = document.querySelector('.delete-form').action;
       let form = document.querySelector('.delete-form');
       let data = new FormData(form);
-      console.log(url);
 
       fetch(url, {
         method: "POST",
@@ -133,6 +110,13 @@ const app = new Vue({
     moment: function (date) {
       if ( date !== '')
         return moment(date).format('MMMM Do, YYYY');
+    }
+  },
+  computed: {
+    itemCount: function() {
+      itemCount = cart.length
+      console.log(cart)
+      return itemCount
     }
   }
 })
