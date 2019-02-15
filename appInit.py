@@ -430,27 +430,22 @@ def create_app():
         cartJSON = jsonify(cartObj)
         return cartJSON
 
-    @app.route('/removeItem', methods=["GET", "POST"])
-    def removeItem():
+    @app.route('/removeItem/<int:item_id>/', methods=["GET", "POST"])
+    def removeItem(item_id):
         """
         Remove the selected item from the cart.
         """
-        item_id = request.form.get('itemID')
-
+        if item_id is not None:
+            item_id = int(item_id)
+        print(item_id)
         try:
-            for item in session['cart']:
-                print(item_id)
-                print(item['itemID'])
-                if item_id == item['itemID']:
-                    session['cart'].remove(item)
-                    print("Sort of...")
             session['cart'][:] = [d for d in session['cart']
-                                  if d.get('itemID') != 9]
+                                  if d.get('itemID') != item_id]
             print(session['cart'])
         except:
             msg = "YO"
             print(msg)
-        return render_template('base.html')
+        return redirect(url_for('showOrderPage'))
 
     @app.route('/order', methods=["GET", "POST"])
     def showOrderPage():

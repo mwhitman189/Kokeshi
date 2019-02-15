@@ -106,29 +106,28 @@ const app = new Vue({
         response => response.json()
       ).then(
         response => {
-          console.log(response[0].itemID)
+          this.cart.push(response)
       })
       .catch(err => console.log(err))
     },
+    itemCount: function() {
+      itemCount = cart.length
+      return itemCount
+    },
     beforeUpdate() {
       setCart()
-    }
-    /*removeItem: function() {
-      let deleteEl = document.querySelector('.deleteBtn');
-      let url = "/removeItem";
-      let form = document.querySelector('#delete-form');
+    },
+    removeItem: function() {
+      let url = document.querySelector('.delete-form').action;
+      let form = document.querySelector('.delete-form');
       let data = new FormData(form);
+      console.log(url);
 
       fetch(url, {
         method: "POST",
         body: data,
-      }).then(
-        response => response.text('cool beans')
-      ).then((data) => {
-        let result =
-      }
-      );
-    }*/
+      });
+    }
   },
   filters: {
     moment: function (date) {
