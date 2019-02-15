@@ -317,7 +317,7 @@ def create_app():
         db.session.commit()
         return render_template('selected_order.html', order=selected_order_details)
 
-    @app.route('/')
+    @app.route('/', methods=["GET", "POST"])
     @app.route('/home')
     def showHome():
         """
@@ -399,6 +399,7 @@ def create_app():
             # Append the item to the cart.
             session['cart'].append(
                 {
+                    'itemID': order_details.orderDetailsID,
                     'item': order_details.item,
                     'name': order_details.name,
                     'dob': order_details.dob,
@@ -423,7 +424,35 @@ def create_app():
         else:
             return render_template('design.html')
 
-    @app.route('/order')
+    @app.route('/setCart')
+    def setCart():
+        cartObj = session['cart']
+        cartJSON = jsonify(cartObj)
+        return cartJSON
+
+    @app.route('/removeItem', methods=["GET", "POST"])
+    def removeItem():
+        """
+        Remove the selected item from the cart.
+        """
+        item_id = request.form.get('itemID')
+
+        try:
+            for item in session['cart']:
+                print(item_id)
+                print(item['itemID'])
+                if item_id == item['itemID']:
+                    session['cart'].remove(item)
+                    print("Sort of...")
+            session['cart'][:] = [d for d in session['cart']
+                                  if d.get('itemID') != 9]
+            print(session['cart'])
+        except:
+            msg = "YO"
+            print(msg)
+        return render_template('base.html')
+
+    @app.route('/order', methods=["GET", "POST"])
     def showOrderPage():
         """
         Display the order page -- a list of all the items in the cart.

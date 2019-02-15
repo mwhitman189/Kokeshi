@@ -49,8 +49,9 @@
         </ul>
         <div class="order-price order-item"><h4 class="total">Your total: ${{ session['cart'] | sum(attribute='price') }}</h4></div>
       </div>
-      <form action="{{ url_for('showCheckoutPage') }}">
-          <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
+      <form action="{{ url_for('showCheckoutPage') }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
       </form>
     </div>
   </template>

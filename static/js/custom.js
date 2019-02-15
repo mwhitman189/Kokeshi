@@ -12,6 +12,7 @@ const app = new Vue({
     let height = "";
     let weight = "";
     let message = "";
+    let cart = [];
     showMenu = false;
     return {
       item: item,
@@ -23,18 +24,7 @@ const app = new Vue({
       height: height,
       weight: weight,
       message: message,
-      myCart: [
-        {
-          item: window.sessionStorage.item,
-          price: window.sessionStorage.price,
-          isMessage: window.sessionStorage.isMessage,
-          name: window.sessionStorage.name,
-          dob: window.sessionStorage.dob,
-          height: window.sessionStorage.height,
-          weight: window.sessionStorage.weight,
-          message: window.sessionStorage.message
-        }
-      ]
+      cart: cart
     }
   },
   mounted() {
@@ -62,6 +52,9 @@ const app = new Vue({
     if (window.sessionStorage.message) {
       this.message = window.sessionStorage.message;
     }
+    if (window.sessionStorage.cart) {
+      this.cart = window.sessionStorage.cart;
+    }
   },
   methods: {
     persist() {
@@ -74,6 +67,7 @@ const app = new Vue({
       window.sessionStorage.height = this.height;
       window.sessionStorage.weight = this.weight;
       window.sessionStorage.message = this.message;
+      window.sessionStorage.cart = this.cart;
     },
     toggleMenu: function() {
       const toggleBtn = document.querySelector('#menu-toggle');
@@ -97,10 +91,44 @@ const app = new Vue({
       }
     },
     toggleCart: function() {
-      const cart = document.querySelector('#cart');
+      let cart = document.querySelector('#cart');
       cart.classList.toggle('active');
       console.log('toggle-active')
+    },
+    setCart: function() {
+      let url = "/setCart";
+
+      fetch(url, {
+        method: 'GET',
+        mode: 'no-cors',
+        dataType: 'json',
+      }).then(
+        response => response.json()
+      ).then(
+        response => {
+          console.log(response[0].itemID)
+      })
+      .catch(err => console.log(err))
+    },
+    beforeUpdate() {
+      setCart()
     }
+    /*removeItem: function() {
+      let deleteEl = document.querySelector('.deleteBtn');
+      let url = "/removeItem";
+      let form = document.querySelector('#delete-form');
+      let data = new FormData(form);
+
+      fetch(url, {
+        method: "POST",
+        body: data,
+      }).then(
+        response => response.text('cool beans')
+      ).then((data) => {
+        let result =
+      }
+      );
+    }*/
   },
   filters: {
     moment: function (date) {
