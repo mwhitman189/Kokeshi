@@ -45,7 +45,7 @@
                       </div>
                     </li>
                     <li class="header__icon header__cart">
-                      <button id="cart-toggle" v-on:click="toggleCart" class="header__link-icon"><i v-bind="itemCount" class="fas fa-baby-carriage"></i></button>
+                      <button id="cart-toggle" v-on:click="toggleCart" class="header__link-icon"><i class="fas fa-baby-carriage">{{ session['cart']|length }}</i></button>
                     </li>
                   </ul>
                   <div class="header__mobile-brand">

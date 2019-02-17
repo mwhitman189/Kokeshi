@@ -3,28 +3,17 @@ const app = new Vue({
   el: "#app",
   delimiters: ['[[',']]'],
   data: function() {
-    let item = "";
-    let price = "200.00";
-    let isMessage = "false";
-    let messagePrice = "50.00";
-    let name = "";
-    let dob = "";
-    let height = "";
-    let weight = "";
-    let message = "";
-    let cart = [];
     showMenu = false;
     return {
-      item: item,
-      price: price,
-      isMessage: isMessage,
-      messagePrice: messagePrice,
-      name: name,
-      dob: dob,
-      height: height,
-      weight: weight,
-      message: message,
-      cart: cart
+      item: "",
+      price: "200.00",
+      isMessage: "false",
+      messagePrice: "50.00",
+      name: "",
+      dob: "",
+      height: "height",
+      weight: "",
+      message: ""
     }
   },
   mounted() {
@@ -52,9 +41,6 @@ const app = new Vue({
     if (window.sessionStorage.message) {
       this.message = window.sessionStorage.message;
     }
-    if (window.sessionStorage.cart) {
-      this.cart = window.sessionStorage.cart;
-    }
   },
   methods: {
     persist() {
@@ -67,7 +53,6 @@ const app = new Vue({
       window.sessionStorage.height = this.height;
       window.sessionStorage.weight = this.weight;
       window.sessionStorage.message = this.message;
-      window.sessionStorage.cart = this.cart;
     },
     toggleMenu: function() {
       const toggleBtn = document.querySelector('#menu-toggle');
@@ -93,7 +78,21 @@ const app = new Vue({
     toggleCart: function() {
       let cartEl = document.querySelector('#cart');
       cartEl.classList.toggle('active');
-      console.log('toggle-active')
+    },
+    setCart: function() {
+      let url = "/setCart";
+
+      fetch(url, {
+        method: 'GET',
+        mode: 'no-cors',
+        dataType: 'json',
+      }).then(
+        response => response.json()
+      ).then(function(myJSON) {
+        this.myCart = myJSON;
+        console.log(this.myCart)
+      })
+      .catch(err => console.log(err))
     },
     removeItem: function() {
       let url = document.querySelector('.delete-form').action;
@@ -112,11 +111,4 @@ const app = new Vue({
         return moment(date).format('MMMM Do, YYYY');
     }
   },
-  computed: {
-    itemCount: function() {
-      itemCount = cart.length
-      console.log(cart)
-      return itemCount
-    }
-  }
 })

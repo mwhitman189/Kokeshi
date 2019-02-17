@@ -436,11 +436,11 @@ def create_app():
         """
         if item_id is not None:
             item_id = int(item_id)
-        print(item_id)
+
         try:
             session['cart'][:] = [d for d in session['cart']
                                   if d.get('itemID') != item_id]
-            print(session['cart'])
+
         except:
             msg = "YO"
             print(msg)
