@@ -109,10 +109,17 @@
                   </li>
                   {% endfor %}
                 </ul>
+                {% if session['cart']|length > 0 %}
                 <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
                 <form action="{{ url_for('showCheckoutPage') }}">
                   <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
                 </form>
+                {% else %}
+                You have no items in your cart
+                <form action="{{ url_for('showDesignPage') }}">
+                    <button type="submit" value="Go to the design page" class="btn about__btn">Start Designing!</button>
+                </form>
+                {% endif %}
             </div>
 
             <main class="content-main-wrapper clearfix">
