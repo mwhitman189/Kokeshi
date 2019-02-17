@@ -90,8 +90,8 @@
             </header>
             <div id="cart" class="cart cart__container">
               <button v-on:click="toggleCart" class="cart__close-btn">X</button>
-              <div class="cart__title center-text">
-                My Items
+              <div>
+                <h3 class="cart__title center-text">My Items</h3>
               </div>
                 <ul id="cart-items">
                   {% for item in session['cart'] %}
@@ -115,9 +115,9 @@
                   <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
                 </form>
                 {% else %}
-                You have no items in your cart
+                <p class="center-text">You have no items in your cart</p>
                 <form action="{{ url_for('showDesignPage') }}">
-                    <button type="submit" value="Go to the design page" class="btn about__btn">Start Designing!</button>
+                    <button type="submit" value="Go to the design page" class="btn">Start Designing!</button>
                 </form>
                 {% endif %}
             </div>

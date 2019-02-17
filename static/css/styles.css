@@ -135,6 +135,7 @@ label {
   width: 100%; }
 
 .cart__title {
+  font-size: 150%;
   margin-bottom: 15px; }
 
 .cart__price,
