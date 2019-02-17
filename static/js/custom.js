@@ -11,7 +11,7 @@ const app = new Vue({
       messagePrice: "50.00",
       name: "",
       dob: "",
-      height: "height",
+      height: "",
       weight: "",
       message: ""
     }
@@ -90,7 +90,6 @@ const app = new Vue({
         response => response.json()
       ).then(function(myJSON) {
         this.myCart = myJSON;
-        console.log(this.myCart)
       })
       .catch(err => console.log(err))
     },
