@@ -28,10 +28,13 @@
 <section class="order__content content container">
   <template v-if="item">
     <h1 class="title center-text">Design Confirmation</h1>
+
+    {% if session['cart']|length > 0 %}
     <p class="instructions center-text"><b>Please confirm your design, then proceed to checkout.</b></p><br>
     <div class="flex-order">
       <div class="kokeshi-order">
         <ul>
+
         {% for item in session['cart'] %}
           <li>
             <div class="order-item"><h4><b>Style: </b>{{ item.item }}</h4><br></div>
@@ -46,6 +49,7 @@
             </div>
           </li>
         {% endfor %}
+
         </ul>
         <div class="order-price order-item"><h4 class="total">Your total: ${{ session['cart'] | sum(attribute='price') }}</h4></div>
       </div>
@@ -53,6 +57,14 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
         <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
       </form>
+
+      {% else %}
+      <div class="flex-order">
+      <p class="center-text">You have no items in your cart</p>
+      <form action="{{ url_for('showDesignPage') }}">
+          <button type="submit" value="Go to the design page" class="btn">Start Designing!</button>
+      </form>
+      {% endif %}
     </div>
   </template>
 </section>
