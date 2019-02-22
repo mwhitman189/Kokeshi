@@ -148,8 +148,8 @@ users_schema = UserSchema(many=True)
 class Product(db.Model):
     __tablename__ = 'products'
     productID = db.Column(db.Integer(), primary_key=True)
-    productName = db.Column(db.String(64), index=True)
-    productDescription = db.Column(db.String(120))
+    name = db.Column(db.String(64), index=True)
+    description = db.Column(db.String(120))
     price = db.Column(db.Numeric(scale=2))
     is_available = db.Column(db.Boolean(), default=True)
     supplier_ID = db.Column(db.Integer(), ForeignKey('suppliers.supplierID'))
@@ -195,9 +195,9 @@ class OrderDetails(db.Model):
 class Supplier(db.Model):
     __tablename__ = 'suppliers'
     supplierID = db.Column(db.Integer(), primary_key=True)
-    supplierName = db.Column(db.String(128), index=True)
-    supplierPhone = db.Column(db.BigInteger(), nullable=False)
-    supplierEmail = db.Column(db.String(255), unique=True, index=True)
+    name = db.Column(db.String(128), index=True)
+    phone = db.Column(db.BigInteger(), nullable=False)
+    email = db.Column(db.String(255), unique=True, index=True)
     customer_ID = db.Column(
         db.Integer(), db.ForeignKey('customers.customerID'))
 
@@ -205,32 +205,29 @@ class Supplier(db.Model):
 class Payment(db.Model):
     __tablename__ = 'payments'
     paymentID = db.Column(db.Integer(), primary_key=True)
-    paymentType = db.Column(db.String())
+    type = db.Column(db.String())
 
 
 class Shipper(db.Model):
     __tablename__ = 'shippers'
     shipperID = db.Column(db.Integer(), primary_key=True)
     companyName = db.Column(db.String(64), nullable=False)
-    companyPhone = db.Column(db.BigInteger(), nullable=False)
-    companyEmail = db.Column(db.String(255))
+    phone = db.Column(db.BigInteger(), nullable=False)
+    email = db.Column(db.String(255))
     contactName = db.Column(db.String(64))
 
 
 class Customer(db.Model):
     __tablename__ = 'customers'
     customerID = db.Column(db.Integer(), primary_key=True)
-    lastName = db.Column(db.String(64), index=True)
-    firstName = db.Column(db.String(64), index=True)
+    name = db.Column(db.String(64), index=True)
     title = db.Column(db.String(32))
     email = db.Column(db.String(255), nullable=False, index=True)
-    shipAddress = db.Column(db.String(120))
-    building = db.Column(db.String(64))
     address1 = db.Column(db.String(64))
     address2 = db.Column(db.String(64))
     city = db.Column(db.String(64))
     state = db.Column(db.String(32))
-    postalCode = db.Column(db.BigInteger())
+    zipCode = db.Column(db.BigInteger())
 
     order = db.relationship('Order', backref='customer')
     order_details = db.relationship('OrderDetails', backref='customer')

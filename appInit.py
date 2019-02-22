@@ -80,7 +80,7 @@ def create_app():
     # User administration #
     #######################
 
-    """@app.before_first_request
+    @app.before_first_request
     def before_first_request():
         db.create_all()
         user_datastore.find_or_create_role(
@@ -117,49 +117,54 @@ def create_app():
 
         db_items = [
             Product(
-                productName="Zao Kokeshi",
-                productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
+                name="Zao Kokeshi",
+                description="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
                 price=200,
                 is_available=True
             ),
             Product(
-                productName="Yonezawa Kokeshi",
-                productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
+                name="Yonezawa Kokeshi",
+                description="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
                 price=200,
                 is_available=True
             ),
             Product(
-                productName="Sagae Kokeshi",
-                productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
+                name="Sagae Kokeshi",
+                description="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
                 price=200,
                 is_available=True
             ),
             Product(
-                productName="Tendo Kokeshi",
-                productDescription="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
+                name="Tendo Kokeshi",
+                description="A traditional handcrafted Japanese Kokeshi doll, made with care to the height of the newborn child",
                 price=200,
                 is_available=True
             ),
             Product(
-                productName="Message",
-                productDescription="A handwritten message on the back of the kokeshi doll",
+                name="Message",
+                description="A handwritten message on the back of the kokeshi doll",
                 price=50,
                 is_available=True
             ),
             Supplier(
-                supplierName="Sato",
-                supplierPhone="08011112222",
-                supplierEmail="admin@example.com"
+                name="Sato",
+                phone="08011112222",
+                email="admin@example.com"
             ),
             Supplier(
-                supplierName="Miyagi",
-                supplierPhone="090000009999",
-                supplierEmail="artisan@example.com"
+                name="Suzuki",
+                phone="08011199002",
+                email="super@example.com"
+            ),
+            Supplier(
+                name="Miyagi",
+                phone="090000009999",
+                email="artisan@example.com"
             ),
             Shipper(
                 companyName="Kuro Neko",
-                companyPhone="08051516161",
-                companyEmail="blackCat@example.com",
+                phone="08051516161",
+                email="blackCat@example.com",
                 contactName="Kurosawa"
             )
         ]
@@ -167,7 +172,7 @@ def create_app():
         for item in db_items:
             db.session.add(item)
 
-        db.session.commit()"""
+        db.session.commit()
 
     @app.route('/login', methods=['GET', 'POST'])
     def showLogin():
@@ -286,7 +291,7 @@ def create_app():
     @login_required
     def showOrders():
         """
-        Display the supplier-facing orders page. The supplier can select the
+        Display the supplier - facing orders page. The supplier can select the
         next order in the list.
         """
         unaccepted_orders = Order.query.filter_by(wasAccepted=False).all()
@@ -299,12 +304,12 @@ def create_app():
     @login_required
     def showAcceptOrderPage(order_id):
         """
-        Display the supplier-facing order accept page. The supplier can accept
+        Display the supplier - facing order accept page. The supplier can accept
         the job.
         """
         order = Order.query.filter_by(orderID=order_id).first()
         supplier = Supplier.query.filter_by(
-            supplierEmail=session['supplier']).first()
+            email=session['supplier']).first()
         selected_order = Order.query.filter_by(orderID=order_id).first()
         selected_order_details = OrderDetails.query.filter_by(
             order_ID=order_id).first()
@@ -352,7 +357,7 @@ def create_app():
             db.session.commit()
 
             product = Product.query.filter_by(
-                productName=request.form['item']).one()
+                name=request.form['item']).one()
 
             customer.order_ID = order.orderID
 
@@ -406,7 +411,7 @@ def create_app():
                     'weight': order_details.weight,
                     'isMessage': order_details.is_message,
                     'message': order_details.message,
-                    'product': product.productName,
+                    'product': product.name,
                     'price': price,
                     'orderID': order_details.order_ID
                 }
@@ -449,7 +454,7 @@ def create_app():
     @app.route('/order', methods=["GET", "POST"])
     def showOrderPage():
         """
-        Display the order page -- a list of all the items in the cart.
+        Display the order page - - a list of all the items in the cart.
         """
 
         return render_template('order.html')
@@ -488,11 +493,6 @@ def create_app():
         # Create a session variable with the customer's email for sending a confirmation email.
         session['customer_email'] = request.form['stripeEmail']
 
-        # Add email to the database customer object.
-        db_customer.email = request.form['stripeEmail']
-        db.session.add(db_customer)
-        db.session.commit()
-
         # Create a Stripe charge object which sends a confirmation email.
         charge = stripe.Charge.create(
             customer=customer.id,
@@ -501,6 +501,39 @@ def create_app():
             description='KokeMama Charge',
             receipt_email=session['customer_email']
         )
+
+        try:
+            db_customer.email = request.form['stripeEmail']
+        except:
+            print("There is no 'stripeEmail' key")
+        try:
+            db_customer.name = charge.source.name
+        except:
+            print("There is no 'stripeName' key")
+        try:
+            db_customer.address1 = charge.source.address_line1
+        except:
+            print("There is no 'stripeShippingAddressLine1' key")
+        try:
+            db_customer.zipCode = charge.source.address_zip
+        except:
+            print("There is no 'stripeShippingAddressZip' key")
+        try:
+            db_customer.state = charge.source.address_state
+        except:
+            print("There is no 'stripeShippingAddressState' key")
+        try:
+            db_customer.city = charge.source.address_city
+        except:
+            print("There is no 'stripeShippingAddressCity' key")
+        try:
+            db_customer.country = charge.source.address_country
+        except:
+            print("There is no 'stripeShippingAddressCountry' key")
+
+        # Add email to the database customer object.
+        db.session.add(db_customer)
+        db.session.commit()
 
         return redirect(url_for('showConfirmPage'))
 

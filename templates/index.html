@@ -50,6 +50,10 @@
     margin: 20px 10px 10px;
   }
 
+  .red-text {
+      color: red;
+  }
+
   @media screen and (min-width: 800px) {
     .checkout__btn {
       max-width: 350px;
@@ -71,7 +75,7 @@
     {% for item in session['cart'] %}
     <li>
       <div class="cart__item-info">{{ item.name }}'s <span class="red-text">{{ item.item }}</span>
-        <span class="cart__price">{{ item.price }}.00</span>
+        <span class="cart__price">&nbsp; ${{ item.price }}.00</span>
       </div>
     </li>
     {% endfor %}
@@ -86,7 +90,7 @@ var handler = StripeCheckout.configure({
   key: '{{ key }}',
   image: '/static/img/KokeMama(diamond-black).png',
   locale: 'auto',
-  token: function(token) {
+  token: function(token, args) {
 
     // Dynamically create a form element to submit the results
     // to your backend server
