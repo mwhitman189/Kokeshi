@@ -54,6 +54,20 @@
       color: red;
   }
 
+  .loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #b8a2e5; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   @media screen and (min-width: 800px) {
     .checkout__btn {
       max-width: 350px;
@@ -67,10 +81,15 @@
   <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
 </form>
 
-<div class="checkout__container">
+<div id="loader" style="display:none;">
+    <div class="loader checkout__container"></div>
+</div>
+
+<div id="checkout-container" class="checkout__container">
   <div class="logo-container">
     <img src="../static/img/KokeMama(diamond-black).svg" alt="White diamond KokeMama logo" class="logo">
   </div>
+
   <ul id="cart-items">
     {% for item in session['cart'] %}
     <li>
@@ -112,10 +131,16 @@ var handler = StripeCheckout.configure({
     inputEmail.setAttribute('value', token.email);
     form.appendChild(inputEmail);
 
-        // Finally, submit the form
+    // Submit the form
     document.body.appendChild(form);
 
     document.forms["payment-form"].submit()
+
+    // Unhide loader and hide other elements after form is submitted
+    let loader = document.querySelector('#loader');
+    let otherEls = document.querySelector('#checkout-container');
+    otherEls.style.display= "none";
+    loader.style.display = "block";
   }
 });
 
