@@ -80,6 +80,7 @@ def create_app():
     # User administration #
     #######################
 
+    # Populate the db with products and placeholder data
     """@app.before_first_request
     def before_first_request():
         db.create_all()
@@ -291,8 +292,8 @@ def create_app():
     @login_required
     def showOrders():
         """
-        Display the supplier - facing orders page. The supplier can select the
-        next order in the list.
+        Display the supplier - facing orders page. The supplier can accept
+        the job, then is directed to the showAcceptOrderPage
         """
         unaccepted_orders = Order.query.filter_by(wasAccepted=False).all()
 
@@ -304,8 +305,7 @@ def create_app():
     @login_required
     def showAcceptOrderPage(order_id):
         """
-        Display the supplier - facing order accept page. The supplier can accept
-        the job.
+        Display the supplier-facing order accepted page.
         """
         order = Order.query.filter_by(orderID=order_id).first()
         supplier = Supplier.query.filter_by(
@@ -346,7 +346,8 @@ def create_app():
             session['cart'] = []
 
         if request.method == 'POST':
-            # Create a customer object without an email, to attach to the cart items in the database.
+            # Create a customer object without an email, to attach to the cart
+            # items in the session.
             customer = Customer(email="")
             db.session.add(customer)
             db.session.commit()
@@ -359,6 +360,7 @@ def create_app():
             product = Product.query.filter_by(
                 name=request.form['item']).one()
 
+            # Assign the order to the customer using the orderID
             customer.order_ID = order.orderID
 
             if request.form.get('is-message', False) == 'on':
@@ -387,6 +389,7 @@ def create_app():
                     customer_ID=customer.customerID,
                     product_ID=product.productID
                 )
+
             # Set the price of the item, dependent on the presence or absence of a message.
             if request.form.get('is-message', False) == 'on':
                 price = 250
@@ -439,13 +442,13 @@ def create_app():
         """
         Remove the selected item from the cart.
         """
+        # Check for the existence of an item, then convert it to an int
         if item_id is not None:
             item_id = int(item_id)
 
         try:
             session['cart'][:] = [d for d in session['cart']
                                   if d.get('itemID') != item_id]
-
         except:
             msg = "YO"
             print(msg)
@@ -466,12 +469,20 @@ def create_app():
         """
         amount_usd = 0
 
+        # Add up the total of all the items in the cart
         for item in session['cart']:
             amount_usd += item['price']
 
+        # Calculate the amount in US cents for Stripe
         amount_cents = amount_usd * 100
 
-        return render_template('index.html', key=stripe_keys['publishable_key'], amount_usd=amount_usd, amount_cents=amount_cents, cart=session['cart'])
+        return render_template(
+            'index.html',
+            key=stripe_keys['publishable_key'],
+            amount_usd=amount_usd,
+            amount_cents=amount_cents,
+            cart=session['cart']
+        )
 
     @app.route('/charge', methods=['GET', 'POST'])
     def charge():
@@ -490,7 +501,8 @@ def create_app():
             source=request.form['stripeToken']
         )
 
-        # Create a session variable with the customer's email for sending a confirmation email.
+        # Create a session variable with the customer's email for sending a
+        # confirmation email.
         session['customer_email'] = request.form['stripeEmail']
 
         # Create a Stripe charge object which sends a confirmation email.
@@ -502,6 +514,8 @@ def create_app():
             receipt_email=session['customer_email']
         )
 
+        # Attempt to add customer data from the stripe input to the customer
+        # object
         try:
             db_customer.email = request.form['stripeEmail']
         except:
@@ -531,7 +545,6 @@ def create_app():
         except:
             print("There is no 'stripeShippingAddressCountry' key")
 
-        # Add email to the database customer object.
         db.session.add(db_customer)
         db.session.commit()
 
@@ -542,13 +555,15 @@ def create_app():
         """
         Display the order confirmation page after an order is submitted.
         """
+        # Get the customer from the db using the 'customer_ID' session variable
         db_customer = Customer.query.filter_by(
             customerID=session['customer_ID']).one()
 
+        # Create a list of the cart items for use in the email's message body
         items = [dic['item'] for dic in session['cart'] if 'item' in dic]
 
+        # Use the first item in the cart to obtain the 'orderID'
         firstItem = session['cart'][0]
-
         orderID = firstItem['orderID']
 
         msg = Message(
