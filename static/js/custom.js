@@ -93,6 +93,24 @@ const app = new Vue({
       })
       .catch(err => console.log(err))
     },
+    setBackground: function(event) {
+        let front = document.querySelector('#kokeshi-model-front');
+        let back = document.querySelector('#kokeshi-model-back');
+
+        if ( this.item == 'Zao Kokeshi' ) {
+            front.className = "zao-front design__kokeshi-model-front design__kokeshi-model-back";
+            back.className = "zao-back design__kokeshi-model-front design__kokeshi-model-back";
+        } else if ( this.item == 'Yonezawa Kokeshi' ) {
+            front.className = "yonezawa-front design__kokeshi-model-front design__kokeshi-model-back";
+            back.className = "yonezawa-back design__kokeshi-model-front design__kokeshi-model-back";
+        } else if ( this.item == 'Sagae Kokeshi' ) {
+            front.className = "sagae-front design__kokeshi-model-front design__kokeshi-model-back";
+            back.className = "sagae-back design__kokeshi-model-front design__kokeshi-model-back";
+        } else if ( this.item == 'Tendo Kokeshi' ) {
+            front.className = "tendo-front design__kokeshi-model-front design__kokeshi-model-back";
+            back.className = "tendo-back design__kokeshi-model-front design__kokeshi-model-back";
+        }
+    },
     removeItem: function() {
       let url = document.querySelector('.delete-form').action;
       let form = document.querySelector('.delete-form');
@@ -103,6 +121,11 @@ const app = new Vue({
         body: data,
       });
     }
+  },
+  created() {
+      window.addEventListener('load', () => {
+          this.setBackground();
+      })
   },
   filters: {
     moment: function (date) {

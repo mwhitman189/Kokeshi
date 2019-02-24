@@ -653,7 +653,6 @@ label {
 }
 
 .design__kokeshi-model-front {
-  background-image: url('/static/img/yamagata_kokeshi(cut).svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -664,7 +663,6 @@ label {
 }
 
 .design__kokeshi-model-back {
-  background-image: url('/static/img/kokeshi-back(smoothed-edges).svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -673,6 +671,38 @@ label {
   margin: 0 20px 20px;
   position: relative;
   width: 240px;
+}
+
+.zao-front {
+  background-image: url('/static/img/yamagata_kokeshi(cut).svg');
+}
+
+.zao-back {
+  background-image: url('/static/img/kokeshi-back(smoothed-edges).svg');
+}
+
+.yonezawa-front {
+  background-image: url('/static/img/山形こけし(cut).svg');
+}
+
+.yonezawa-back {
+  background-image: url('/static/img/kokeshi-back(smoothed-edges).svg');
+}
+
+.sagae-front {
+  background-image: url('/static/img/kokeshi_model.svg');
+}
+
+.sagae-back {
+  background-image: url('/static/img/kokeshi-back(smoothed-edges).svg');
+}
+
+.tendo-front {
+  background-image: url('/static/img/yamagata_kokeshi(cut).svg');
+}
+
+.tendo-back {
+  background-image: url('/static/img/kokeshi-back(smoothed-edges).svg');
 }
 
 .design__kokeshi-info {

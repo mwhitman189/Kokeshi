@@ -29,10 +29,10 @@
   <h1 class="title center-text">Design a Kokeshi</h1>
   <div class="container-fluid">
     <div class="design__kokeshi-display">
-      <div class="design__kokeshi-model-front">
+      <div id="kokeshi-model-front" class="design__kokeshi-model-front">
       </div>
       <div class="design__kokeshi-and-btn">
-        <div class="design__kokeshi-model-back">
+        <div id="kokeshi-model-back" class="design__kokeshi-model-back">
           <div class="design__kokeshi-info">
             <p class="design__info">[[ name ]]</p>
             <p class="design__info">[[ dob | moment ]]</p>
@@ -48,7 +48,7 @@
         <p class="fine-print">Fields with '<span class="red-text">*</span>' are required</p>
         <div class="form-group">
           <label for="item-input">Kokeshi Style <span class="red-text">*</span></label></br>
-          <select id="item-input" class="form-control design__select-input" v-model="item" name="item" required>
+          <select id="item-input" class="form-control design__select-input" v-model="item" name="item" @change="setBackground($event)" required>
             <option value="" selected disabled hidden>Select a style</option>
             <option value="Zao Kokeshi">Zao</option>
             <option value="Yonezawa Kokeshi">Yonezawa</option>
