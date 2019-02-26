@@ -161,24 +161,27 @@ label {
   border: 1px solid $color-dark;
   box-shadow: 0 4px 5px 4px rgba($color-dark, .7);
   color: $color-black;
-  display: none;
-  height: 400px;
+  height: 100%;
   overflow-y: auto;
   padding: 40px 10px 10px;
   position: fixed;
-  right: 0;
+  right: -70%;
   top: 0;
+  transition: .3s ease;
   width: 200px;
   z-index: 20000;
 
   &.active {
-    display: block;
+    transition: .3s ease;
+    transform: translateX(-100%);
   }
 }
 
 .cart__container {
+  display: flex;
+  flex-direction: column;
   line-height: 30px;
-  width: 100%;
+  width: 70%;
 }
 
 .cart__title {
@@ -862,6 +865,14 @@ label {
   .kokeshi-order {
     padding: 15px;
     width: 50%;
+  }
+
+  .cart {
+    right: -30%;
+
+    &.active {
+      transform: translateX(-100%);
+    }
   }
 
   .cart__container {

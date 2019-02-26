@@ -48,6 +48,7 @@
         <p class="fine-print">Fields with '<span class="red-text">*</span>' are required</p>
         <div class="form-group">
           <label for="item-input">Kokeshi Style <span class="red-text">*</span></label></br>
+          <v-touch @tap="setBackground($event)"></v-touch>
           <select id="item-input" class="form-control design__select-input" v-model="item" name="item" @change="setBackground($event)" required>
             <option value="" selected disabled hidden>Select a style</option>
             <option value="Zao Kokeshi">Zao</option>
