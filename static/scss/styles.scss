@@ -167,12 +167,12 @@ label {
   position: fixed;
   right: -70%;
   top: 0;
-  transition: .3s ease;
+  transition: .5s ease;
   width: 200px;
   z-index: 20000;
 
   &.active {
-    transition: .3s ease;
+    transition: .5s ease;
     transform: translateX(-100%);
   }
 }
@@ -288,7 +288,7 @@ label {
   display: block;
   float: left;
   position: relative;
-  transition: all .25s ease;
+  transition: all .5s ease;
   width: 100%;
 }
 
@@ -357,7 +357,7 @@ label {
 
 .header__lower,
 .header__upper {
-  transition: all .25s ease;
+  transition: all .5s ease;
 }
 
 .header__utility-container {
@@ -542,7 +542,7 @@ label {
   margin-top: -40px;
   padding-top: 0;
   position: relative;
-  transition: .25s;
+  transition: .5s;
 
   &.shifted-right {
     transform: translateX(78%);
@@ -829,6 +829,42 @@ label {
 .footer__text {
   color: $color-white;
   line-height: 80px;
+}
+
+@media screen and (max-width: 1200px) and (max-height: 500px) and (orientation: landscape) {
+  .keyvisual__heading {
+    top: 30%;
+  }
+
+  .content {
+    background: transparent;
+    color: $color-white;
+    position: absolute;
+    top: 45%;
+  }
+
+  .btn {
+    background-color: $color-white;
+    color: $color-black;
+  }
+}
+
+@media screen and (max-width: 1200px) and (max-height: 400px) and (orientation: landscape) {
+  .keyvisual__heading {
+    top: 25%;
+  }
+
+  .content {
+    background: transparent;
+    color: $color-white;
+    position: absolute;
+    top: 30%;
+  }
+
+  .btn {
+    background-color: $color-white;
+    color: $color-black;
+  }
 }
 
 @media screen and (min-width: 800px) {
