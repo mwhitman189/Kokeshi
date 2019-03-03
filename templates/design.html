@@ -29,19 +29,20 @@
   <h1 class="title center-text">Design a Kokeshi</h1>
   <div class="container-fluid">
     <div class="design__kokeshi-display">
-      <div id="kokeshi-model-front" class="design__kokeshi-model-front">
-      </div>
       <div class="design__kokeshi-and-btn">
-        <div id="kokeshi-model-back" class="design__kokeshi-model-back">
-          <div class="design__kokeshi-info">
-            <p class="design__info">[[ name ]]</p>
-            <p class="design__info">[[ dob | moment ]]</p>
-            <p class="design__info">[[ height ]] cm</p>
-            <p class="design__info">[[ weight ]] grams</p>
-          </div>
-          <div class="design__kokeshi-message">
-            <p class="design__message" v-if="isMessage">[[ message ]]</p>
-          </div>
+        <div class="kokeshi-model-container">
+            <div id="kokeshi-model-front" class="design__kokeshi-model-front"></div>
+            <div id="kokeshi-model-back" class="design__kokeshi-model-back">
+              <div class="design__kokeshi-info">
+                <p class="design__info">[[ name ]]</p>
+                <p class="design__info">[[ dob | moment ]]</p>
+                <p class="design__info">[[ height ]] cm</p>
+                <p class="design__info">[[ weight ]] grams</p>
+              </div>
+              <div class="design__kokeshi-message">
+                <p class="design__message" v-if="isMessage">[[ message ]]</p>
+              </div>
+            </div>
         </div>
       </div>
       <form id="design-form" class="design__form" action="{{ url_for('showDesignPage') }}" method="post">
