@@ -54,6 +54,9 @@ const app = new Vue({
       window.sessionStorage.weight = this.weight;
       window.sessionStorage.message = this.message;
     },
+    clearSessionDelay: function() {
+        setTimeout(window.sessionStorage.clear(), 100000);
+    },
     toggleMenu: function() {
       const toggleBtn = document.querySelector('#menu-toggle');
       const menuEl = document.querySelector('#menu');
@@ -109,6 +112,9 @@ const app = new Vue({
         } else if ( this.item == 'Tendo Kokeshi' ) {
             front.className = "tendo-front design__kokeshi-model-front design__kokeshi-model-back";
             back.className = "tendo-back design__kokeshi-model-front design__kokeshi-model-back";
+        } else {
+            front.className = "zao-front design__kokeshi-model-front design__kokeshi-model-back";
+            back.className = "zao-back design__kokeshi-model-front design__kokeshi-model-back";
         }
     },
     removeItem: function() {
@@ -124,7 +130,12 @@ const app = new Vue({
   },
   created() {
       window.addEventListener('load', () => {
-          this.setBackground();
+          try {
+            this.setBackground();
+          }
+          catch(e) {
+
+          }
       })
   },
   filters: {

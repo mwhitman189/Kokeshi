@@ -37,21 +37,25 @@
 
         {% for item in session['cart'] %}
           <li>
-            <div class="order-item"><h4><b>Style: </b>{{ item.item }}</h4><br></div>
-            <div class="kokeshi-info order-item">
-              <p class="info"><b>Name: </b>{{ item.name }}</p><br>
-              <p class="info"><b>Date of birth: </b>{{ item.dob }}</p><br>
-              <p class="info"><b>Height: </b>{{ item.height }} cm</p><br>
-              <p class="info"><b>Weight: </b>{{ item.weight }} grams</p><br>
-            </div>
-            <div class="kokeshi-message">
-              <p class="order__message"><b>Message: </b><br>{{ item.message }}</p><br>
+              <div class="order-item-container">
+                <div class="order-item"><h4><b>Style: </b>{{ item.item }}</h4><br></div>
+                <div class="kokeshi-info order-item">
+                  <p class="info"><b>Name: </b>{{ item.name }}</p><br>
+                  <p class="info"><b>Date of birth: </b>{{ item.dob }}</p><br>
+                  <p class="info"><b>Height: </b>{{ item.height }} cm</p><br>
+                  <p class="info"><b>Weight: </b>{{ item.weight }} grams</p><br>
+                </div>
+                <div class="kokeshi-message">
+                  <p class="order__message"><b>Message: </b><br>{{ item.message }}</p><br>
+                </div>
             </div>
           </li>
         {% endfor %}
 
         </ul>
-        <div class="order-price order-item"><h4 class="total">Your total: ${{ session['cart'] | sum(attribute='price') }}</h4></div>
+        <div class="order__total-container">
+            <div class="order-price order-item"><h4 class="order__total">Your total: ${{ session['cart'] | sum(attribute='price') }}</h4></div>
+        </div>
       </div>
       <form action="{{ url_for('showCheckoutPage') }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
