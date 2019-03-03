@@ -54,9 +54,6 @@ const app = new Vue({
       window.sessionStorage.weight = this.weight;
       window.sessionStorage.message = this.message;
     },
-    clearSessionDelay: function() {
-        setTimeout(window.sessionStorage.clear(), 100000);
-    },
     toggleMenu: function() {
       const toggleBtn = document.querySelector('#menu-toggle');
       const menuEl = document.querySelector('#menu');
