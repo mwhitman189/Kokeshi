@@ -106,21 +106,23 @@
                 <ul id="cart-items">
                   {% for item in session['cart'] %}
                   <li>
-                    <div class="cart__item-info">{{ item.name }}'s <span class="red-text">{{ item.item }}</span>
-                      <span class="cart__price">{{ item.price }}.00</span>
+                    <div class="cart__item-info">{{ item.name }}'s <em>{{ item.item }}</em>
+                      <span class="cart__price">${{ item.price }}.00</span>
                     </div>
                     <div>
                       <form class="delete-form cart__delete-btn" action="/removeItem/{{ item.itemID }}/" method="post">
                         <input name="itemID" value="{{ item.itemID }}" type="hidden">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                        <button class="btn deleteBtn" type="submit" v-on:click="removeItem">Delete</button>
+                        <button class="cart__delete-btn red-text" type="submit" v-on:click="removeItem">Delete</button>
                       </form>
                     </div>
                   </li>
                   {% endfor %}
                 </ul>
                 {% if session['cart']|length > 0 %}
-                <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
+                <div class="cart__total-container">
+                    <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
+                </div>
                 <form action="{{ url_for('showCheckoutPage') }}">
                   <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
                 </form>

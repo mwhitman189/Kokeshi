@@ -141,12 +141,15 @@ label {
   font-size: 150%;
   margin-bottom: 15px; }
 
-.cart__price,
-.cart__total {
+.cart__price {
   float: right; }
 
 .cart__item-info {
   border-bottom: 1px solid #6b6767; }
+
+.cart__total-container {
+  display: flex;
+  justify-content: flex-end; }
 
 .cart__total {
   font-weight: 700;
@@ -163,6 +166,9 @@ label {
   position: absolute;
   right: 0;
   top: 0; }
+
+.cart__delete-btn {
+  text-decoration: underline; }
 
 .checkout__container-fluid {
   flex-direction: column; }
