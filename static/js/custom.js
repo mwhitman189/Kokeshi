@@ -17,6 +17,8 @@ const app = new Vue({
     }
   },
   mounted() {
+      // Add kokeshi info to sessionStorage so it can be displayed on the
+      // model kokeshi on the design page.
     if (window.sessionStorage.item) {
       this.item = window.sessionStorage.item;
     }
@@ -94,6 +96,8 @@ const app = new Vue({
       .catch(err => console.log(err))
     },
     setBackground: function(event) {
+        // Set the background image for the front and back view of the kokeshi
+        // based on the selected kokeshi style.
         let front = document.querySelector('#kokeshi-model-front');
         let back = document.querySelector('#kokeshi-model-back');
 
@@ -133,7 +137,16 @@ const app = new Vue({
           catch(e) {
 
           }
-      })
+      });
+      // Add event listener to window, except on the 'cart' element, enabling
+      // off-cart clicks to close the cart.
+      window.addEventListener('mouseup', function(event) {
+          console.log('working');
+          let cartEl = document.querySelector('#cart');
+          if (cartEl.classList.contains('active') && event.target.parentNode.parentNode != cartEl && event.target.parentNode.parentNode.parentNode.parentNode != cartEl && (event.target != cartEl)) {
+            cartEl.classList.toggle('active');
+          }
+      });
   },
   filters: {
     moment: function (date) {
