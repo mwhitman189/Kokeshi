@@ -55,7 +55,7 @@
                       </div>
                     </li>
                     <li class="header__icon header__cart">
-                      <button id="cart-toggle" v-on:click="toggleCart" class="header__link-icon"><i class="fas fa-baby-carriage">{{ session['cart']|length }}</i></button>
+                      <button id="cart-toggle" v-on:click="toggleCartOn" class="header__link-icon"><i class="fas fa-baby-carriage">{{ session['cart']|length }}</i></button>
                     </li>
                   </ul>
                   <div class="header__mobile-brand">
@@ -98,8 +98,8 @@
                 </nav>
               </div>
             </header>
-            <div id="cart" class="cart cart__container">
-              <button v-on:click="toggleCart" class="cart__close-btn">X</button>
+            <div id="cart" class="cart cart__container" aria-hidden="true">
+              <button v-on:click="toggleCartOff" class="cart__close-btn"><i class="fas fa-times" style="font-size:25px;"></i></button>
               <div>
                 <h3 class="cart__title center-text">My Items</h3>
               </div>
