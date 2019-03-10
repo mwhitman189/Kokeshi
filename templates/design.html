@@ -5,12 +5,11 @@
 {% endblock %}
 
 {% block content_1 %}
-<div class="keyvisual keyvisual__inner">
+<div class="keyvisual__inner">
   <div class="keyvisual__img">
     <h2 class="keyvisual__heading">
       <span class="keyvisual__heading-text">Design a Kokeshi</span>
       <span class="keyvisual__heading-description">Craft your personal message to baby</span>
-      <span class="keyvisual__description"></span>
     </h2>
   </div>
 </div>
@@ -25,12 +24,12 @@
   {% endif %}
 {% endwith %}
 
-<section class="design__content content container">
+<section class="content container">
   <h1 class="title center-text">Design a Kokeshi</h1>
-  <div class="container-fluid">
+  <div class="container-flex--space-around">
     <div class="design__kokeshi-display">
       <div class="design__kokeshi-and-btn">
-        <div class="kokeshi-model-container">
+        <div class="design__kokeshi-model-container">
             <div id="kokeshi-model-front" alt="[[name]] model front side" class="design__kokeshi-model-front"></div>
             <div id="kokeshi-model-back" alt="[[name]] model back side" class="design__kokeshi-model-back">
               <div class="design__kokeshi-info">
@@ -75,18 +74,14 @@
           <input id="weight-input" type="number" min="1" step="1" class="form-control" v-model="weight" name="weight" maxlength="10" placeholder="ex: 3200" required>grams<br>
         </div>
         <div class="form-group">
-          <label class="design__message-checkbox-label">Personalized message for $50 <input id="message-checkbox" class="design__checkbox" v-model="isMessage" name="is-message" type="checkbox" onclick="document.getElementById('message-input').disabled=!this.checked;"></label><br>
+          <label class="design__message-checkbox-label">Personalized message for $50 <input id="message-checkbox" class="checkbox" v-model="isMessage" name="is-message" type="checkbox" onclick="document.getElementById('message-input').disabled=!this.checked;"></label><br>
           <label for="message-input">Message</label>
           <textarea id="message-input" class="form-control design__message-input" maxlength="300" v-model="message" name="message" placeholder="Hit 'Enter' to start a new line"></textarea><br>
         </div>
-        <button form="design-form" type="submit" class="btn design__btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
+        <button form="design-form" type="submit" class="btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
       </form>
     </div>
   </div>
 </section>
-{% endblock %}
-
-{% block scripts %}
-
 {% endblock %}

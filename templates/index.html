@@ -19,17 +19,17 @@
     margin-top: 15px;
   }
 
-  .checkout__container {
+  .container {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 90%;
   }
 
-  .checkout__btn {
+  .btn {
     background-color: rgba(0,0,0, 0);
     border: 2px solid rgba(0,0,0, .8);
     border-radius: 4px;
@@ -41,7 +41,7 @@
     width: 100%;
   }
 
-  .checkout__btn:hover {
+  .btn:hover {
     background-image: linear-gradient(rgba(0,0,0, 0), rgba(0,0,0, .1));
   }
 
@@ -73,8 +73,12 @@
   }
 
   @media screen and (min-width: 800px) {
-    .checkout__btn {
+    .btn {
       max-width: 350px;
+    }
+
+    .container {
+        width: 50%;
     }
   }
 </style>
@@ -86,11 +90,11 @@
 </form>
 
 <div id="loader" style="display:none;">
-    <div class="loader checkout__container"></div>
+    <div class="loader container"></div>
     <p class="center-text">Processing...</p>
 </div>
 
-<div id="checkout-container" class="checkout__container">
+<div id="checkout-container" class="container">
   <div class="logo-container">
     <img src="../static/img/KokeMama(diamond-black).svg" alt="White diamond KokeMama logo" class="logo">
   </div>
@@ -107,10 +111,10 @@
 
   {% if session['cart'] | length > 0 %}
   <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
-  <button id="customButton" class="checkout__btn">Confirm Purchase</button>
+  <button id="customButton" class="btn">Confirm Purchase</button>
   {% else %}
   <form action="{{ url_for('showDesignPage') }}">
-      <button type="submit" value="Go to the design page" class="checkout__btn">Start Designing!</button>
+      <button type="submit" value="Go to the design page" class="btn">Start Designing!</button>
   </form>
   {% endif %}
 </div>

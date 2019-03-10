@@ -105,14 +105,14 @@ label {
   padding: 20px;
   width: 100%; }
 
-.container-fluid {
+.container-flex--space-around {
   display: flex;
   justify-content: space-around; }
 
 .filler {
   height: 80px; }
 
-.cart {
+.cart__container {
   animation: fadeIn .7s;
   background-color: #fff;
   border: 1px solid #302c2c;
@@ -127,7 +127,7 @@ label {
   transition: .5s ease;
   width: 200px;
   z-index: 20000; }
-  .cart.active {
+  .cart__container.active {
     transition: .5s ease;
     transform: translateX(-100%); }
 
@@ -170,7 +170,7 @@ label {
 .cart__delete-btn {
   text-decoration: underline; }
 
-.checkout__container-fluid {
+.flex-direction {
   flex-direction: column; }
 
 .center-text {
@@ -501,15 +501,9 @@ label {
   height: 180px; }
 
 .home__btn {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 40px; }
 
 .about__btn {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
   width: 100%; }
 
 .design__form {
@@ -528,7 +522,7 @@ label {
   font-weight: 600;
   width: 80%; }
 
-.kokeshi-model-container {
+.design__kokeshi-model-container {
   align-items: center;
   display: flex;
   flex-direction: row; }
@@ -540,7 +534,7 @@ label {
   height: 645px;
   margin: 0 5px 15px;
   position: relative;
-  width: 240px; }
+  width: 47vw; }
 
 .design__kokeshi-model-back {
   background-position: center;
@@ -550,7 +544,7 @@ label {
   height: 645px;
   margin: 0 5px 15px;
   position: relative;
-  width: 240px; }
+  width: 47vw; }
 
 .zao-front {
   background-image: url("/static/img/yamagata_kokeshi(cut).svg"); }
@@ -611,7 +605,7 @@ label {
   white-space: pre-wrap;
   word-break: break-word; }
 
-.design__checkbox {
+.checkbox {
   cursor: pointer; }
 
 .design__message-checkbox-label {
@@ -623,12 +617,12 @@ label {
 .design__message-input {
   margin-bottom: 20px; }
 
-.order-item-container {
+.design-confirmation__item-container {
   background-color: #f1f1f1;
   box-shadow: 0 2px 4px 2px rgba(48, 44, 44, 0.2);
   margin: 15px;
   padding: 10px;
-  width: 500px; }
+  width: 90%; }
 
 .order__total-container {
   width: 500px; }
@@ -636,17 +630,13 @@ label {
 .order__total {
   text-align: right; }
 
-.flex-order {
+.design-confirmation {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center; }
 
-.kokeshi-order {
-  padding: 15px;
-  width: 100%; }
-
-.order__message {
+.design-confirmation__message {
   overflow-wrap: break-word;
   white-space: pre-wrap;
   width: 120px; }
@@ -686,7 +676,7 @@ label {
   height: 80px;
   width: 100%; }
 
-.dark {
+.footer--dark {
   background-color: rgba(48, 44, 44, 0.9); }
 
 .footer__text {
@@ -723,7 +713,7 @@ label {
     width: 100%; }
   .about__btn {
     width: 30%; }
-  .checkout__container-fluid {
+  .flex-direction {
     flex-direction: row; }
   .keyvisual__heading {
     padding: 1rem 0 1rem 10%; }
@@ -736,15 +726,17 @@ label {
     font-weight: 600;
     justify-content: center;
     width: 80%; }
+  .design__kokeshi-model-back,
+  .design__kokeshi-model-front {
+    width: 240px; }
   .kokeshi-order {
     padding: 15px;
     width: 50%; }
-  .cart {
-    right: -30%; }
-    .cart.active {
-      transform: translateX(-100%); }
   .cart__container {
+    right: -30%;
     width: 30%; }
+    .cart__container.active {
+      transform: translateX(-100%); }
   .blurb1 {
     animation: fadeIn 2s;
     animation-fill-mode: forwards;
@@ -771,8 +763,10 @@ label {
     opacity: 0;
     position: relative;
     top: 90px; }
-  .confirmation__container {
+  .confirmation {
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
-    width: 70%; } }
+    width: 70%; }
+  .design-confirmation__item-container {
+    width: 500px; } }

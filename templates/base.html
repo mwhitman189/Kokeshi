@@ -98,7 +98,7 @@
                 </nav>
               </div>
             </header>
-            <div id="cart" class="cart cart__container" aria-hidden="true">
+            <div id="cart" class="cart__container" aria-hidden="true">
               <button v-on:click="toggleCartOff" class="cart__close-btn"><i class="fas fa-times" style="font-size:25px;"></i></button>
               <div>
                 <h3 class="cart__title center-text">My Items</h3>
@@ -110,7 +110,7 @@
                       <span class="cart__price">${{ item.price }}.00</span>
                     </div>
                     <div>
-                      <form class="delete-form cart__delete-btn" action="/removeItem/{{ item.itemID }}/" method="post">
+                      <form action="/removeItem/{{ item.itemID }}/" method="post">
                         <input name="itemID" value="{{ item.itemID }}" type="hidden">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                         <button class="cart__delete-btn red-text" type="submit" v-on:click="removeItem">Delete</button>
@@ -124,7 +124,7 @@
                     <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
                 </div>
                 <form action="{{ url_for('showCheckoutPage') }}">
-                  <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
+                  <button type="submit" value="Go to checkout page" class="btn">Checkout</button>
                 </form>
                 {% else %}
                 <p class="center-text">You have no items in your cart</p>
@@ -135,7 +135,7 @@
             </div>
 
             <main class="content-main-wrapper clearfix">
-                  <div id="keyvisual" class="keyvisual keyvisual--anchor-fixed">
+                  <div id="keyvisual" class="keyvisual">
 
                       {% block content_1 %}
                       {% endblock %}
@@ -147,7 +147,7 @@
             <!-- Footer -->
 
             <footer class="footer">
-              <div class="dark">
+              <div class="footer--dark">
                 <p class="footer__text center-text">Copyright &copy; KokeMama
                     2018</p>
                 </div>
@@ -156,8 +156,6 @@
         </div>
       </div>
 
-      {% block scripts %}
-      {% endblock %}
       <!-- production version, optimized for size and speed -->
       <script src="https://cdn.jsdelivr.net/npm/vue"></script>
       <script src="/static/js/custom.js"></script>
