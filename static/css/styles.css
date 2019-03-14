@@ -34,6 +34,7 @@ a {
     border: 0; }
 
 button {
+  align-items: center;
   background-color: rgba(0, 0, 0, 0);
   border: 0;
   cursor: pointer; }
@@ -76,7 +77,7 @@ label {
   border: 2px solid rgba(0, 0, 0, 0.8);
   border-radius: 4px;
   height: 35px;
-  margin: 20px 0;
+  margin: 10px;
   max-width: 400px;
   padding: 5px;
   text-transform: uppercase;
@@ -86,7 +87,6 @@ label {
 
 .btn-dimensions {
   display: block;
-  margin: 5px;
   padding: 3px 60px 10px; }
 
 .flashes {
@@ -156,13 +156,11 @@ label {
   margin-top: 15px; }
 
 .cart__checkout-btn {
-  margin: 10px;
   max-width: 400px;
   position: absolute;
   width: 100%; }
 
 .cart__close-btn {
-  margin: 10px;
   position: absolute;
   right: 0;
   top: 0; }
@@ -504,6 +502,9 @@ label {
   margin-top: 40px; }
 
 .about__btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%; }
 
 .design__form {
@@ -702,10 +703,7 @@ label {
     background: transparent;
     color: #fff;
     position: absolute;
-    top: 30%; }
-  .btn {
-    background-color: #fff;
-    color: #000; } }
+    top: 30%; } }
 
 @media screen and (min-width: 800px) {
   .container {

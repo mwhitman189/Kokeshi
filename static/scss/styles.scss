@@ -55,6 +55,7 @@ a {
 }
 
 button {
+  align-items: center;
   background-color: rgba($color-black, 0);
   border: 0;
   cursor: pointer;
@@ -110,7 +111,7 @@ label {
   border: 2px solid rgba($color-black, .8);
   border-radius: 4px;
   height: 35px;
-  margin: 20px 0;
+  margin: 10px;
   max-width: 400px;
   padding: 5px;
   text-transform: uppercase;
@@ -123,7 +124,6 @@ label {
 
 .btn-dimensions {
   display: block;
-  margin: 5px;
   padding: 3px 60px 10px;
 }
 
@@ -208,14 +208,12 @@ label {
 }
 
 .cart__checkout-btn {
-  margin: 10px;
   max-width: 400px;
   position: absolute;
   width: 100%;
 }
 
 .cart__close-btn {
-  margin: 10px;
   position: absolute;
   right: 0;
   top: 0;
@@ -635,6 +633,9 @@ label {
 }
 
 .about__btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
 }
 
@@ -878,11 +879,6 @@ label {
     color: $color-white;
     position: absolute;
     top: 30%;
-  }
-
-  .btn {
-    background-color: $color-white;
-    color: $color-black;
   }
 }
 

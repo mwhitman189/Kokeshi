@@ -12,14 +12,12 @@ def create_app():
     from flask_heroku import Heroku
     from flask_admin.contrib.sqla import ModelView
     from flask_wtf.csrf import CSRFProtect
-    from flask_security import login_required
     from flask import render_template, request, redirect, jsonify, url_for, flash, session
     from sqlalchemy.orm import relationship, sessionmaker
-    from flask_sqlalchemy import SQLAlchemy
     from models import User, Order, Customer, Role, OrderDetails, Product, Supplier, Payment, Shipper, users_schema, orders_schema, products_schema, customers_schema, order_details_schema, suppliers_schema, payments_schema, shippers_schema, MyAdminIndexView, UserAdmin, RoleAdmin
     from flask_admin import Admin
     from flask_login import UserMixin, LoginManager, current_user, login_user, logout_user
-    from flask_security import SQLAlchemyUserDatastore, Security, utils
+    from flask_security import SQLAlchemyUserDatastore, Security, utils, login_required
     from wtforms.fields import PasswordField
     from passlib.hash import pbkdf2_sha256
     from flask_marshmallow import Marshmallow
