@@ -52,6 +52,8 @@ def create_app():
         SECURITY_PASSWORD_SALT=os.environ['SECURITY_PASSWORD_SALT']
     ))
 
+    app.url_map.strict_slashes = False
+
     # Initialize the SQLAlchemy data store and Flask-Security.
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
@@ -435,7 +437,7 @@ def create_app():
         cartJSON = jsonify(cartObj)
         return cartJSON
 
-    @app.route('/removeItem/<int:item_id>/', methods=["GET", "POST"])
+    @app.route('/removeItem/<int:item_id>', methods=["GET", "POST"])
     def removeItem(item_id):
         """
         Remove the selected item from the cart.
@@ -575,22 +577,23 @@ def create_app():
 
         return render_template('confirmation.html')
 
-    @app.route('/contact/', methods=['GET', 'POST'])
+    @app.route('/contact', methods=['GET', 'POST'])
     def showContact():
         """
         Display the contact information page.
         """
         if request.method == 'POST':
             msg = Message(
-                'Contact', sender='mileswhitman01@gmail.com', recipients=['administrator@peraperaexchange.com'])
-            msg.body = "Customer name: %s" % (
+                'Contact', sender='administrator@peraperaexchange.com', recipients=['administrator@peraperaexchange.com'])
+            msg.body = "Customer name: %s\n" % (
                 request.form['customer-name'])
-            msg.body += "Customer email: %s" % (request.form['customer-email'])
+            msg.body += "Customer email: %s\n" % (
+                request.form['customer-email'])
             msg.body += "Message: %s" % (request.form['customer-message'])
             mail.send(msg)
 
             customer = Customer(
-                name=request.form['customer-name']
+                name=request.form['customer-name'],
                 email=request.form['customer-email']
             )
             db.session.add(customer)
@@ -600,7 +603,7 @@ def create_app():
         else:
             return render_template('contact.html')
 
-    @app.route('/contact/complete/')
+    @app.route('/contact/complete')
     def showContactComplete():
         """
         Show a success message for the contact form.
