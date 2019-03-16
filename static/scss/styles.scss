@@ -101,6 +101,14 @@ label {
   }
 }
 
+.column {
+  flex-direction: column;
+}
+
+.align-items {
+  align-items: center;
+}
+
 .img {
   max-width: 100%;
   vertical-align: bottom;
@@ -221,6 +229,17 @@ label {
 
 .cart__delete-btn {
   text-decoration: underline;
+}
+
+.contact__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.contact__form {
+  width: 100%;
 }
 
 .flex-direction {
@@ -856,10 +875,9 @@ label {
     top: 30%;
   }
 
-  .content {
+  .about__content {
     background: transparent;
     color: $color-white;
-    position: absolute;
     top: 45%;
   }
 
@@ -874,10 +892,9 @@ label {
     top: 25%;
   }
 
-  .content {
+  .about__content {
     background: transparent;
     color: $color-white;
-    position: absolute;
     top: 30%;
   }
 }
@@ -886,6 +903,10 @@ label {
   .container {
     padding: 20px;
     width: 100%;
+  }
+
+  .contact__form {
+    width: 50%;
   }
 
   .about__btn {

@@ -26,7 +26,28 @@
 {% endwith %}
 
 <section class="content container">
-  <h1 class="title center-text">Contact us</h1>
-  <p class="center-text">Please contact us with any comments, suggestions, or questions. You will receive a response within 48 hours.</p>
+    <div class="contact__container">
+          <h1 class="title center-text">Contact us</h1>
+          <p class="center-text">Please contact us with any comments, suggestions, or questions. You will receive a response within 48 hours.</p>
+          <form method="post" class="container-flex--space-around column align-items contact__form">
+              <div class="form-group">
+                  <label for="customer-name-input">Name:
+                  </label><br>
+                  <input id="customer-name-input" type="text" name="customer-name" class="form-control" required></input>
+              </div>
+              <div class="form-group">
+                  <label for="customer-email-input">Email:
+                  </label><br>
+                  <input id="customer-email-input" type="email" name="customer-email" class="form-control" required></input>
+              </div>
+              <div class="form-group">
+                  <label for="customer-message-input">Message:
+                  </label><br>
+                  <textarea id="customer-message-input" name="customer-message" class="form-control" max-length="500" style="min-height:100px;"required></textarea>
+              </div>
+              <button type="submit" class="btn">Send</button>
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+          </form>
+    </div>
 </section>
 {% endblock %}
