@@ -80,17 +80,17 @@
                   </div>
                   <ul class="header__menus menus-depth-0 clearfix">
                     <li class="header__menu menu-depth-0 header__dropdown-toggle">
-                      <a class="header__link default" href="{{ url_for('showAboutPage')}}">
+                      <a class="header__link default" href="{{ url_for('showAbout')}}">
                         <span>About us</span>
                       </a>
                     </li>
                     <li class="header__menu menu-depth-0 header__dropdown-toggle">
-                      <a class="header__link default" href="{{ url_for('showDesignPage')}}">
+                      <a class="header__link default" href="{{ url_for('showDesign')}}">
                         <span>Design a kokeshi</span>
                       </a>
                     </li>
                     <li class="header__menu menu-depth-0 header__dropdown-toggle">
-                      <a class="header__link default" href="{{ url_for('showContactPage')}}">
+                      <a class="header__link default" href="{{ url_for('showContact')}}">
                         <span>Contact us</span>
                       </a>
                     </li>
@@ -123,12 +123,12 @@
                 <div class="cart__total-container">
                     <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
                 </div>
-                <form action="{{ url_for('showCheckoutPage') }}">
+                <form action="{{ url_for('showCheckout') }}">
                   <button type="submit" value="Go to checkout page" class="btn">Checkout</button>
                 </form>
                 {% else %}
                 <p class="center-text">You have no items in your cart</p>
-                <form action="{{ url_for('showDesignPage') }}">
+                <form action="{{ url_for('showDesign') }}">
                     <button type="submit" value="Go to the design page" class="btn">Start Designing!</button>
                 </form>
                 {% endif %}

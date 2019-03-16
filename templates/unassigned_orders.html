@@ -19,7 +19,7 @@
   <div class="container-flex--space-around">
     <ul>
       {% for order in orders %}
-        <li class="container-flex--space-around"><a class="btn" href="{{ url_for('showAcceptOrderPage', order_id=order.orderID) }}" title="{{ order.orderID }}">{{ order.orderID }}番を選択する</a></li>
+        <li class="container-flex--space-around"><a class="btn" href="{{ url_for('showAcceptOrder', order_id=order.orderID) }}" title="{{ order.orderID }}">{{ order.orderID }}番を選択する</a></li>
       {% endfor %}
     </ul>
   </div>

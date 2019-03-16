@@ -291,7 +291,7 @@ def create_app():
     def showOrders():
         """
         Display the supplier - facing orders page. The supplier can accept
-        the job, then is directed to the showAcceptOrderPage
+        the job, then is directed to the showAcceptOrder
         """
         unaccepted_orders = Order.query.filter_by(wasAccepted=False).all()
 
@@ -301,7 +301,7 @@ def create_app():
 
     @app.route('/orders/<int:order_id>/accepted', methods=['GET', 'POST'])
     @login_required
-    def showAcceptOrderPage(order_id):
+    def showAcceptOrder(order_id):
         """
         Display the supplier-facing order accepted page.
         """
@@ -328,14 +328,14 @@ def create_app():
         return render_template('home.html')
 
     @app.route('/about')
-    def showAboutPage():
+    def showAbout():
         """
         Display the About Us page.
         """
         return render_template('about.html')
 
     @app.route('/design', methods=['GET', 'POST'])
-    def showDesignPage():
+    def showDesign():
         """
         Display a kokeshi designing page that, when submitted, updates the shopping cart with the order and redirects to the order page.
         """
@@ -424,7 +424,7 @@ def create_app():
             flash("Success! Your order for '%s kokeshi' has been added to your cart." %
                   order_details.name)
 
-            return redirect(url_for('showOrderPage'))
+            return redirect(url_for('showOrder'))
 
         else:
             return render_template('design.html')
@@ -450,10 +450,10 @@ def create_app():
         except:
             msg = "YO"
             print(msg)
-        return redirect(url_for('showOrderPage'))
+        return redirect(url_for('showOrder'))
 
     @app.route('/order', methods=["GET", "POST"])
-    def showOrderPage():
+    def showOrder():
         """
         Display the order page - - a list of all the items in the cart.
         """
@@ -461,7 +461,7 @@ def create_app():
         return render_template('order.html')
 
     @app.route('/checkout', methods=['GET', 'POST'])
-    def showCheckoutPage():
+    def showCheckout():
         """
         Display the checkout page, which displays the total, and a Stripe payments button.
         """
@@ -546,10 +546,10 @@ def create_app():
         db.session.add(db_customer)
         db.session.commit()
 
-        return redirect(url_for('showConfirmPage'))
+        return redirect(url_for('showConfirm'))
 
     @app.route('/confirmation')
-    def showConfirmPage():
+    def showConfirm():
         """
         Display the order confirmation page after an order is submitted.
         """
@@ -575,13 +575,37 @@ def create_app():
 
         return render_template('confirmation.html')
 
-    @app.route('/contact')
-    def showContactPage():
+    @app.route('/contact/', methods=['GET', 'POST'])
+    def showContact():
         """
         Display the contact information page.
         """
+        if request.method == 'POST':
+            msg = Message(
+                'Contact', sender='mileswhitman01@gmail.com', recipients=['administrator@peraperaexchange.com'])
+            msg.body = "Customer name: %s" % (
+                request.form['customer-name'])
+            msg.body += "Customer email: %s" % (request.form['customer-email'])
+            msg.body += "Message: %s" % (request.form['customer-message'])
+            mail.send(msg)
 
-        return render_template('contact.html')
+            customer = Customer(
+                name=request.form['customer-name']
+                email=request.form['customer-email']
+            )
+            db.session.add(customer)
+            db.session.commit()
+            return redirect(url_for('showContactComplete'))
+
+        else:
+            return render_template('contact.html')
+
+    @app.route('/contact/complete/')
+    def showContactComplete():
+        """
+        Show a success message for the contact form.
+        """
+        return render_template('contact_complete.html')
 
     db.init_app(app)
     login_manager.init_app(app)

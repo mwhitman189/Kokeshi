@@ -54,7 +54,7 @@
         <div class="order__total-container">
             <div class="order-price order-item"><h4 class="order__total">Your total: ${{ session['cart'] | sum(attribute='price') }}</h4></div>
         </div>
-      <form action="{{ url_for('showCheckoutPage') }}" method="post">
+      <form action="{{ url_for('showCheckout') }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
         <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
       </form>
@@ -62,7 +62,7 @@
       {% else %}
       <div class="design-confirmation">
       <p class="center-text">You have no items in your cart</p>
-      <form action="{{ url_for('showDesignPage') }}">
+      <form action="{{ url_for('showDesign') }}">
           <button type="submit" value="Go to the design page" class="btn">Start Designing!</button>
       </form>
       {% endif %}
