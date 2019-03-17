@@ -887,9 +887,15 @@ label {
   }
 }
 
-@media screen and (max-width: 1200px) and (max-height: 400px) and (orientation: landscape) {
+@media screen and (max-width: 1200px) and (orientation: landscape) {
   .keyvisual__heading {
-    top: 25%;
+    top: 45%;
+  }
+
+  .title {
+    color: $color-white;
+    position: absolute;
+    top: -20vh;
   }
 
   .about__content {
