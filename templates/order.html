@@ -61,6 +61,14 @@
                         <div class="kokeshi-message">
                           <p class="design-confirmation__message"><b>Message: </b><br>{{ item.message }}</p><br>
                         </div>
+                        <div>
+                            <form action="/removeItem/{{ item.itemID }}/"
+                                method="post">
+                                <input name="itemID" value="{{ item.itemID }}" type="hidden">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                                <button class="cart__delete-btn red-text" type="submit" v-on:click="removeItem">Delete</button>
+                            </form>
+                        </div>
                     </div>
                   </li>
                 {% endfor %}
