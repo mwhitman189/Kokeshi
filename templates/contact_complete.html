@@ -6,23 +6,23 @@
 
 {% block content_1 %}
 <div class="keyvisual__inner">
-  <div class="keyvisual__img">
-    <h2 class="keyvisual__heading">
+    <div class="keyvisual__img">
+        <h2 class="keyvisual__heading">
       <span class="keyvisual__heading-text">Traditional Kokeshi</span>
       <span class="keyvisual__heading-description">A lasting reminder of baby's birth</span>
       <span class="keyvisual__description"></span>
     </h2>
-  </div>
+    </div>
 </div>
 
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
+{% if messages %}
+<ul class=flashes>
     {% for message in messages %}
-      <li>{{ message }}</li>
+    <li>{{ message }}</li>
     {% endfor %}
-    </ul>
-  {% endif %}
+</ul>
+{% endif %}
 {% endwith %}
 
 <section class="content container">

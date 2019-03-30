@@ -6,32 +6,35 @@
 
 {% block content_1 %}
 <div class="keyvisual__inner">
-  <div class="keyvisual__img">
-    <h2 class="keyvisual__heading">
+    <div class="keyvisual__img">
+        <h2 class="keyvisual__heading">
       <span class="keyvisual__heading-text">Traditional Kokeshi</span>
       <span class="keyvisual__heading-description">A lasting reminder of baby's birth</span>
     </h2>
-  </div>
+    </div>
 </div>
 
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
+{% if messages %}
+<ul class=flashes>
     {% for message in messages %}
-      <li>{{ message }}</li>
+    <li>{{ message }}</li>
     {% endfor %}
-    </ul>
-  {% endif %}
+</ul>
+{% endif %}
 {% endwith %}
 
 <!-- Content section -->
+
 <section class="content container">
-  <h1 class="title center-text">
+    <h1 class="title center-text">
     <span class="title-primary">Welcome to KokeMama<span><br>
     <span class="title-secondary">Authentic Kokeshi baby gifts</span>
   </h1>
-  <form class="container-flex--space-around" container-flex--space-around action="{{ url_for('showDesign') }}">
-      <button type="submit" value="Go to the design page" class="btn home__btn">Start Designing</button>
-  </form>
+    <form class="container-flex--space-around"
+        container-flex--space-around
+        action="{{ url_for('showDesign') }}">
+        <button type="submit" value="Go to the design page" class="btn home__btn">Start Designing</button>
+    </form>
 </section>
 {% endblock %}

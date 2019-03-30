@@ -6,22 +6,22 @@
 
 {% block content_1 %}
 <div class="keyvisual__inner">
-  <div class="keyvisual__img">
-    <h2 class="keyvisual__heading">
+    <div class="keyvisual__img">
+        <h2 class="keyvisual__heading">
       <span class="keyvisual__heading-text">ご注文されたこけし</span>
       <span class="keyvisual__heading-description">下のご注文をチェックして情報を見られる事になります。</span>
     </h2>
-  </div>
+    </div>
 </div>
 
 <section class="content container">
-  <h1 class="title center-text">ご注文</h1>
-  <div class="container-flex--space-around">
-    <ul>
-      {% for order in orders %}
-        <li class="container-flex--space-around"><a class="btn" href="{{ url_for('showAcceptOrder', order_id=order.orderID) }}" title="{{ order.orderID }}">{{ order.orderID }}番を選択する</a></li>
-      {% endfor %}
-    </ul>
-  </div>
+    <h1 class="title center-text">ご注文</h1>
+    <div class="container-flex--space-around">
+        <ul>
+            {% for order in orders %}
+            <li class="container-flex--space-around"><a class="btn" href="{{ url_for('showAcceptOrder', order_id=order.orderID) }}" title="{{ order.orderID }}">{{ order.orderID }}番を選択する</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 </section>
 {% endblock %}

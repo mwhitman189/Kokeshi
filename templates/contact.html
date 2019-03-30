@@ -6,47 +6,49 @@
 
 {% block content_1 %}
 <div class="keyvisual__inner">
-  <div class="keyvisual__img">
-    <h2 class="keyvisual__heading">
+    <div class="keyvisual__img">
+        <h2 class="keyvisual__heading">
       <span class="keyvisual__heading-text">Traditional Kokeshi</span>
       <span class="keyvisual__heading-description">A lasting reminder of baby's birth</span>
       <span class="keyvisual__description"></span>
     </h2>
-  </div>
+    </div>
 </div>
 
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
+{% if messages %}
+<ul class=flashes>
     {% for message in messages %}
-      <li>{{ message }}</li>
+    <li>{{ message }}</li>
     {% endfor %}
-    </ul>
-  {% endif %}
+</ul>
+{% endif %}
 {% endwith %}
 
 <section class="content container">
     <div class="contact__container">
-          <h1 class="title center-text">Contact us</h1>
-          <p class="center-text">Please contact us with any comments, suggestions, or questions. You will receive a response within 48 hours.</p>
-          <form method="post" class="container-flex--space-around column align-items contact__form">
-              <div class="form-group">
-                  <label for="customer-name-input">Name:
+        <h1 class="title center-text">Contact us</h1>
+        <p class="center-text">Please contact us with any comments, suggestions, or
+            questions. You will receive a response within 48 hours.</p>
+        <form method="post"
+            class="container-flex--space-around column align-items contact__form">
+            <div class="form-group">
+                <label for="customer-name-input">Name:
                   </label><br>
-                  <input id="customer-name-input" type="text" name="customer-name" class="form-control" required></input>
-              </div>
-              <div class="form-group">
-                  <label for="customer-email-input">Email:
+                <input id="customer-name-input" type="text" name="customer-name" class="form-control" required></input>
+            </div>
+            <div class="form-group">
+                <label for="customer-email-input">Email:
                   </label><br>
-                  <input id="customer-email-input" type="email" name="customer-email" class="form-control" required></input>
-              </div>
-              <div class="form-group">
-                  <label for="customer-message-input">Message:
+                <input id="customer-email-input" type="email" name="customer-email" class="form-control" required></input>
+            </div>
+            <div class="form-group">
+                <label for="customer-message-input">Message:
                   </label><br>
-                  <textarea id="customer-message-input" name="customer-message" class="form-control" max-length="500" style="min-height:100px;"required></textarea>
-              </div>
-              <button type="submit" class="btn">Send</button>
-              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                <textarea id="customer-message-input" name="customer-message" class="form-control" max-length="500" style="min-height:100px;"required></textarea>
+            </div>
+            <button type="submit" class="btn">Send</button>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
           </form>
     </div>
 </section>
