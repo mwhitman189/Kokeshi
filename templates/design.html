@@ -6,50 +6,59 @@
 
 {% block content_1 %}
 <div class="keyvisual__inner">
-  <div class="keyvisual__img">
-    <h2 class="keyvisual__heading">
+    <div class="keyvisual__img">
+        <h2 class="keyvisual__heading">
       <span class="keyvisual__heading-text">Design a Kokeshi</span>
       <span class="keyvisual__heading-description">Craft your personal message to baby</span>
     </h2>
-  </div>
+    </div>
 </div>
 
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
+{% if messages %}
+<ul class=flashes>
     {% for message in messages %}
-      <li>{{ message }}</li>
+    <li>{{ message }}</li>
     {% endfor %}
-    </ul>
-  {% endif %}
+</ul>
+{% endif %}
 {% endwith %}
 
 <section class="content container">
-  <h1 class="title center-text">Design a Kokeshi</h1>
-  <div class="container-flex--space-around">
-    <div class="design__kokeshi-display">
-      <div class="design__kokeshi-and-btn">
-        <div class="design__kokeshi-model-container">
-            <div id="kokeshi-model-front" alt="[[name]] model front side" class="design__kokeshi-model-front"></div>
-            <div id="kokeshi-model-back" alt="[[name]] model back side" class="design__kokeshi-model-back">
-              <div class="design__kokeshi-info">
-                <p class="design__info">[[ name ]]</p>
-                <p class="design__info">[[ dob | moment ]]</p>
-                <p class="design__info">[[ height ]] cm</p>
-                <p class="design__info">[[ weight ]] grams</p>
-              </div>
-              <div class="design__kokeshi-message">
-                <p class="design__message" v-if="isMessage">[[ message ]]</p>
-              </div>
+    <h1 class="title center-text">Design a Kokeshi</h1>
+    <div class="container-flex--space-around">
+        <div class="design__kokeshi-display">
+            <div class="design__kokeshi-and-btn">
+                <div class="design__kokeshi-model-container">
+                    <div id="kokeshi-model-front"
+                        alt="[[name]] model front side"
+                        class="design__kokeshi-model-front"></div>
+                    <div id="kokeshi-model-back"
+                        alt="[[name]] model back side"
+                        class="design__kokeshi-model-back">
+                        <div class="design__kokeshi-info">
+                            <p class="design__info">[[ name ]]</p>
+                            <p class="design__info">[[ dob | moment ]]</p>
+                            <p class="design__info">[[ height ]] cm</p>
+                            <p class="design__info">[[ weight ]] grams</p>
+                        </div>
+                        <div class="design__kokeshi-message">
+                            <p class="design__message"
+                                v-if="isMessage">[[ message ]]</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-      </div>
-      <form id="design-form" class="design__form" action="{{ url_for('showDesign') }}" method="post">
-        <p class="fine-print">Fields with '<span class="red-text">*</span>' are required</p>
-        <div class="form-group">
-          <label for="item-input">Kokeshi Style <span class="red-text">*</span></label></br>
-          <v-touch @tap="setBackground($event)"></v-touch>
-          <select id="item-input" class="form-control design__select-input" v-model="item" name="item" @change="setBackground($event)" required>
+            <form id="design-form"
+                class="design__form"
+                action="{{ url_for('showDesign') }}"
+                method="post">
+                <p class="fine-print">Fields with '<span class="red-text">*</span>' are
+                    required</p>
+                <div class="form-group">
+                    <label for="item-input">Kokeshi Style <span class="red-text">*</span></label></br>
+                    <v-touch @tap="setBackground($event)"></v-touch>
+                    <select id="item-input" class="form-control design__select-input" v-model="item" name="item" @change="setBackground($event)" required>
             <option value="" selected disabled hidden>Select a style</option>
             <option value="Zao Kokeshi">Zao</option>
             <option value="Yonezawa Kokeshi">Yonezawa</option>
@@ -57,31 +66,31 @@
             <option value="Tendo Kokeshi">Tendo</option>
           </select><br>
         </div>
-        <div class="form-group">
-          <label for="name-input">Baby's Name <span class="red-text">*</span></label><br>
-          <input id="name-input" class="form-control" v-model="name" name="name" maxlength="215" placeholder="ex: Jennifer Smith" required><br>
+                    <div class="form-group">
+                        <label for="name-input">Baby's Name <span class="red-text">*</span></label><br>
+                        <input id="name-input" class="form-control" v-model="name" name="name" maxlength="215" placeholder="ex: Timothy Whatley" required><br>
         </div>
-        <div class="form-group">
-          <label for="dob-input">Date of Birth <span class="red-text">*</span></label><br>
-          <input id="dob-input" type="date" class="form-control" v-model="dob" name="dob" placeholder="ex: 04/29/2018" required><br>
+                        <div class="form-group">
+                            <label for="dob-input">Date of Birth <span class="red-text">*</span></label><br>
+                            <input id="dob-input" type="date" class="form-control" v-model="dob" name="dob" placeholder="ex: 04/29/2018" required><br>
         </div>
-        <div class="form-group">
-          <label for="height-input">Height at birth <span class="red-text">*</span></label><br>
-          <input id="height-input" type="number" pattern="[0-9]*" min="1" step="1" class="form-control" v-model="height" name="height" maxlength="10" placeholder="ex: 51" required>cm<br>
+                            <div class="form-group">
+                                <label for="height-input">Height at birth <span class="red-text">*</span></label><br>
+                                <input id="height-input" type="number" pattern="[0-9]*" min="1" step="1" class="form-control" v-model="height" name="height" maxlength="10" placeholder="ex: 51" required>cm<br>
         </div>
-        <div class="form-group">
-          <label for="weight-input">Weight at birth <span class="red-text">*</span></label><br>
-          <input id="weight-input" type="number" pattern="[0-9]*" min="1" step="1" class="form-control" v-model="weight" name="weight" maxlength="10" placeholder="ex: 3200" required>grams<br>
+                                <div class="form-group">
+                                    <label for="weight-input">Weight at birth <span class="red-text">*</span></label><br>
+                                    <input id="weight-input" type="number" pattern="[0-9]*" min="1" step="1" class="form-control" v-model="weight" name="weight" maxlength="10" placeholder="ex: 3200" required>grams<br>
         </div>
-        <div class="form-group">
-          <label class="design__message-checkbox-label">Personalized message for $50 <input id="message-checkbox" class="checkbox" v-model="isMessage" name="is-message" type="checkbox" onclick="document.getElementById('message-input').disabled=!this.checked;"></label><br>
-          <label for="message-input">Message</label>
-          <textarea id="message-input" class="form-control design__message-input" maxlength="300" v-model="message" name="message" placeholder="Hit 'Enter' to start a new line"></textarea><br>
+                                    <div class="form-group">
+                                        <label class="design__message-checkbox-label">Personalized message for $50 <input id="message-checkbox" class="checkbox" v-model="isMessage" name="is-message" type="checkbox" onclick="document.getElementById('message-input').disabled=!this.checked;"></label><br>
+                                        <label for="message-input">Message (up to 200 characters)</label>
+                                        <textarea id="message-input" class="form-control design__message-input" maxlength="200" v-model="message" name="message" placeholder="Hit 'Enter' to start a new line"></textarea><br>
         </div>
-        <button form="design-form" type="submit" class="btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                                        <button form="design-form" type="submit" class="btn" @click="persist" @click="addToCart(product)">Add to Cart</button>
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
       </form>
-    </div>
-  </div>
+                                    </div>
+                                </div>
 </section>
 {% endblock %}

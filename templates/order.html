@@ -6,67 +6,82 @@
 
 {% block content_1 %}
 <div class="keyvisual__inner">
-  <div class="keyvisual__img">
-    <h2 class="keyvisual__heading">
-      <span class="keyvisual__heading-text">Traditional Kokeshi</span>
-      <span class="keyvisual__heading-description">A lasting reminder of baby's birth</span>
-    </h2>
-  </div>
+    <div class="keyvisual__img">
+        <h2 class="keyvisual__heading">
+            <span class="keyvisual__heading-text">Traditional Kokeshi</span>
+            <span class="keyvisual__heading-description">A lasting reminder of baby's birth</span>
+        </h2>
+    </div>
 </div>
 
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
+{% if messages %}
+<ul class="flashes">
     {% for message in messages %}
-      <li>{{ message }}</li>
+    <li>{{ message }}</li>
     {% endfor %}
-    </ul>
-  {% endif %}
+</ul>
+{% endif %}
 {% endwith %}
 
 <section class="content container">
-  <template v-if="item">
-    <h1 class="title center-text">Design Confirmation</h1>
+    <template v-if="item">
+        <h1 class="title center-text">Design Confirmation</h1>
 
-    {% if session['cart']|length > 0 %}
-    <p class="instructions center-text"><b>Please confirm your design, then proceed to checkout.</b></p><br>
-    <div class="design-confirmation">
-        <ul>
-
-        {% for item in session['cart'] %}
-          <li>
-              <div class="design-confirmation__item-container">
-                <div><h4><b>Style: </b>{{ item.item }}</h4><br></div>
-                <div class="kokeshi-info">
-                  <p class="info"><b>Name: </b>{{ item.name }}</p><br>
-                  <p class="info"><b>Date of birth: </b>{{ item.dob }}</p><br>
-                  <p class="info"><b>Height: </b>{{ item.height }} cm</p><br>
-                  <p class="info"><b>Weight: </b>{{ item.weight }} grams</p><br>
-                </div>
-                <div class="kokeshi-message">
-                  <p class="design-confirmation__message"><b>Message: </b><br>{{ item.message }}</p><br>
+        <div class="design-confirmation__container">
+            {% if session['cart']|length > 0 %}
+            <p class="instructions center-text"><b>Please confirm your design, then proceed to checkout.</b></p><br>
+            <div class="design-confirmation">
+                <ul>
+                {% for item in session['cart'] %}
+                  <li>
+                    <div class="design-confirmation__item-container">
+                        <div>
+                            <h4><b>Style: </b>{{ item.item }}</h4>
+                            <br>
+                        </div>
+                        <div class="kokeshi-info">
+                          <p class="info">
+                              <b>Name: </b>{{ item.name }}
+                          </p>
+                          <br>
+                          <p class="info">
+                              <b>Date of birth: </b>{{ item.dob }}
+                          </p>
+                          <br>
+                          <p class="info">
+                              <b>Height: </b>{{ item.height }} cm
+                          </p>
+                          <br>
+                          <p class="info">
+                              <b>Weight: </b>{{ item.weight }} grams
+                          </p>
+                          <br>
+                        </div>
+                        <div class="kokeshi-message">
+                          <p class="design-confirmation__message"><b>Message: </b><br>{{ item.message }}</p><br>
+                        </div>
+                    </div>
+                  </li>
+                {% endfor %}
+                </ul>
+                <div class="design-confirmation__total-and-btn">
+                    <h4 class="order__total">Your total: ${{ session['cart'] | sum(attribute='price') }}</h4>
+                    <form action="{{ url_for('showCheckout') }}" method="post">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
+                    </form>
                 </div>
             </div>
-          </li>
-        {% endfor %}
-
-        </ul>
-        <div class="order__total-container">
-            <div class="order-price order-item"><h4 class="order__total">Your total: ${{ session['cart'] | sum(attribute='price') }}</h4></div>
+            {% else %}
+            <div class="design-confirmation">
+                <p class="center-text">You have no items in your cart</p>
+                <form action="{{ url_for('showDesign') }}">
+                    <button type="submit" value="Go to the design page" class="btn">Start Designing!</button>
+                </form>
+            </div>
+            {% endif %}
         </div>
-      <form action="{{ url_for('showCheckout') }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-        <button type="submit" value="Go to checkout page" class="btn order-item">Proceed to Checkout</button>
-      </form>
-
-      {% else %}
-      <div class="design-confirmation">
-      <p class="center-text">You have no items in your cart</p>
-      <form action="{{ url_for('showDesign') }}">
-          <button type="submit" value="Go to the design page" class="btn">Start Designing!</button>
-      </form>
-      {% endif %}
-    </div>
-  </template>
+    </template>
 </section>
 {% endblock %}

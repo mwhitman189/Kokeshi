@@ -465,7 +465,7 @@ def create_app():
     @app.route('/checkout', methods=['GET', 'POST'])
     def showCheckout():
         """
-        Display the checkout page, which displays the total, and a Stripe payments button.
+        Display the checkout page, which displays the total and a Stripe payments button.
         """
         amount_usd = 0
 
@@ -562,20 +562,25 @@ def create_app():
         # Create a list of the cart items for use in the email's message body
         items = [dic['item'] for dic in session['cart'] if 'item' in dic]
 
-        # Use the first item in the cart to obtain the 'orderID'
-        firstItem = session['cart'][0]
-        orderID = firstItem['orderID']
+        # Use the first item in the cart to obtain the 'orderID'. If None,
+        # display design link
+        if 'cart'[0] in session:
+            firstItem = session['cart'][0]
+            print(firstItem)
+            orderID = firstItem['orderID']
 
-        msg = Message(
-            'Confirmation', sender='administrator@peraperaexchange.com', recipients=[session['customer_email']])
-        msg.body = "Thank you for your order of: %s. Your order number is: %d." % (
-            items, orderID)
-        mail.send(msg)
+            msg = Message(
+                'Confirmation', sender='administrator@peraperaexchange.com', recipients=[session['customer_email']])
+            msg.body = "Thank you for your order of: %s. Your order number is: %d." % (
+                items, orderID)
+            mail.send(msg)
 
-        # Clear the cart after payment is received and confirmation is sent.
-        session['cart'] = []
+            # Clear the cart after payment is received and confirmation is sent.
+            session['cart'] = []
 
-        return render_template('confirmation.html')
+            return render_template('confirmation.html')
+        else:
+            return redirect(url_for('showHome'))
 
     @app.route('/contact', methods=['GET', 'POST'])
     def showContact():

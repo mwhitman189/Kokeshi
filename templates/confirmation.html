@@ -6,22 +6,22 @@
 
 {% block content_1 %}
 <div class="keyvisual__inner">
-  <div class="keyvisual__img">
-    <h2 class="keyvisual__heading">
+    <div class="keyvisual__img">
+        <h2 class="keyvisual__heading">
       <span class="keyvisual__heading-text">Traditional Kokeshi</span>
       <span class="keyvisual__heading-description">A lasting reminder of baby's birth</span>
     </h2>
-  </div>
+    </div>
 </div>
 
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
+{% if messages %}
+<ul class=flashes>
     {% for message in messages %}
-      <li>{{ message }}</li>
+    <li>{{ message }}</li>
     {% endfor %}
-    </ul>
-  {% endif %}
+</ul>
+{% endif %}
 {% endwith %}
 
 <section class="content container">
@@ -29,9 +29,13 @@
         <h1 class="title center-text">Order Confirmation</h1>
         <h3 class="center-text">Your order has been placed successfully! Thank you for your patronage.</h3>
     </div>
+    </br>
     <div class="confirmation">
-        <p class="center-text">You should receive a confirmation email within a few minutes.</p>
-        <p class="center-text">If you cannot locate it, please check your junk mail, or feel free to <a href="../templates/contact.html">contact us</a> and we will assist you.</p>
+        <p class="center-text">You should receive a confirmation email within a few
+            minutes.</p>
+        <p class="center-text">If you cannot locate it, please check your junk mail, or
+            feel free to <a href="../templates/contact.html">contact us</a> and we will
+            assist you.</p>
         <p class="center-text">Congratulations on the new addition to the family!</p>
     </div>
 

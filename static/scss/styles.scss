@@ -139,7 +139,7 @@ label {
   color: $color-white;
   font-size: 18px;
   position: absolute;
-  top: 0;
+  top: 60px;
   z-index: 100000;
 }
 
@@ -791,20 +791,34 @@ label {
   margin-bottom: 20px;
 }
 
+.design-confirmation__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .design-confirmation__item-container {
   background-color: #f1f1f1;
   box-shadow: 0 2px 4px 2px rgba($color-dark, .2);
   margin: 15px;
   padding: 10px;
-  width: 90%;
+  width: 100%;
 }
 
 .order__total-container {
-  width: 500px;
+  width: 68%;
 }
 
 .order__total {
-  text-align: right;
+  align-self: flex-end;
+}
+
+.design-confirmation__total-and-btn {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .design-confirmation {
@@ -812,6 +826,7 @@ label {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
 }
 
 .design-confirmation__message {
@@ -1001,7 +1016,7 @@ label {
     width: 70%;
   }
 
-  .design-confirmation__item-container {
+  .design-confirmation {
     width: 500px;
   }
 }

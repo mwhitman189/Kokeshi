@@ -26,7 +26,10 @@
         {% endblock %}
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+        <link rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+            integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+            crossorigin="anonymous">
 
         <link rel="shortcut icon"
             href="/static/img/favicon-96x96.png">
@@ -38,126 +41,122 @@
     </head>
 
     <body>
-      <div id="app">
-        <div class="wrapper">
-          <div id="page-wrapper" class="page-wrapper">
-            <div id="overlay" class=""></div>
-            <header class="header">
-              <div id="header" class="header__upper">
+        <div id="app">
+            <div class="wrapper">
+                <div id="page-wrapper"
+                    class="page-wrapper">
+                    <div id="overlay"
+                        class=""></div>
 
-                <!-- Navigation -->
-                <div class="header__utility-container">
-                  <ul class="header__icons">
-                    <li class="header__icon header__bars">
-                      <div id="menu-toggle" role="navigation" class="header__link-icon"
-                       v-on:click="toggleMenu">
-                       <i class="fas fa-bars" aria-label="Navigation" aria-controls="menu"></i>
-                      </div>
-                    </li>
-                    <li class="header__icon header__cart">
-                      <button id="cart-toggle" v-on:click="toggleCartOn" class="header__link-icon"><i class="fas fa-baby-carriage">{{ session['cart']|length }}</i></button>
-                    </li>
-                  </ul>
-                  <div class="header__mobile-brand">
-                    <a class="header__brand-inner" href="{{ url_for('showHome') }}">
-                      <img src="/static/img/KokeMama(diamond).svg" width="100%" alt="White diamond KokeMama logo" class="header__brand-img svg-fit">
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div id="menu" class="header__lower">
-                <nav class="header__lower-container">
-                  <div class="header__brand">
-                    <a class="header__brand-inner" href="{{ url_for('showHome') }}">
-                      <img src="/static/img/KokeMama(diamond-black).svg" width="100%" alt="Black diamond KokeMama logo" class="header__brand-img svg-fit">
-                    </a>
-                  </div>
-                  <div class="header__mobile-head">
-                    <a href="{{ url_for('showHome') }}">
-                      <img src="/static/img/KokeMama(diamond-black).svg" width="100%" alt="Black diamond KokeMama logo" class="header__brand-img svg-fit">
-                    </a>
-                    <span class="back">Back</span>
-                  </div>
-                  <ul class="header__menus menus-depth-0 clearfix">
-                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
-                      <a class="header__link default" href="{{ url_for('showAbout')}}">
-                        <span>About us</span>
-                      </a>
-                    </li>
-                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
-                      <a class="header__link default" href="{{ url_for('showDesign')}}">
-                        <span>Design a kokeshi</span>
-                      </a>
-                    </li>
-                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
-                      <a class="header__link default" href="{{ url_for('showContact')}}">
-                        <span>Contact us</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </header>
-            <div id="cart" class="cart__container" aria-hidden="true">
-              <button v-on:click="toggleCartOff" class="cart__close-btn"><i class="fas fa-times" style="font-size:25px;"></i></button>
-              <div>
-                <h3 class="cart__title center-text">My Items</h3>
-              </div>
-                <ul id="cart-items">
-                  {% for item in session['cart'] %}
-                  <li>
-                    <div class="cart__item-info">{{ item.name }}'s <em>{{ item.item }}</em>
-                      <span class="cart__price">${{ item.price }}.00</span>
+                    <header class="header">
+                        <div id="header"
+                            class="header__upper">
+
+                            <!-- Navigation -->
+                            <div class="header__utility-container">
+                                <ul class="header__icons">
+                                    <li class="header__icon header__bars">
+                                        <div id="menu-toggle"
+                                            role="navigation"
+                                            class="header__link-icon"
+                                            v-on:click="toggleMenu">
+                                            <i class="fas fa-bars" aria-label="Navigation" aria-controls="menu"></i>
+                                        </div>
+                                    </li>
+                                    <li class="header__icon header__cart">
+                                        <button id="cart-toggle" v-on:click="toggleCartOn" class="header__link-icon"><i class="fas fa-baby-carriage">{{ session['cart']|length }}</i></button>
+                                    </li>
+                                </ul>
+                                <div class="header__mobile-brand">
+                                    <a class="header__brand-inner" href="{{ url_for('showHome') }}"><img src="/static/img/KokeMama(diamond).svg" width="100%" alt="White diamond KokeMama logo" class="header__brand-img svg-fit"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu"
+                            class="header__lower">
+                            <nav class="header__lower-container">
+                                <div class="header__brand">
+                                    <a class="header__brand-inner" href="{{ url_for('showHome') }}"><img src="/static/img/KokeMama(diamond-black).svg" width="100%" alt="Black diamond KokeMama logo" class="header__brand-img svg-fit"></a>
+                                </div>
+                                <div class="header__mobile-head">
+                                    <a href="{{ url_for('showHome') }}"><img src="/static/img/KokeMama(diamond-black).svg" width="100%" alt="Black diamond KokeMama logo" class="header__brand-img svg-fit"></a>
+                                    <span class="back">Back</span>
+                                </div>
+                                <ul class="header__menus menus-depth-0 clearfix">
+                                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
+                                        <a class="header__link default" href="{{ url_for('showAbout')}}"><span>About us</span></a>
+                                    </li>
+                                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
+                                        <a class="header__link default" href="{{ url_for('showDesign')}}"><span>Design a kokeshi</span></a>
+                                    </li>
+                                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
+                                        <a class="header__link default" href="{{ url_for('showContact')}}"><span>Contact us</span></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </header>
+                    <div id="cart"
+                        class="cart__container"
+                        aria-hidden="true">
+                        <button v-on:click="toggleCartOff" class="cart__close-btn"><i class="fas fa-times" style="font-size:25px;"></i></button>
+                        <div>
+                            <h3 class="cart__title center-text">My Items</h3>
+                        </div>
+                        <ul id="cart-items">
+                            {% for item in session['cart'] %}
+                            <li>
+                                <div class="cart__item-info">{{ item.name }}'s <em>{{ item.item }}</em>
+                                    <span class="cart__price">${{ item.price }}.00</span>
+                                </div>
+                                <div>
+                                    <form action="/removeItem/{{ item.itemID }}/"
+                                        method="post">
+                                        <input name="itemID" value="{{ item.itemID }}" type="hidden">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                                        <button class="cart__delete-btn red-text" type="submit" v-on:click="removeItem">Delete</button>
+                                    </form>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% if session['cart']|length > 0 %}
+                        <div class="cart__total-container">
+                            <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
+                        </div>
+                        <form action="{{ url_for('showCheckout') }}">
+                            <button type="submit" value="Go to checkout page" class="btn">Checkout</button>
+                        </form>
+                        {% else %}
+                        <p class="center-text">You have no items in your cart</p>
+                        <form action="{{ url_for('showDesign') }}">
+                            <button type="submit" value="Go to the design page" class="btn">Start Designing!</button>
+                        </form>
+                        {% endif %}
                     </div>
-                    <div>
-                      <form action="/removeItem/{{ item.itemID }}/" method="post">
-                        <input name="itemID" value="{{ item.itemID }}" type="hidden">
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                        <button class="cart__delete-btn red-text" type="submit" v-on:click="removeItem">Delete</button>
-                      </form>
-                    </div>
-                  </li>
-                  {% endfor %}
-                </ul>
-                {% if session['cart']|length > 0 %}
-                <div class="cart__total-container">
-                    <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
+
+                    <main class="content-main-wrapper clearfix">
+                        <div id="keyvisual"
+                            class="keyvisual">
+                            {% block content_1 %}
+                            {% endblock %}
+                        </div>
+                    </main>
+
+                    <!-- Footer -->
+
+                    <footer class="footer">
+                        <div class="footer--dark">
+                            <p class="footer__text center-text">Copyright &copy; KokeMama
+                                2018</p>
+                        </div>
+                    </footer>
                 </div>
-                <form action="{{ url_for('showCheckout') }}">
-                  <button type="submit" value="Go to checkout page" class="btn">Checkout</button>
-                </form>
-                {% else %}
-                <p class="center-text">You have no items in your cart</p>
-                <form action="{{ url_for('showDesign') }}">
-                    <button type="submit" value="Go to the design page" class="btn">Start Designing!</button>
-                </form>
-                {% endif %}
             </div>
-
-            <main class="content-main-wrapper clearfix">
-                  <div id="keyvisual" class="keyvisual">
-
-                      {% block content_1 %}
-                      {% endblock %}
-
-                  </div>
-            </main>
-
-
-            <!-- Footer -->
-
-            <footer class="footer">
-              <div class="footer--dark">
-                <p class="footer__text center-text">Copyright &copy; KokeMama
-                    2018</p>
-                </div>
-            </footer>
-          </div>
         </div>
-      </div>
 
-      <!-- production version, optimized for size and speed -->
-      <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-      <script src="/static/js/custom.js"></script>
+        <!-- production version, optimized for size and speed -->
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="/static/js/custom.js"></script>
     </body>
 </html>
