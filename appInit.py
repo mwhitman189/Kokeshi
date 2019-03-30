@@ -564,9 +564,8 @@ def create_app():
 
         # Use the first item in the cart to obtain the 'orderID'. If None,
         # display design link
-        if 'cart'[0] in session:
+        try:
             firstItem = session['cart'][0]
-            print(firstItem)
             orderID = firstItem['orderID']
 
             msg = Message(
@@ -579,7 +578,7 @@ def create_app():
             session['cart'] = []
 
             return render_template('confirmation.html')
-        else:
+        except:
             return redirect(url_for('showHome'))
 
     @app.route('/contact', methods=['GET', 'POST'])
