@@ -112,7 +112,7 @@
 
             {% if session['cart'] | length > 0 %}
             <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
-            <button id="customButton" class="btn">Confirm Purchase</button>
+            <button id="customButton" class="btn">Proceed to Payment</button>
             {% else %}
             <form action="{{ url_for('showDesign') }}">
                 <button type="submit" value="Go to the design page" class="btn">Start Designing!</button>
