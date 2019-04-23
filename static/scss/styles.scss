@@ -119,7 +119,6 @@ label {
   border: 2px solid rgba($color-black, .8);
   border-radius: 4px;
   height: 35px;
-  margin: 10px;
   max-width: 400px;
   padding: 5px;
   text-transform: uppercase;
@@ -222,6 +221,7 @@ label {
 }
 
 .cart__close-btn {
+  margin: 10px;
   position: absolute;
   right: 0;
   top: 0;

@@ -1,7 +1,7 @@
 const app = new Vue({
     el: "#app",
     delimiters: ['[[', ']]'],
-    data: function() {
+    data: function () {
         showMenu = false;
         return {
             item: "",
@@ -55,7 +55,7 @@ const app = new Vue({
             window.sessionStorage.weight = this.weight;
             window.sessionStorage.message = this.message;
         },
-        toggleMenu: function() {
+        toggleMenu: function () {
             const toggleBtn = document.querySelector('#menu-toggle');
             const menuEl = document.querySelector('#menu');
             const headerEl = document.querySelector('#header');
@@ -76,21 +76,21 @@ const app = new Vue({
                 headerEl.style.width = '';
             }
         },
-        toggleCartOn: function() {
+        toggleCartOn: function () {
             let cartEl = document.querySelector('#cart');
             let cartAttr = document.querySelector('#cart').attributes;
             cartEl.classList.add("active");
 
             cartEl.setAttribute("aria-hidden", "false");
         },
-        toggleCartOff: function() {
+        toggleCartOff: function () {
             let cartEl = document.querySelector('#cart');
             let cartAttr = document.querySelector('#cart').attributes;
             cartEl.classList.remove("active");
 
             cartEl.setAttribute("aria-hidden", "true");
         },
-        setCart: function() {
+        setCart: function () {
             let url = "/setCart";
 
             fetch(url, {
@@ -99,12 +99,12 @@ const app = new Vue({
                     dataType: 'json',
                 }).then(
                     response => response.json()
-                ).then(function(myJSON) {
+                ).then(function (myJSON) {
                     this.myCart = myJSON;
                 })
                 .catch(err => console.log(err))
         },
-        setBackground: function(event) {
+        setBackground: function (event) {
             // Set the background image for the front and back view of the kokeshi
             // based on the selected kokeshi style.
             let front = document.querySelector('#kokeshi-model-front');
@@ -127,7 +127,7 @@ const app = new Vue({
                 back.className = "zao-back design__kokeshi-model-front design__kokeshi-model-back";
             }
         },
-        removeItem: function() {
+        removeItem: function () {
             let url = document.querySelector('.delete-form').action;
             let form = document.querySelector('.delete-form');
             let data = new FormData(form);
@@ -148,15 +148,17 @@ const app = new Vue({
         });
         // Add event listener to window, except on the 'cart' element, enabling
         // off-cart clicks to close the cart.
-        window.addEventListener('mouseup', function(event) {
+        window.addEventListener('mouseup', function (event) {
             let cartEl = document.querySelector('#cart');
+
             if (cartEl.classList.contains('active') && event.target.parentNode.parentNode != cartEl && event.target.parentNode.parentNode.parentNode.parentNode != cartEl && (event.target != cartEl)) {
                 app.toggleCartOff();
             }
         });
     },
     filters: {
-        moment: function(date) {
+        // Format the date which shows up on the desing page
+        moment: function (date) {
             if (date !== '')
                 return moment(date).format('MMMM Do, YYYY');
         }
