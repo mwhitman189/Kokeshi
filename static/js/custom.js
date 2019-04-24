@@ -150,9 +150,15 @@ const app = new Vue({
         // off-cart clicks to close the cart.
         window.addEventListener('mouseup', function (event) {
             let cartEl = document.querySelector('#cart');
+            let menuEl = document.querySelector('#menu');
+            let menuBtn = document.querySelector('#menu-toggle');
 
             if (cartEl.classList.contains('active') && event.target.parentNode.parentNode != cartEl && event.target.parentNode.parentNode.parentNode.parentNode != cartEl && (event.target != cartEl)) {
                 app.toggleCartOff();
+            }
+
+            if (menuEl.classList.contains('active') && event.target != menuEl && event.target.parentNode != menuEl && event.target.parentNode.parentNode.parentNode.parentNode != menuEl && event.target != menuBtn && event.target.parentNode != menuBtn) {
+                app.toggleMenu();
             }
         });
     },
