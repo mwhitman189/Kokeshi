@@ -450,7 +450,7 @@ def create_app():
             session['cart'][:] = [d for d in session['cart']
                                   if d.get('itemID') != item_id]
         except:
-            msg = "YO"
+            msg = "There were no items to remove"
             print(msg)
         return redirect(url_for('showOrder'))
 
@@ -563,7 +563,7 @@ def create_app():
         items = [dic['item'] for dic in session['cart'] if 'item' in dic]
 
         # Use the first item in the cart to obtain the 'orderID'. If None,
-        # display design link
+        # display 'design' link
         try:
             firstItem = session['cart'][0]
             orderID = firstItem['orderID']
