@@ -299,7 +299,7 @@ def create_app():
 
         session['supplier'] = current_user.email
 
-        return render_template('unassigned_orders.html', orders=unaccepted_orders)
+        return render_template('auth/unassigned_orders.html', orders=unaccepted_orders)
 
     @app.route('/orders/<int:order_id>/accepted', methods=['GET', 'POST'])
     @login_required
@@ -319,7 +319,7 @@ def create_app():
         selected_order.supplier_ID = supplier_id
         db.session.add(selected_order)
         db.session.commit()
-        return render_template('selected_order.html', order=selected_order_details)
+        return render_template('auth/selected_order.html', order=selected_order_details)
 
     @app.route('/', methods=["GET", "POST"])
     @app.route('/home')
@@ -477,7 +477,7 @@ def create_app():
         amount_cents = amount_usd * 100
 
         return render_template(
-            'index.html',
+            'auth/index.html',
             key=stripe_keys['publishable_key'],
             amount_usd=amount_usd,
             amount_cents=amount_cents,
@@ -577,7 +577,7 @@ def create_app():
             # Clear the cart after payment is received and confirmation is sent.
             session['cart'] = []
 
-            return render_template('confirmation.html')
+            return render_template('auth/confirmation.html')
         except:
             return redirect(url_for('showHome'))
 
@@ -612,7 +612,7 @@ def create_app():
         """
         Show a success message for the contact form.
         """
-        return render_template('contact_complete.html')
+        return render_template('auth/contact_complete.html')
 
     db.init_app(app)
     login_manager.init_app(app)
