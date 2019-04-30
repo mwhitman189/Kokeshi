@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Created using XmlSitemapGenerator.org - Free HTML, RSS and XML sitemap generator-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>https://kokeshi-pro.herokuapp.com/</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokeshi-pro.herokuapp.com/contact</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokeshi-pro.herokuapp.com/about</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokeshi-pro.herokuapp.com/home</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokeshi-pro.herokuapp.com/design</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+</urlset>
+<!--<guid value="b87bd770-9d72-4a66-942d-893cf3abd2e8" />-->
+<!--Created using XmlSitemapGenerator.org - Free HTML, RSS and XML sitemap generator-->
