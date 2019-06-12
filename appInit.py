@@ -54,6 +54,12 @@ def create_app():
         SECURITY_PASSWORD_SALT=os.environ['SECURITY_PASSWORD_SALT']
     ))
 
+    COMPRESS_MIMETYPES = ['text/html', 'text/css', 'text/xml', 'application/json', 'application/javascript']
+    COMPRESS_LEVEL = 6
+    COMPRESS_MIN_SIZE = 500
+
+    Compress(app)
+
     cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
     app.url_map.strict_slashes = False

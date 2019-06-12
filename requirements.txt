@@ -16,6 +16,7 @@ Flask==1.0.2
 Flask-Admin==1.5.3
 Flask-BabelEx==0.9.3
 Flask-Caching==1.7.2
+Flask-Compress==1.4.0
 flask-heroku==0.1.9
 Flask-HTTPAuth==3.2.4
 Flask-Login==0.4.1
