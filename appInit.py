@@ -1,4 +1,4 @@
-from extensions import db, migrate, csrf, ma, heroku, login_manager, mail
+from extensions import db, migrate, csrf, ma, heroku, login_manager, mail, cache
 
 
 def create_app():
