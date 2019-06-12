@@ -5,7 +5,6 @@ from flask_marshmallow import Marshmallow
 from flask_login import LoginManager
 from flask_heroku import Heroku
 from flask_mail import Mail
-from flask_caching import Cache
 
 
 db = SQLAlchemy()
