@@ -25,6 +25,8 @@ def create_app():
     import datetime
     from flask_mail import Mail, Message
     from decimal import Decimal
+    from flask_caching import Cache
+
 
     APPLICATION_NAME = "Kokeshi"
 
@@ -51,6 +53,8 @@ def create_app():
         SECURITY_PASSWORD_HASH='pbkdf2_sha512',
         SECURITY_PASSWORD_SALT=os.environ['SECURITY_PASSWORD_SALT']
     ))
+
+    cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
     app.url_map.strict_slashes = False
 
@@ -323,6 +327,7 @@ def create_app():
 
     @app.route('/', methods=["GET", "POST"])
     @app.route('/home')
+    @cache.cached(timeout=86400)
     def showHome():
         """
         Display the landing page.
@@ -330,6 +335,7 @@ def create_app():
         return render_template('home.html')
 
     @app.route('/about')
+    @cache.cached(timeout=86400)
     def showAbout():
         """
         Display the About Us page.
@@ -337,6 +343,7 @@ def create_app():
         return render_template('about.html')
 
     @app.route('/design', methods=['GET', 'POST'])
+    @cache.cached(timeout=86400)
     def showDesign():
         """
         Display a kokeshi designing page that, when submitted, updates the shopping cart with the order and redirects to the order page.
@@ -582,6 +589,7 @@ def create_app():
             return redirect(url_for('showHome'))
 
     @app.route('/contact', methods=['GET', 'POST'])
+    @cache.cached(timeout=86400)
     def showContact():
         """
         Display the contact information page.
