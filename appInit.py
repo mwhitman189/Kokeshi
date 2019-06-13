@@ -27,6 +27,7 @@ def create_app():
     from decimal import Decimal
     from flask_caching import Cache
     from flask_assets import Environment, Bundle
+    from PIL import Image
 
 
     APPLICATION_NAME = "Kokeshi"
@@ -73,6 +74,12 @@ def create_app():
     scss_bundle.build()
     js_bundle.build()
 
+    imagePath = "static/img/artisan-placeholder.jpg"
+    outputPath = "static/img/artisan-placeholder.webp"
+    quality = "80"
+
+    im = Image.open(imagePath)
+    im.save(outputPath, 'webp', quality = quality)
 
     app.url_map.strict_slashes = False
 
