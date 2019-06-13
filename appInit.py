@@ -26,6 +26,7 @@ def create_app():
     from flask_mail import Mail, Message
     from decimal import Decimal
     from flask_caching import Cache
+    from flask_assets import Environment, Bundle
 
 
     APPLICATION_NAME = "Kokeshi"
@@ -33,6 +34,7 @@ def create_app():
     app = Flask(__name__)
     csrf.init_app(app)
     app.config.from_pyfile('config_default.cfg')
+    assets = Environment(app)
 
     try:
         app.config.from_envvar('KOKESHI_SETTINGS')
@@ -55,6 +57,22 @@ def create_app():
     ))
 
     cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+
+    # Flask-Assets config
+    scss_bundle = Bundle('scss/*.scss',
+        filters='scss, cssmin',
+        output='css/styles.css',
+        extra={'rel': 'stylesheet/scss'},
+        )
+    js_bundle = Bundle('js/*.js',
+        filters='jsmin',
+        output='js/main.min.js',
+        )
+    assets.register('scss_all', scss_bundle)
+    assets.register('js_all', js_bundle)
+    scss_bundle.build()
+    js_bundle.build()
+
 
     app.url_map.strict_slashes = False
 
