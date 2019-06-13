@@ -46,9 +46,11 @@ Mako==1.0.7
 MarkupSafe==1.0
 marshmallow==2.17.0
 marshmallow-sqlalchemy==0.15.0
+numpy==1.16.4
 oauth2client==4.1.2
 packaging==17.1
 passlib==1.7.1
+Pillow==6.0.0
 psycopg2-binary==2.7.5
 pyasn1==0.4.3
 pyasn1-modules==0.2.2
