@@ -60,7 +60,7 @@ def create_app():
 
     # Flask-Assets config
     scss_bundle = Bundle('scss/*.scss',
-        filters='scss, cssmin',
+        filters='pyscss, cssmin',
         output='css/styles.css',
         extra={'rel': 'stylesheet/scss'},
         )
