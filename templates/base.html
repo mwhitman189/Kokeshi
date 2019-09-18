@@ -46,8 +46,7 @@
 
         <link rel="stylesheet"
             href="/static/css/styles.css">
-        <script async src="https://unpkg.com/moment"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     </head>
 
     <body>
@@ -97,13 +96,16 @@
                                     <span class="back">Back</span>
                                 </div>
                                 <ul class="header__menus menus-depth-0 clearfix">
-                                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
+                                    <li
+                                        class="header__menu menu-depth-0 header__dropdown-toggle">
                                         <a class="header__link default" href="{{ url_for('showAbout')}}"><span>About us</span></a>
                                     </li>
-                                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
+                                    <li
+                                        class="header__menu menu-depth-0 header__dropdown-toggle">
                                         <a class="header__link default" href="{{ url_for('showDesign')}}"><span>Design a kokeshi</span></a>
                                     </li>
-                                    <li class="header__menu menu-depth-0 header__dropdown-toggle">
+                                    <li
+                                        class="header__menu menu-depth-0 header__dropdown-toggle">
                                         <a class="header__link default" href="{{ url_for('showContact')}}"><span>Contact us</span></a>
                                     </li>
                                 </ul>
@@ -120,7 +122,8 @@
                         <ul id="cart-items">
                             {% for item in session['cart'] %}
                             <li>
-                                <div class="cart__item-info">{{ item.name }}'s <em>{{ item.item }}</em>
+                                <div class="cart__item-info">{{ item.name }}'s
+                                    <em>{{ item.item }}</em>
                                     <span class="cart__price">${{ item.price }}.00</span>
                                 </div>
                                 <div>
@@ -136,7 +139,8 @@
                         </ul>
                         {% if session['cart']|length > 0 %}
                         <div class="cart__total-container">
-                            <div class="cart__total">Total: ${{ session['cart'] | sum(attribute='price') }}.00</div>
+                            <div class="cart__total">Total:
+                                ${{ session['cart'] | sum(attribute='price') }}.00</div>
                         </div>
                         <form action="{{ url_for('showCheckout') }}">
                             <button type="submit" value="Go to checkout page" class="btn">Checkout</button>
@@ -171,6 +175,11 @@
 
         <!-- production version, optimized for size and speed -->
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script>
+            window.onload = function() {
+                moment().format();
+            }
+        </script>
         {% assets "js_all" %}
         <script async src="/static/js/custom.js"></script>
         {% endassets %}
