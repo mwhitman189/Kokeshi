@@ -1,0 +1,11 @@
+# requirements.in
+
+Flask
+Alembic
+Gunicorn
+Httplib2
+Marshmallow
+Marshmallow-sqlalchemy
+SQLAlchemy
+Stripe
+WTForms
