@@ -29,7 +29,6 @@ def create_app():
     from flask_assets import Environment, Bundle
     from PIL import Image
 
-
     APPLICATION_NAME = "Kokeshi"
 
     app = Flask(__name__)
@@ -47,9 +46,9 @@ def create_app():
 
     # Flask-Mail Config
     app.config.update(dict(
-        MAIL_SERVER='mail.peraperaexchange.com',
+        MAIL_SERVER=os.environ['MAIL_SERVER'],
         MAIL_PORT=465,
-        MAIL_USERNAME='administrator@peraperaexchange.com',
+        MAIL_USERNAME=os.environ['MAIL_USERNAME'],
         MAIL_USE_TLS=False,
         MAIL_USE_SSL=True,
         MAIL_PASSWORD=os.environ['MAIL_PASSWORD'],
@@ -61,14 +60,14 @@ def create_app():
 
     # Flask-Assets config
     scss_bundle = Bundle('scss/*.scss',
-        filters='pyscss, cssmin',
-        output='css/styles.css',
-        extra={'rel': 'stylesheet/scss'},
-        )
+                         filters='pyscss, cssmin',
+                         output='css/styles.css',
+                         extra={'rel': 'stylesheet/scss'},
+                         )
     js_bundle = Bundle('js/*.js',
-        filters='jsmin',
-        output='js/main.min.js',
-        )
+                       filters='jsmin',
+                       output='js/main.min.js',
+                       )
     assets.register('scss_all', scss_bundle)
     assets.register('js_all', js_bundle)
     scss_bundle.build()
@@ -79,7 +78,7 @@ def create_app():
     quality = "80"
 
     im = Image.open(imagePath)
-    im.save(outputPath, 'webp', quality = quality)
+    im.save(outputPath, 'webp', quality=quality)
 
     app.url_map.strict_slashes = False
 
