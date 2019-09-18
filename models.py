@@ -133,8 +133,8 @@ class RoleAdmin(sqla.ModelView):
 
 
 class Schema(ModelSchema):
-    def __init__(self, strict=True, **kwargs):
-        super(Schema, self).__init__(strict=strict, **kwargs)
+    def __init__(self, **kwargs):
+        super(Schema, self).__init__(**kwargs)
 
 
 class UserSchema(Schema):
