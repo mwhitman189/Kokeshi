@@ -41,7 +41,7 @@ marshmallow-sqlalchemy==0.19.0
 marshmallow==3.2.0
 packaging==19.1
 passlib==1.7.1
-pillow==6.1.0
+pillow==6.2.0
 psycopg2-binary==2.8.3
 pyasn1-modules==0.2.6
 pyasn1==0.4.7
