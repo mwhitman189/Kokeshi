@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "moment": "^2.23.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "vue2-touch-events": "^1.1.2"
   }
 }
